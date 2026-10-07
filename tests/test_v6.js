@@ -1,7 +1,7 @@
 (function(){
 const R=[];const T=(k,f)=>{try{const v=f();R.push((v?"PASS ":"FAIL ")+k)}catch(e){R.push("FAIL "+k+" <- 오류: "+e.message)}};
 const submit=f=>f.dispatchEvent(new Event("submit",{cancelable:true,bubbles:true})),q1=s=>document.querySelector(s),qa=s=>[...document.querySelectorAll(s)];
-const PUB=["home","business","events","news","map","voice","notice","gallery","clips","docs","login","about-greeting","about-history","about-ci","about-rules","about-org","about-map","support","support-hope","support-amb","support-status","free","links","admin-c","membersearch","myedit","join","search"];
+const PUB=["home","business","events","news","map","voice","notice","gallery","clips","docs","login","about-greeting","about-history","about-ci","about-rules","about-org","about-map","support","support-hope","support-amb","support-status","free","links","admin-c","membersearch","myedit","join","search","biz30","biz30-types","biz30-cases","biz30-map","biz30-gaps","biz30-data"];
 const valid=h=>PUB.includes(h)||h==="main"||(h.startsWith("room-")&&br(h.slice(5)))||(h.startsWith("m-")&&MROUTES[h])||(h.startsWith("c-")&&CROUTES[h]);
 const links=()=>qa("a[href^='#']").map(a=>a.getAttribute("href").slice(1)).filter(h=>h!=="main"&&h!=="");
 SESS=null;
@@ -9,9 +9,9 @@ T("공개 화면 링크 전수 검사",()=>{let n=0,bad=[];[...PUB,...BR.map(b=>
 T("공개 화면 실제 클릭 이동",()=>{let n=0,fail=[];PUB.forEach(r=>{go(r);const c=links().length;for(let i=0;i<c;i++){go(r);const a=qa("a[href^='#']").filter(a=>a.getAttribute("href")!=="#main")[i],h=a.getAttribute("href").slice(1);a.click();n++;if(cur!==h)fail.push(r+">"+h+"("+cur+")")}});R.push("  (클릭 "+n+"회, 실패 "+fail.length+(fail.length?": "+fail.slice(0,4).join(","):"")+")");return fail.length===0&&n>1000});
 [[0,MNAV_B],[1,MNAV_B],[2,MNAV_R],[3,MNAV_C]].forEach(([i,nav])=>T("관리 화면 이동·링크: "+ACCT[i].title+" ("+nav.length+"개 메뉴)",()=>{SESS=ACCT[i];let bad=[];nav.forEach(x=>{go(x[0]);if(cur!==x[0])bad.push("이동실패:"+x[0]);if(!q1(".side"))bad.push("메뉴없음:"+x[0]);links().forEach(h=>{if(!valid(h))bad.push("링크:"+x[0]+">"+h)})});return bad.length===0}));
 SESS=null;go("home");
-T("홈: 배너 3장, 다음 버튼으로 전환",()=>{if(qa(".slide").length!==3)return false;q1('[data-act="slide"][data-d="1"]').click();return qa(".slide")[1].classList.contains("on")&&qa(".dots button")[1].getAttribute("aria-current")==="true"});
+T("홈: 배너 4장, 다음 버튼으로 전환",()=>{if(qa(".slide").length!==4)return false;q1('[data-act="slide"][data-d="1"]').click();return qa(".slide")[1].classList.contains("on")&&qa(".dots button")[1].getAttribute("aria-current")==="true"});
 T("홈: 빠른 메뉴 6개·숫자 띠 4칸",()=>qa(".quick a").length===6&&qa(".stat>div").length===4);
-T("홈: 구역 순서(공지→뉴스→갤러리→NEW)",()=>{const h=qa(".sech h2").map(x=>x.textContent.trim());return h[0].startsWith("공지사항")&&h[1].startsWith("최신복지뉴스")&&h[2].startsWith("포토갤러리")&&h.length===5});
+T("홈: 구역 순서(공지→뉴스→갤러리→NEW)",()=>{const h=qa(".sech h2").map(x=>x.textContent.trim());return h[0].startsWith("공지사항")&&h[1].startsWith("최신복지뉴스")&&h[2].startsWith("포토갤러리")&&h[3].startsWith("30년 발자취")&&h.length===6});
 T("홈: 달력·협력기관 4곳·포스터·왼쪽 로그인·세로 메뉴 6개",()=>!!q1("#cal .calg")&&qa(".coops a").length===4&&!!q1(".poster img")&&!!q1(".lbox.login")&&qa(".vmenu .g").length===6);
 T("빠른 이동: Ctrl+K로 열고 '성남' 입력 후 Enter → 성남지부 방",()=>{document.dispatchEvent(new KeyboardEvent("keydown",{key:"k",ctrlKey:true,bubbles:true}));if(!q1("#cmdk").classList.contains("open"))return false;const i=q1("#cmdq");i.value="성남";i.dispatchEvent(new Event("input",{bubbles:true}));i.dispatchEvent(new KeyboardEvent("keydown",{key:"Enter",bubbles:true}));return cur==="room-seongnam"&&!q1("#cmdk").classList.contains("open")});
 T("빠른 이동: Esc로 닫힘",()=>{document.dispatchEvent(new KeyboardEvent("keydown",{key:"k",metaKey:true,bubbles:true}));const o=q1("#cmdk").classList.contains("open");document.dispatchEvent(new KeyboardEvent("keydown",{key:"Escape",bubbles:true}));return o&&!q1("#cmdk").classList.contains("open")});
@@ -65,6 +65,28 @@ T("권한: 로그인 없이 중앙 화면 → 로그인",()=>{SESS=null;go("c-tr
 T("로그인 화면에 계정 4개, 중앙 계정 선택 → 전국 현황",()=>{go("login");if(qa('[data-act="login"]').length!==4)return false;qa('[data-act="login"]')[3].click();return cur==="c-dash"&&q1(".side .me").textContent.includes("중앙 사무국")});
 T("로그아웃 → 홈",()=>{q1('[data-act="logout"]').click();return cur==="home"&&SESS===null});
 T("회원가입 → 선택한 지부의 가입 승인함 + 알림",()=>{go("join");q1("#jS").value="경기";q1("#jS").onchange();q1("#jN").value="시험가입";q1("#jP").value="010-1234-5678";q1("#jC").checked=true;const n=APPS.length;submit(q1('[data-form="join"]'));return APPS.length===n+1&&NOTIFS.some(x=>x.bid===JOINED.b&&x.t==="가입 신청이 접수되었어요")});
+/* v6: 30년 발자취·제휴 분석 */
+SESS=null;
+T("30년 분석: 6개 구역이 모두 열리고 현재 구역 표시",()=>["biz30","biz30-types","biz30-cases","biz30-map","biz30-gaps","biz30-data"].every(r=>{go(r);const c=q1('.b30tabs [aria-current="page"]');return qa(".b30tabs a").length===6&&c&&c.getAttribute("href")==="#"+r&&!!q1(".note.w")}));
+T("30년 분석: 왼쪽 메뉴에서 해당 항목이 현재 위치로 표시",()=>{go("biz30-cases");const c=q1('.vmenu [aria-current="page"]');return !!c&&c.textContent.includes("30년 발자취")});
+T("개요: 숫자 띠 4칸·핵심 결론 3개·대표 사례 6개",()=>{go("biz30");return qa(".stat>div").length===4&&qa(".b30grid.c3")[0].children.length===3&&qa(".case").length===6});
+T("데이터: 49항목, 제외 2항목·개인 이름·내부 표현 없음",()=>B30.length===49&&!B30.some(x=>x.id==="E037"||x.id==="E051")&&!/김태진|대표님|더원|2\.3억/.test(JSON.stringify(B30)));
+T("사례 찾기: 처음에 49행",()=>{B30F={c:"전체",s:"전체",v:"전체",q:""};go("biz30-cases");return qa("#b30t tbody tr").length===49});
+T("사례 찾기: 유형 '후원·나눔' 필터",()=>{const s=q1("#b30c");s.value="후원·나눔";s.dispatchEvent(new Event("change",{bubbles:true}));const n=B30.filter(x=>x.cat==="후원·나눔").length;return qa("#b30t tbody tr").length===n&&n>0});
+T("사례 찾기: 지역 '경기'를 더하면 두 조건이 함께 적용",()=>{const s=q1("#b30s");s.value="경기";s.dispatchEvent(new Event("change",{bubbles:true}));const n=B30.filter(x=>x.cat==="후원·나눔"&&x.sd==="경기").length;return qa("#b30t tbody tr").length===n});
+T("사례 찾기: 검색 '알서포트'는 1건",()=>{B30F={c:"전체",s:"전체",v:"전체",q:""};go("biz30-cases");const i=q1("#b30q");i.value="알서포트";i.dispatchEvent(new Event("input",{bubbles:true}));return qa("#b30t tbody tr").length===1&&q1("#b30cnt").textContent.startsWith("1개")});
+T("사례 찾기: 일치 없음 안내",()=>{const i=q1("#b30q");i.value="없는낱말zzz";i.dispatchEvent(new Event("input",{bubbles:true}));return q1("#b30t").textContent.includes("조건에 맞는 항목이 없습니다")});
+T("사례 찾기: 출처 링크 49개 모두 새 창·안전 속성·http 주소",()=>{B30F={c:"전체",s:"전체",v:"전체",q:""};go("biz30-cases");const a=qa("#b30t a.lk");return a.length===49&&a.every(x=>x.target==="_blank"&&/noopener/.test(x.rel)&&/^https?:\/\//.test(x.getAttribute("href")))});
+T("사례 찾기: 모든 행에 '확인되지 않은 것'이 함께 표시",()=>{const c=qa("#b30t .caseline");return c.length===49&&c.every(x=>x.textContent.includes("확인되지 않은 것"))});
+T("지역·연도: 시도 칸 20개·차트 1개, '강원' 칸 → 강원 사례",()=>{B30F={c:"전체",s:"전체",v:"전체",q:""};go("biz30-map");if(qa(".heat button").length!==20||qa("svg.chart").length!==1)return false;q1('[data-act="b30sd"][data-sd="강원"]').click();return cur==="biz30-cases"&&B30F.s==="강원"&&qa("#b30t tbody tr").length===B30.filter(x=>x.sd==="강원").length});
+T("사업 유형: 유형 5개 '사례 보기' → 사례 찾기(해당 유형)",()=>{go("biz30-types");const b=qa('[data-act="b30cat"]');if(b.length!==5)return false;b[1].click();return cur==="biz30-cases"&&B30F.c==="위탁·운영·고용"});
+T("조사 공백: 지역 표 17행·기간 표 6행",()=>{go("biz30-gaps");const t=qa("table.tbl");return t[0].querySelectorAll("tbody tr").length===17&&t[1].querySelectorAll("tbody tr").length===6});
+T("자료·방법: 표(CSV) 내려받기가 오류 없이 동작",()=>{B30F={c:"전체",s:"전체",v:"전체",q:""};go("biz30-data");q1('[data-act="b30csv"]').click();return true});
+T("홈: 30년 분석 구역과 4번째 배너",()=>{go("home");return qa(".sech h2").some(h=>h.textContent.includes("30년 발자취"))&&qa(".slide").length===4});
+T("검색: '보령'이 30년 분석에서도 나오고 눌러서 이동",()=>{SQ="보령";go("search");if(!q1("#app").textContent.includes("30년 발자취·제휴 분석"))return false;const a=qa('#app [data-act="b30q"]')[0];a.click();return cur==="biz30-cases"&&qa("#b30t tbody tr").length>=1&&qa("#b30t tbody tr").length<5});
+T("빠른 이동: '30년' 입력 → 30년 분석",()=>{document.dispatchEvent(new KeyboardEvent("keydown",{key:"k",ctrlKey:true,bubbles:true}));const i=q1("#cmdq");i.value="30년";i.dispatchEvent(new Event("input",{bubbles:true}));i.dispatchEvent(new KeyboardEvent("keydown",{key:"Enter",bubbles:true}));return cur==="biz30"});
+T("중앙 사무국: '30년 분석' 메뉴와 화면",()=>{SESS=ACCT[3];go("c-biz");const ok=cur==="c-biz"&&qa(".side a").some(a=>a.textContent.includes("30년 분석"))&&qa(".hbar .r").length===5;SESS=null;return ok});
+T("공개 화면 전체에 개인 이름·내부 표현이 없음",()=>{let bad=[];[...PUB].forEach(r=>{go(r);const t=q1("#app").textContent;if(/김태진|대표님|더원사업단|2\.3억/.test(t))bad.push(r)});return bad.length===0});
 const pass=R.filter(x=>x.startsWith("PASS")).length,tot=R.filter(x=>/^(PASS|FAIL)/.test(x)).length;
 document.body.innerHTML='<pre style="font:17px/1.5 monospace;padding:16px;background:#fff;color:#000;position:fixed;inset:0;z-index:9999;margin:0;overflow:auto;white-space:pre-wrap">'+R.join("\n")+"\n\n결과 "+pass+" / "+tot+"</pre>";
 })();
