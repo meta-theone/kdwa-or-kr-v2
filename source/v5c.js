@@ -1,0 +1,45 @@
+/* ===== v5c: 포털형 홈, 지부장 도구(회원 안내·AI 답변 초안), 알림 연결 ===== */
+let SLIDE=0;
+const SLIDES=[
+ {tag:"새 홈페이지",h:"복지회의 <b>새로운 얼굴</b>",p:"새옷을 갈아입고 새로운 모습으로 여러분께 다가갑니다. 가까운 지부의 행사와 소식을 한곳에서 만나보세요.",b:["지부 찾기","map"]},
+ {tag:"교육 안내",h:"2026 제1기 <b>디지털자산관리사</b> 온라인 교육과정 모집",p:"100% 온라인, 모바일·PC 수강. 정회원 혜택가 270,000원. 접수 문의 02-852-4775",b:["공지사항 보기","notice"]},
+ {tag:"지부 활동",h:"이번 달, <b>우리 지부</b>는 어떤 일을 했을까요?",p:"행사와 사진, 지역 기사를 지부별로 모았습니다. 이달의 지부를 만나 보세요.",b:["우리 지부 활동","map"]}];
+const slidesHTML=()=>`<div class="hero2" role="region" aria-roledescription="carousel" aria-label="안내 배너">${SLIDES.map((s,i)=>`<div class="slide ${i===SLIDE?"on":""}" role="group" aria-label="${i+1}/${SLIDES.length}"><span class="tag">${s.tag}</span><h2>${s.h}</h2><p>${s.p}</p><a class="btn sm" href="#${s.b[1]}">${s.b[0]}</a></div>`).join("")}<div class="dots">${SLIDES.map((_,i)=>`<button data-act="slide" data-i="${i}" aria-label="${i+1}번 배너 보기" ${i===SLIDE?'aria-current="true"':""}></button>`).join("")}</div><div class="arrows"><button data-act="slide" data-d="-1" aria-label="이전 배너">‹</button><button data-act="slide" data-d="1" aria-label="다음 배너">›</button></div></div>`;
+function vHome3(){const up=[...EV].filter(e=>e.d>=TODAY).sort((a,b)=>a.d.localeCompare(b.d)),top=["소형","중형","대형"].map(l=>BR.filter(b=>b.lg===l).sort((a,b)=>pts(b.id)-pts(a.id))[0]),ss=[...new Set(BR.map(b=>b.s))];
+ const Q=[["지부 찾기","map","pin"],["행사 일정","events","cal"],["회원가입","join","user"],["후원안내","support","heart"],["서류·양식","docs","doc"],["작은소리","voice","chat"]];
+ return`<div class="stack">${slidesHTML()}
+ <div class="quick" aria-label="자주 찾는 메뉴">${Q.map(q=>`<a href="#${q[1]}"><span class="qi">${ICON[q[2]]}</span>${q[0]}</a>`).join("")}</div>
+ <form class="find" data-form="finder"><b>내 지역 찾기<em class="new">NEW</em></b><select id="selSido" aria-label="시도">${ss.map(s=>`<option>${s}</option>`).join("")}</select><select id="selBr" aria-label="지부"></select><button class="btn sm" type="submit">지부 방 들어가기</button></form>
+ <section><div class="sech"><h2>공지사항</h2><a href="#notice">더보기</a></div><div class="blk"><ul class="list">${REALNOTICE.map(x=>`<li><a href="#notice">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`).join("")}</ul></div></section>
+ <section><div class="sech"><h2>최신복지뉴스</h2><a href="#clips">더보기</a></div><div class="blk"><ul class="list">${REALNEWS.slice(0,5).map(x=>`<li><a href="#clips">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`).join("")}</ul></div></section>
+ <section><div class="sech"><h2>포토갤러리</h2><a href="#gallery">더보기</a></div><div class="blk"><div class="gal">${REALGAL.slice(0,4).map((c,i)=>`<a href="#gallery"><span class="ph"><img alt="" src="${scene(i+2)}"></span><span>${esc(c)}</span></a>`).join("")}</div><p class="small mut" style="margin:8px 0 0">사진 자리는 예시 그림이며, 원본 사진을 이전해 채웁니다.</p></div></section>
+ <div class="stat" aria-label="복지회 규모"><div><b class="num">1981</b><span>설립 (보건복지부 허가 제87호)</span></div><div><b class="num">17</b><span>시·도복지회</span></div><div><b class="num">223</b><span>시·군·구 지부</span></div><div><b class="num">${BR.length}</b><span>시안에 담긴 지부(예시)</span></div></div>
+ <section><div class="sech"><h2>우리 지부 활동<em class="new">NEW</em></h2><a href="#map">전국시도복지회</a></div><div class="blk">${top.map(b=>`<a class="brrow" href="#room-${b.id}"><span><b>${esc(b.nm)}</b> <span class="chip o">${b.lg} 리그 1위</span><br><span class="small mut">${esc(b.s)} · 회원 ${b.mem}명(예시) · ${b.st}개월 연속 활동</span></span><b class="num">${pts(b.id)}점</b><div class="bar"><i style="width:${pts(b.id)/3}%"></i></div></a>`).join("")}</div></section>
+ <section><div class="sech"><h2>다가오는 지부 행사<em class="new">NEW</em></h2><a href="#events">월간주요행사</a></div><div class="blk"><div class="evgrid" style="padding:10px 0">${up.slice(0,4).map(evCard).join("")}</div></div></section></div>`}
+PROUTES.home=vHome3;
+/* 회원 목록: 최근 가입 조건 추가 */
+function memFiltered(){return members(SESS.bid).filter(m=>(!MQ||m.nm.includes(MQ))&&(MF==="전체"||(MF==="회비 미납"?m.dues==="미납":MF==="최근 가입"?m.join>="2026.06":m.st===MF)))}
+function renderMembers(){const all=memFiltered(),pages=Math.max(1,Math.ceil(all.length/10));MP=Math.min(MP,pages);const pg=all.slice((MP-1)*10,MP*10);
+ $("#mtab").innerHTML=`<div class="tblwrap"><table class="tbl"><thead><tr><th>이름</th><th>구분</th><th>가입</th><th>상태</th><th>회비</th><th>연락처</th></tr></thead><tbody>${pg.map(m=>`<tr><td data-l="이름"><b>${esc(m.nm)}</b></td><td data-l="구분">${m.ty}</td><td data-l="가입" class="num">${m.join}</td><td data-l="상태"><span class="chip ${m.st==="정상"?"g":m.st==="휴면"?"m":"o"}">${m.st}</span></td><td data-l="회비"><span class="chip ${m.dues==="납부"?"g":"r"}">${m.dues}</span></td><td data-l="연락처" class="num">${m.shown?m.ph:"010-****-"+m.ph.slice(-4)} <button class="btn sm plain" data-act="reveal" data-i="${m.id}">${m.shown?"가리기":"보기"}</button></td></tr>`).join("")||`<tr><td colspan="6">검색 결과가 없습니다.</td></tr>`}</tbody></table></div>`;
+ const s=Math.max(1,Math.min(MP-2,pages-4));
+ $("#mpg").innerHTML=all.length?`<button data-act="mp" data-p="${MP-1}" ${MP<=1?"disabled":""} aria-label="이전">‹</button>${Array.from({length:Math.min(pages,5)},(_,i)=>{const p=s+i;return`<button data-act="mp" data-p="${p}" ${p===MP?'aria-current="true"':""}>${p}</button>`}).join("")}<button data-act="mp" data-p="${MP+1}" ${MP>=pages?"disabled":""} aria-label="다음">›</button><span class="small mut">${all.length}명</span>`:"";
+ const sel=$("#mf");if(sel&&[...sel.options].some(o=>o.value===MF||o.text===MF))sel.value=MF;
+ $$(".pillbar [data-act='seg']").forEach(b=>b.setAttribute("aria-pressed",String(({unpaid:"회비 미납",dormant:"휴면",new:"최근 가입",all:"전체"})[b.dataset.k]===MF)))}
+AFTER["m-members"]=()=>{const a=members(SESS.bid),un=a.filter(m=>m.dues==="미납"&&m.st==="정상").length,dm=a.filter(m=>m.st==="휴면").length,nw=a.filter(m=>m.join>="2026.06").length;
+ $("#mtab").insertAdjacentHTML("beforebegin",`<div class="pillbar" role="group" aria-label="자주 쓰는 목록"><button data-act="seg" data-k="unpaid">회비 미납 ${un}명</button><button data-act="seg" data-k="dormant">휴면 ${dm}명</button><button data-act="seg" data-k="new">최근 가입 ${nw}명</button><button data-act="seg" data-k="all">전체 보기</button><button class="btn sm" data-act="seg-send">이 목록에 안내 보내기</button></div>`);renderMembers()};
+const SEGMSG={"회비 미납":(n)=>`[${n}] 올해 회비 납부 안내\n안녕하세요, ${n} 지부장입니다. 올해 회비가 아직 확인되지 않아 안내드립니다. 이미 납부하셨다면 이 문자는 무시해 주세요. 문의는 지부로 연락 주세요.`,"휴면":(n)=>`[${n}] 회원 정보 보관 안내\n오랫동안 이용 기록이 없어 회원 정보가 정리될 예정입니다. 계속 활동을 원하시면 지부로 연락 주세요.`,"최근 가입":(n)=>`[${n}] 가입을 환영합니다\n함께하게 되어 반갑습니다. 지부 행사와 소식은 홈페이지에서 확인하실 수 있습니다.`};
+/* 문의 답변 초안 */
+function aiDraft(q,b){const nm=br(b).nm,t=q.sub+" "+q.body;const open=`안녕하세요, ${nm}입니다. 문의해 주셔서 감사합니다.\n\n`,close=`\n\n더 궁금한 점은 언제든 말씀해 주세요.`;
+ if(/가입|서류|신청/.test(t))return open+"가입은 가입신청서와 개인정보 동의서를 내시면 됩니다. 가족이 대신 신청하시려면 위임장이 필요합니다. 신청 후에는 지부, 시·도, 중앙 순서로 확인하며 결과는 연락처로 안내드립니다."+close;
+ if(/휠체어|이동|행사|참석/.test(t))return open+"행사 참석과 이동 지원은 담당 간사가 가능 여부를 확인해 24시간 안에 다시 연락드리겠습니다. 필요한 지원(휠체어, 동행 등)을 알려 주시면 준비에 도움이 됩니다."+close;
+ return open+"문의하신 내용을 확인했습니다. 담당자가 살펴본 뒤 24시간 안에 자세히 답변드리겠습니다."+close}
+AFTER["m-inq"]=()=>{$$('form[data-form="reply"]').forEach(f=>{const s=f.querySelector("button[type=submit]");s.insertAdjacentHTML("beforebegin",`<button type="button" class="btn sm line" data-act="ai-draft" data-id="${f.dataset.id}" style="justify-self:start">AI 답변 초안 (시안)</button>`)})};
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t)return;const A=t.dataset.act,id=t.dataset.id;
+ if(A==="slide"){SLIDE=t.dataset.i!==undefined?+t.dataset.i:(SLIDE+(+t.dataset.d)+SLIDES.length)%SLIDES.length;const h=$(".hero2");if(h)h.outerHTML=slidesHTML();return}
+ if(A==="seg"){MF=({unpaid:"회비 미납",dormant:"휴면",new:"최근 가입",all:"전체"})[t.dataset.k];MP=1;renderMembers();return}
+ if(A==="seg-send"){const L=memFiltered(),fn=SEGMSG[MF];if(!fn){toast("보낼 목록을 먼저 골라 주세요. 예: 회비 미납");return}const nm=br(SESS.bid).nm;
+  openModal({title:`${MF} 회원 ${L.length}명에게 안내 보내기`,body:`<div class="form"><label for="sch">보내는 방법<select id="sch"><option>알림톡</option><option>문자</option></select></label><label for="smsg">보낼 글<textarea id="smsg" readonly style="min-height:130px">${esc(fn(nm))}</textarea></label></div><p class="small mut" style="margin:10px 0 0">보내면 활동 기록에 남습니다. 알림톡·문자는 비용이 듭니다(시안).</p>`,ok:"보내기",onOk:()=>{const ch=($("#sch")||{}).value||"알림톡";log(`회원 안내 발송: ${MF} ${L.length}명 (${ch})`);toast(`${L.length}명에게 보냈어요(시안)`)}});return}
+ if(A==="ai-draft"){const q=inquiries(SESS.bid).find(x=>x.id===id),ta=$("#rp-"+id);if(q&&ta){ta.value=aiDraft(q,SESS.bid);toast("AI 초안을 넣었어요(시안). 내용을 확인하고 보내세요")}return}
+ if(A==="app-ok"){const a=APPS.find(x=>x.id===id);if(a)pushNotif("region","2차 승인 대기",a.nm+"님 신청이 "+br(a.b).nm+"에서 올라왔습니다.",{go:"m-r2"});return}
+ if(A==="r-ok"){const a=APPS.find(x=>x.id===id);if(a)pushNotif("central","가입 확정 대기",a.nm+"님 ("+br(a.b).nm+") 신청이 중앙 확정을 기다립니다.",{go:"c-approve"});return}});
+document.addEventListener("submit",e=>{const f=e.target.closest('[data-form="join"]');if(f&&JOINED&&!JOINED.notified){JOINED.notified=true;pushNotif("branch","가입 신청이 접수되었어요",JOINED.n+"님이 가입을 신청했습니다.",{bid:JOINED.b,go:"m-apps"})}});

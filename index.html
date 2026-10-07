@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex,nofollow">
 <title>복지회 새 홈페이지 시안</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
 /* Layout: 파란 상단 영역 + 흰 카드 본문. 데스크톱은 상단 메뉴(마우스 올리면 하위 메뉴), 모바일은 하단 탭.
    지부장 화면은 왼쪽 메뉴 + 본문. 색은 로고의 남색과 2026 포스터의 로열블루·주황. 주황은 행동 버튼에만. */
@@ -295,6 +295,154 @@ body.mgr .frame{display:block}
 .ccol #t-news article{display:grid;grid-template-columns:160px 1fr;align-items:stretch}
 .ccol #t-news .ph{aspect-ratio:4/3!important;height:100%}
 @media(max-width:520px){.ccol #t-news article{grid-template-columns:112px 1fr}}
+/* ===== v5: 포털형 정돈 + 조직 관리 기능 스타일 ===== */
+:root{--bg:#f4f6fa;--line:#e4e9f1;--mut:#5a677c;--shadow-sm:0 1px 2px rgba(16,28,52,.05);--shadow:0 1px 2px rgba(16,28,52,.05),0 10px 30px rgba(16,28,52,.08);--r:16px;--disp:"Noto Sans KR","Malgun Gothic",sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b121f;--line:#243148;--mut:#a6b3c9}}
+:root[data-theme="dark"]{--bg:#0b121f;--line:#243148;--mut:#a6b3c9}
+body{letter-spacing:-.005em}
+.disp,.ptitle h1,.banner h2,.sheet h2,.modal h3,.sec>.wrap>h2,.h2,.notice h3,.price b,.hstats b,.kpi b,.mk b,.ring .c b,.date b,.rank .no,.cover h1,.hero h1{font-family:var(--disp)!important;font-weight:800!important;letter-spacing:-.025em}
+.card,.coops,.cal,.find,.lbox{border-radius:var(--r);box-shadow:var(--shadow-sm)}
+.card.lift{box-shadow:var(--shadow)}
+/* 헤더: 가운데 큰 검색창 (포털형) */
+header.top{background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px)}
+header.top .wrap.hd{grid-template-columns:auto minmax(240px,560px) 1fr;grid-template-areas:"logo search util";gap:10px 24px;padding-block:12px}
+.hr{display:contents}
+.logo{grid-area:logo}
+.hr .search{grid-area:search;width:100%;position:relative}
+.hr .util{grid-area:util;justify-content:flex-end}
+@media(max-width:999px){header.top .wrap.hd{grid-template-columns:1fr auto;grid-template-areas:"logo btn"}.hr{display:none}}
+.search input{flex:1;min-width:0;width:100%;border-radius:999px;padding:0 18px;min-height:44px;background:var(--bg);border-color:transparent}
+.search input:focus{background:var(--surface);border-color:var(--brand)}
+.search button{border-radius:999px;min-height:44px;padding:0 20px}
+.kbd{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;color:var(--mut);border:1px solid var(--line);border-radius:6px;padding:0 6px;background:var(--surface)}
+.util .adm{background:var(--brand);color:var(--on-brand)!important;border-radius:999px;padding:6px 14px!important;font-weight:700;text-decoration:none!important}
+/* 왼쪽 메뉴: 흰 카드, 열리면 브랜드색 */
+.vmenu{gap:8px}
+.vmenu .gt{background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow-sm);padding:14px 16px}
+.vmenu .gt:hover{border-color:var(--brand);color:var(--brand)}
+.vmenu .g.open .gt{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.vmenu ul{border-radius:14px;box-shadow:var(--shadow-sm)}
+.lbox.login{background:var(--surface);border:1px solid var(--line)}
+/* 구역 제목: 줄무늬 제거, 군더더기 없는 제목줄 */
+.sech{background:none;border:0;padding:4px 2px 10px;border-radius:0}
+.sech h2{font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:8px}
+.sech h2::before{content:"";width:6px;height:18px;border-radius:3px;background:var(--brand)}
+.sech h2 b{color:inherit}
+.sech a{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:3px 12px;font-size:.78rem;text-decoration:none;color:var(--mut)}
+.sech a:hover{color:var(--brand);border-color:var(--brand)}
+.blk{border-radius:var(--r);border:1px solid var(--line);padding:4px 18px 8px;box-shadow:var(--shadow-sm)}
+.blk .list li{padding:11px 0}
+.blk .list a{font-weight:500}
+section+section{margin-top:6px}
+/* 배너 캐러셀 */
+.hero2{position:relative;border-radius:20px;overflow:hidden;color:#fff;min-height:210px;background:linear-gradient(120deg,#0a2a6e 0%,#1456c8 55%,#3f8cf0 100%)}
+.slide{display:none;padding:30px 30px 56px;position:relative}
+.slide.on{display:block}
+.slide::after{content:"";position:absolute;right:-50px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,176,77,.45),rgba(255,176,77,0) 68%);pointer-events:none}
+.slide h2{font-size:clamp(1.5rem,3.2vw,2.15rem);line-height:1.25;margin:6px 0 0;position:relative;z-index:1}
+.slide h2 b{color:#ffd28a}.slide p{margin:10px 0 0;max-width:30em;opacity:.95;position:relative;z-index:1}
+.slide .tag{display:inline-block;background:rgba(255,255,255,.16);border-radius:999px;padding:3px 12px;font-size:.78rem;font-weight:700}
+.slide .btn{margin-top:14px;position:relative;z-index:1}
+.dots{position:absolute;left:30px;bottom:18px;display:flex;gap:8px;align-items:center;z-index:2}
+.dots button{width:9px;height:9px;border-radius:50%;border:0;background:rgba(255,255,255,.45);padding:0;cursor:pointer}
+.dots button[aria-current="true"]{width:26px;border-radius:5px;background:#fff}
+.arrows{position:absolute;right:16px;bottom:12px;display:flex;gap:6px;z-index:2}
+.arrows button{width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.2);color:#fff;cursor:pointer;font-weight:700}
+.arrows button:hover{background:rgba(255,255,255,.35)}
+/* 빠른 메뉴, 숫자 띠 */
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}@media(min-width:700px){.quick{grid-template-columns:repeat(6,1fr)}}
+.quick a{display:grid;justify-items:center;gap:8px;padding:14px 6px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-decoration:none;font-size:.82rem;font-weight:500;box-shadow:var(--shadow-sm);transition:transform .15s,box-shadow .15s}
+.quick a:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.quick .qi{width:44px;height:44px;border-radius:14px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center}
+.stat{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}@media(min-width:700px){.stat{grid-template-columns:repeat(4,1fr)}}
+.stat div{background:var(--surface);padding:14px 16px}
+.stat b{display:block;font-family:var(--disp);font-weight:800;font-size:1.5rem;line-height:1.1;color:var(--brand)}.stat span{font-size:.78rem;color:var(--mut)}
+.find{border-radius:var(--r)}
+.gal .ph{border-radius:12px}
+.gal a:hover .ph{outline:2px solid var(--brand)}
+/* 알림 종 / 빠른 이동 */
+.bell{position:relative;background:none;border:1px solid var(--line);border-radius:999px;width:40px;height:40px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;color:var(--ink)}
+.bell:hover{border-color:var(--brand);color:var(--brand)}
+.bell .n{position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;border-radius:99px;background:var(--accent);color:var(--accent-ink);font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.pop{position:absolute;right:0;top:calc(100% + 8px);width:min(360px,92vw);background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);z-index:70;overflow:hidden}
+.pop h3{padding:14px 16px;font-size:1rem;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.pop ul{list-style:none;margin:0;padding:0;max-height:360px;overflow:auto}
+.pop li{padding:12px 16px;border-bottom:1px solid var(--line);display:grid;gap:2px;cursor:pointer}
+.pop li:hover{background:var(--bg)}.pop li.un::before{content:"";position:absolute;margin-left:-10px;margin-top:8px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.pop li b{font-size:.9rem}.pop li span{font-size:.8rem;color:var(--mut)}
+.whoW{position:relative;display:flex;align-items:center;gap:8px}
+.cmdk{position:fixed;inset:0;background:rgba(5,10,20,.5);z-index:95;display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 16px}
+.cmdk.open{display:flex}
+.cmdk .box{background:var(--surface);border-radius:18px;width:min(620px,100%);box-shadow:var(--shadow);overflow:hidden}
+.cmdk input{width:100%;border:0;border-bottom:1px solid var(--line);padding:18px 20px;font-size:1.05rem;background:transparent;outline:none}
+.cmdk ul{list-style:none;margin:0;padding:8px;max-height:50vh;overflow:auto}
+.cmdk li{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 14px;border-radius:10px;cursor:pointer}
+.cmdk li[aria-selected="true"]{background:var(--brand-soft);color:var(--brand)}
+.cmdk li small{color:var(--mut);font-size:.76rem;white-space:nowrap}
+.cmdk .foot{padding:8px 16px;border-top:1px solid var(--line);font-size:.76rem;color:var(--mut);display:flex;gap:14px;flex-wrap:wrap}
+/* 관리 화면 정돈 */
+.side{border-radius:var(--r);box-shadow:var(--shadow-sm)}
+.side a{border-radius:12px}
+.mk>a,.mk>div{border-radius:var(--r);box-shadow:var(--shadow-sm)}
+.mk>a:hover{border-color:var(--brand)}
+.mk b{color:var(--ink)}
+.mk .up{color:var(--green);font-size:.76rem;font-weight:700}.mk .dn{color:var(--red);font-size:.76rem;font-weight:700}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+/* 차트·히트맵·퍼널 */
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--mut);font-size:11px;font-family:var(--body)}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .ln{fill:none;stroke:var(--brand);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.chart .ar{fill:var(--brand);opacity:.1}
+.chart .pt{fill:var(--surface);stroke:var(--brand);stroke-width:2}
+.chart .bar1{fill:var(--accent)}.chart .bar2{fill:var(--brand)}
+.legend2{display:flex;gap:14px;flex-wrap:wrap;font-size:.8rem;color:var(--mut);margin-top:6px}.legend2 i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px}
+.funnel{display:grid;gap:8px}.funnel .fr{display:grid;grid-template-columns:96px 1fr 44px;gap:10px;align-items:center;font-size:.86rem}
+.funnel .fb{height:22px;border-radius:8px;background:var(--brand-soft);overflow:hidden}.funnel .fb i{display:block;height:100%;background:var(--brand);border-radius:8px}
+.heat{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;max-width:360px}
+.heat button{aspect-ratio:1/.85;border:0;border-radius:12px;cursor:pointer;font-weight:700;font-size:.82rem;color:var(--ink);background:var(--brand-soft);line-height:1.15}
+.heat button small{display:block;font-weight:500;font-size:.68rem;color:var(--mut)}
+.heat .h1{background:var(--t1)}.heat .h2{background:var(--t2)}.heat .h3{background:var(--t3);color:var(--on-brand)}.heat .h3 small{color:var(--on-brand)}.heat .h4{background:var(--t4);color:var(--accent-ink)}.heat .h4 small{color:var(--accent-ink)}.heat .hx{visibility:hidden}
+/* 조직 트리 */
+.otree details{border:1px solid var(--line);border-radius:14px;margin:8px 0;background:var(--surface)}
+.otree summary{cursor:pointer;padding:12px 14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;list-style:none}
+.otree summary::-webkit-details-marker{display:none}
+.otree summary::before{content:"▸";color:var(--mut);transition:transform .15s}
+.otree details[open]>summary::before{transform:rotate(90deg)}
+.otree .kids{padding:0 10px 10px 22px;display:grid;gap:6px}
+.otree .leaf{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);cursor:pointer;text-align:left;width:100%}
+.otree .leaf:hover{border-color:var(--brand)}
+.otree .sp{flex:1}
+/* 권한표·자동화 */
+.matrix td,.matrix th{text-align:center}.matrix td:first-child,.matrix th:first-child{text-align:left}
+.cellb{border:0;background:var(--bg);width:40px;height:34px;border-radius:10px;cursor:pointer;font-weight:800;color:var(--mut)}
+.cellb.on{background:var(--green-soft);color:var(--green)}.cellb.sc{background:var(--brand-soft);color:var(--brand)}.cellb.lk{cursor:not-allowed;opacity:.7}
+.rule{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+.rule:last-child{border:0}.rule small{grid-column:1;color:var(--mut)}
+.tog{position:relative;width:48px;height:28px}.tog input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.tog span{position:absolute;inset:0;border-radius:99px;background:var(--line);transition:.2s}
+.tog span::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:.2s}
+.tog input:checked+span{background:var(--green)}.tog input:checked+span::after{left:23px}
+.tog input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}
+.seg2{display:flex;gap:6px;flex-wrap:wrap}.seg2 button{border:1px solid var(--line);background:var(--surface);border-radius:999px;min-height:40px;padding:0 16px;font-weight:700;cursor:pointer;color:var(--mut)}
+.seg2 button[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.pillbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.pillbar button{border:1px solid var(--line);background:var(--surface);border-radius:999px;min-height:40px;padding:0 14px;cursor:pointer;font-weight:700;font-size:.86rem}
+.pillbar button:hover{border-color:var(--brand);color:var(--brand)}
+.report{font-size:.95rem}.report h4{margin:14px 0 4px;font-size:1rem}.report p{margin:.3em 0}
+.readbar{display:grid;grid-template-columns:120px 1fr 52px;gap:10px;align-items:center;font-size:.84rem;padding:5px 0}
+.readbar .bar{height:10px}
+
+/* v5 보정 */
+header.top .wrap.hd{grid-template-columns:auto minmax(200px,420px) 1fr}
+.util{flex-wrap:nowrap;white-space:nowrap}.util .adm{white-space:nowrap}
+.heat{width:100%;max-width:340px}.heat button{min-width:0;overflow:hidden;padding:2px}
+.legend2{margin-top:12px}
+.chart text{font-size:15px}
+.topbar>div{flex:1 1 360px;min-width:0}.topbar .btn{flex:0 0 auto}
+.whoW{white-space:nowrap}
+.form label.switch{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:.9rem}
+
 </style></head>
 <body>
 <a class="skip" href="#main">본문으로 바로가기</a>
@@ -728,6 +876,273 @@ document.addEventListener("submit",e=>{const f=e.target.closest("[data-form]");i
 document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t)return;
  if(t.dataset.act==="cal"){CAL.m+=+t.dataset.d;if(CAL.m<0){CAL.m=11;CAL.y--}if(CAL.m>11){CAL.m=0;CAL.y++}$("#cal").innerHTML=calHTML()}
  if(t.dataset.act==="joinreset")JOINED=null});
+
+/* ===== v5a: 역할(중앙 사무국)·알림·빠른 이동·최종 라우터 ===== */
+ACCT.push({role:"central",name:"정하늘",title:"중앙 사무국"});
+Object.assign(ICON,{bell:I('<path d="M6 9a6 6 0 0112 0c0 5 2 6 2 6H4s2-1 2-6zM10 19a2 2 0 004 0"/>'),heart:I('<path d="M12 20s-8-5-8-11a4.5 4.5 0 018-2.5A4.5 4.5 0 0120 9c0 6-8 11-8 11z"/>'),search:I('<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>'),chart:I('<path d="M4 20V4M4 20h16M8 16v-5M12 16V8M16 16v-8"/>')});
+const AFTER={},CROUTES={};
+const NOTIFS=[
+ {id:1,aud:"all",t:"홈페이지 사용 안내",b:"지부장·지회장 화면에서 할 수 있는 일을 정리했습니다.",time:"10/05 09:00",read:false,go:"notice"},
+ {id:2,aud:"branch",bid:"seongnam",t:"가입 신청이 접수되었어요",b:"승인 대기 신청이 있습니다. 3일 안에 처리하면 점수가 올라요.",time:"10/06 14:20",read:false,go:"m-apps"},
+ {id:3,aud:"region",t:"2차 승인 대기",b:"지부에서 올라온 가입 신청이 있습니다.",time:"10/06 16:05",read:false,go:"m-r2"},
+ {id:4,aud:"central",t:"활동이 적은 지부가 있어요",b:"이번 달 점수가 낮은 지부를 확인하고 연락해 보세요.",time:"10/07 08:30",read:false,go:"c-dash"}];
+const notifFor=()=>SESS?NOTIFS.filter(n=>n.aud==="all"||n.aud===SESS.role||(n.bid&&SESS.bid===n.bid)):[];
+function pushNotif(aud,t,b,extra){NOTIFS.unshift(Object.assign({id:Date.now()+Math.random(),aud,t,b,time:nowStr(),read:false},extra||{}))}
+function whoBox(){const u=$("#util"),base=`<a href="#home">HOME</a><a href="#join">회원가입</a><a href="#myedit">회원정보수정</a>`;
+ if(!SESS){u.innerHTML=base+`<a class="adm" href="#login">지부장 로그인</a>`;return}
+ const un=notifFor().filter(n=>!n.read).length,home=SESS.role==="central"?"c-dash":"m-dash";
+ u.innerHTML=`<span class="whoW"><button class="bell" data-act="bell" aria-label="알림 ${un}건" aria-expanded="false">${ICON.bell}${un?`<span class="n">${un}</span>`:""}</button><a class="adm" href="#${home}">${esc(SESS.title)} ${esc(SESS.name)}님</a><button data-act="logout">로그아웃</button><div class="pop" id="bellpop" hidden></div></span>`}
+function renderBell(){const l=notifFor();$("#bellpop").innerHTML=`<h3>알림 <button class="btn sm plain" data-act="readall">모두 읽음</button></h3><ul>${l.slice(0,8).map(n=>`<li class="${n.read?"":"un"}" data-act="readn" data-id="${n.id}"><b>${esc(n.t)}</b><span>${esc(n.b)}</span><span>${n.time}</span></li>`).join("")||"<li><span>새 알림이 없습니다.</span></li>"}</ul>`}
+function pubTabs(cur){const mh=SESS?(SESS.role==="central"?"c-dash":"m-dash"):"login";
+ const T=[["home","홈","home"],["map","지부 찾기","pin"],["events","행사","cal"],[mh,SESS?"내 업무":"지부장","user"]];
+ $("#tabbar").innerHTML=T.map(t=>`<a href="#${t[0]}" ${(cur===t[0]||(t[0]==="map"&&cur.startsWith("room"))||(t[0]===mh&&SESS&&(cur.startsWith("m-")||cur.startsWith("c-"))))?'aria-current="page"':""}>${ICON[t[2]]}${t[1]}</a>`).join("")}
+/* 관리 메뉴 */
+const MNAV_C=[["c-dash","전국 현황","chart"],["c-tree","조직 관리","tree"],["c-approve","결재함","check"],["c-notice","공지 발송","mail"],["c-report","월간 리포트","doc"],["c-rbac","권한 관리","key"],["c-auto","자동화 규칙","sparkle"],["c-log","활동 기록","list"]];
+(function(){const i=MNAV_B.findIndex(x=>x[0]==="m-log");MNAV_B.splice(i,0,["m-report","월간 리포트","doc"]);MNAV_R.splice(MNAV_R.length-1,0,["m-report","월간 리포트","doc"])})();
+SUBM.push({n:"장학생 신청서",who:"gunpo",d:"10월 5일",s:"중앙 검토중"},{n:"공적조서",who:"yongin",d:"10월 4일",s:"중앙 검토중"});
+const pendingDocs=()=>SUBM.filter(s=>s.s==="중앙 검토중").length;
+function cnt(k){if(!SESS)return 0;if(k==="m-apps")return openApps(SESS.bid);if(k==="m-inq")return openInq(SESS.bid);if(k==="m-r2")return regionApps(SESS.sido).length;
+ if(k==="c-approve")return APPS.filter(a=>a.stage===3).length+pendingDocs();return 0}
+function shell(cur,title,sub,inner){const R=SESS.role,nav=R==="central"?MNAV_C:R==="region"?MNAV_R:MNAV_B,who=R==="branch"?br(SESS.bid).nm+" "+SESS.title:SESS.title;
+ const link=n=>{const c=cnt(n[0]);return`<a href="#${n[0]}" ${n[0]===cur?'aria-current="page"':""}>${ICON[n[2]]}${n[1]}${c?`<span class="cnt">${c}</span>`:""}</a>`};
+ const chipT=R==="central"?"중앙 사무국 전용":R==="region"?"시·도복지회장":esc(SESS.title)+" 전용";
+ return`<div class="wrap"><div class="mshell"><aside class="side" aria-label="관리 메뉴"><div class="me"><b>${esc(who)}</b><br><span class="small mut">${esc(SESS.name)}님</span></div>${nav.map(link).join("")}<a href="#home">${ICON.out}홈페이지로</a></aside>
+ <div class="stack"><div class="mchips" role="navigation" aria-label="관리 메뉴">${nav.map(n=>{const c=cnt(n[0]);return`<a href="#${n[0]}" ${n[0]===cur?'aria-current="page"':""}>${n[1]}${c?`<span class="cnt">${c}</span>`:""}</a>`}).join("")}</div>
+ <div class="topbar"><div><span class="chip">${chipT}</span><h1 class="disp" style="font-size:1.7rem;margin-top:6px">${title}</h1>${sub?`<p class="sub" style="margin:4px 0 0">${sub}</p>`:""}</div><button class="btn sm line" data-act="cmdk" aria-label="빠른 이동 열기">${ICON.search}빠른 이동 <span class="kbd">Ctrl K</span></button></div>${inner}</div></div></div>`}
+/* 빠른 이동 */
+document.body.insertAdjacentHTML("beforeend",`<div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="빠른 이동"><div class="box"><input id="cmdq" type="text" placeholder="이동할 곳이나 지부 이름을 입력하세요" autocomplete="off" aria-label="빠른 이동 검색"><ul id="cmdl" role="listbox"></ul><div class="foot"><span>↑↓ 선택</span><span>Enter 이동</span><span>Esc 닫기</span></div></div></div>`);
+let CK={sel:0,list:[]};
+function cmdItems(){const L=[];[["홈","home"],["월간주요행사","events"],["복지회소식","news"],["우리 지부 찾기","map"],["공지사항","notice"],["포토갤러리","gallery"],["문서자료실","docs"],["회원가입","join"],["후원안내","support"],["주요사업","business"],["관련사이트","links"]].forEach(x=>L.push({t:x[0],k:"페이지",go:x[1]}));
+ BR.forEach(b=>L.push({t:b.nm,k:"지부 · "+b.s,go:"room-"+b.id}));
+ if(SESS){const nav=SESS.role==="central"?MNAV_C:SESS.role==="region"?MNAV_R:MNAV_B;nav.forEach(n=>L.push({t:n[1],k:"내 업무",go:n[0]}));L.push({t:"로그아웃",k:"계정",act:"logout"})}else L.push({t:"지부장 로그인",k:"계정",go:"login"});
+ L.push({t:"글자 크게",k:"보기",act:"fsp"},{t:"화면 밝기 바꾸기",k:"보기",act:"thm"});return L}
+function ckRender(){const q=$("#cmdq").value.trim().toLowerCase();CK.list=cmdItems().filter(x=>!q||(x.t+x.k).toLowerCase().includes(q)).slice(0,12);CK.sel=Math.min(CK.sel,Math.max(0,CK.list.length-1));
+ $("#cmdl").innerHTML=CK.list.map((x,i)=>`<li role="option" aria-selected="${i===CK.sel}" data-i="${i}"><span>${esc(x.t)}</span><small>${esc(x.k)}</small></li>`).join("")||`<li><span>일치하는 항목이 없어요</span></li>`}
+function ckOpen(){$("#cmdk").classList.add("open");$("#cmdq").value="";CK.sel=0;ckRender();$("#cmdq").focus()}
+function ckClose(){$("#cmdk").classList.remove("open")}
+function ckRun(i){const x=CK.list[i];if(!x)return;ckClose();
+ if(x.go)go(x.go);else if(x.act==="logout"){log("로그아웃");SESS=null;toast("로그아웃했어요");go("home")}else if(x.act==="fsp")$("#fsp").click();else if(x.act==="thm")$("#thm").click()}
+$("#cmdq").addEventListener("input",()=>{CK.sel=0;ckRender()});
+$("#cmdq").addEventListener("keydown",e=>{if(e.key==="ArrowDown"){e.preventDefault();CK.sel=Math.min(CK.list.length-1,CK.sel+1);ckRender()}
+ else if(e.key==="ArrowUp"){e.preventDefault();CK.sel=Math.max(0,CK.sel-1);ckRender()}else if(e.key==="Enter"){e.preventDefault();ckRun(CK.sel)}});
+$("#cmdl").addEventListener("click",e=>{const li=e.target.closest("li[data-i]");if(li)ckRun(+li.dataset.i)});
+$("#cmdk").addEventListener("click",e=>{if(e.target.id==="cmdk")ckClose()});
+document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();ckOpen()}else if(e.key==="Escape"){ckClose();const p=$("#bellpop");if(p)p.hidden=true}});
+/* 알림·배너 동작 */
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");
+ if(!t){const p=$("#bellpop");if(p&&!e.target.closest(".whoW"))p.hidden=true;return}
+ const A=t.dataset.act;
+ if(A==="bell"){const p=$("#bellpop");const open=p.hidden;if(open)renderBell();p.hidden=!open;t.setAttribute("aria-expanded",String(open));return}
+ if(A==="readall"){notifFor().forEach(n=>n.read=true);whoBox();return}
+ if(A==="readn"){const n=NOTIFS.find(x=>String(x.id)===t.dataset.id);if(n){n.read=true;const g=n.go;whoBox();if(g)go(g)}return}
+ if(A==="cmdk"){ckOpen();return}});
+/* 최종 라우터 */
+function go(r){r=r||"home";let html=null,framed=true;const central=SESS&&SESS.role==="central";
+ if(r.startsWith("c-")){framed=false;if(!SESS){toast("로그인이 필요해요");return go("login")}if(!central)return go("m-dash");html=(CROUTES[r]||CROUTES["c-dash"])()}
+ else if(r.startsWith("m-")){framed=false;if(!SESS){toast("로그인이 필요해요");return go("login")}if(central)return go("c-dash");
+  if(SESS.role==="region"&&!["m-dash","m-r2","m-branches","m-report","m-log"].includes(r))return go("m-dash");
+  if(SESS.role==="branch"&&["m-r2","m-branches"].includes(r))return go("m-dash");html=(MROUTES[r]||mDash)()}
+ else if(r.startsWith("about"))html=vAbout(ABOUTS.includes(r)?r:"about-greeting");
+ else if(r.startsWith("support"))html=vSupport(SUPS.includes(r)?r:"support");
+ else if(r.startsWith("room-")){html=vRoom(r.slice(5));if(html==null){toast("없는 지부예요");return go("map")}}
+ else{if(r==="login"&&SESS)return go(central?"c-dash":"m-dash");html=(PROUTES[r]||PROUTES.home)()}
+ cur=r;$("#app").innerHTML=framed?frame(r,html):html;$("#sheet").classList.remove("open");
+ document.body.classList.toggle("mgr",!framed);pubTabs(r);whoBox();after(r);
+ try{if(location.hash.slice(1)!==r)location.hash=r}catch(e){}scrollTo(0,0)}
+function after(r){
+ if(r==="home")fillSel("selSido","selBr");
+ if(r==="join"&&$("#jS"))fillSel("jS","jB");
+ if(r==="map")fillMap();
+ if(r==="events"){renderEvList();$("#evS").onchange=renderEvList}
+ if(r==="gallery"){renderGallery();$("#gS").onchange=renderGallery}
+ if(r==="m-members"){$("#mf").value=MF;renderMembers()}
+ if(r==="m-profile"){$("#pprev").innerHTML=profPrev()}
+ if(AFTER[r])AFTER[r]()}
+function vLogin2(){const lab=a=>a.role==="branch"?br(a.bid).nm+" "+a.title:a.title,desc=a=>a.role==="central"?"전국 현황·결재·공지 발송·권한 관리":a.role==="region"?"소속 지부 승인과 현황":"본인 지부 회원·행사·사진 관리";
+ return pageHead("행정실 로그인",[["행정실"],["로그인"]])+`<div class="sec"><div class="two"><div class="card lift"><h3>로그인</h3><p class="mut small">실제 서비스에서는 휴대폰 본인확인으로 로그인합니다. 이 시안에서는 오른쪽 계정을 눌러 체험할 수 있습니다.</p>
+ <form class="form" data-form="fakelogin"><label for="lid">아이디<input id="lid" type="text" value="seongnam-chief" autocomplete="off"></label><label for="lpw">비밀번호<input id="lpw" type="password" value="sample1234" autocomplete="off"></label><button class="btn" type="submit">로그인</button></form></div>
+ <div class="card acct"><h3>체험 계정 선택</h3><p class="mut small">역할마다 보이는 화면이 다릅니다.</p><div class="stack">${ACCT.map((a,i)=>`<button class="card" data-act="login" data-i="${i}"><b>${esc(lab(a))}</b><span class="small mut">${esc(a.name)}님 · ${desc(a)}</span></button>`).join("")}</div></div></div></div>`}
+PROUTES.login=vLogin2;
+
+/* ===== v5b: 중앙 사무국 화면 (전국 현황·조직 트리·결재함·공지 발송·권한·자동화·리포트) ===== */
+function svgGrid(W,H,L,R,T,B,max,unit){return [0,.25,.5,.75,1].map(f=>{const v=Math.round(max*f),yy=T+(H-T-B)*(1-v/max);return`<line class="gl" x1="${L}" x2="${W-R}" y1="${yy.toFixed(1)}" y2="${yy.toFixed(1)}"/><text x="${L-6}" y="${(yy+4).toFixed(1)}" text-anchor="end">${v}${unit}</text>`}).join("")}
+function svgLine(labels,data,unit,label){const W=560,H=220,L=44,R=16,T=14,B=30,max=Math.max(10,Math.ceil(Math.max(...data)/10)*10);
+ const x=i=>L+i*(W-L-R)/(data.length-1),y=v=>T+(H-T-B)*(1-v/max),P=data.map((v,i)=>[x(i),y(v)]);
+ const path=P.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" "),area=path+` L${P[P.length-1][0].toFixed(1)} ${y(0).toFixed(1)} L${P[0][0].toFixed(1)} ${y(0).toFixed(1)} Z`;
+ return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">${svgGrid(W,H,L,R,T,B,max,unit)}<path class="ar" d="${area}"/><path class="ln" d="${path}"/>${P.map(p=>`<circle class="pt" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="4"/>`).join("")}${labels.map((l,i)=>`<text x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${l}</text>`).join("")}<text x="${P[P.length-1][0].toFixed(1)}" y="${(P[P.length-1][1]-10).toFixed(1)}" text-anchor="end" style="font-weight:700;fill:var(--brand)">${data[data.length-1]}${unit}</text></svg>`}
+function svgBars(labels,data,unit,label){const W=560,H=200,L=44,R=16,T=18,B=30,max=Math.max(10,Math.ceil(Math.max(...data)/10)*10),step=(W-L-R)/data.length,bw=step*.5,y=v=>T+(H-T-B)*(1-v/max);
+ return`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}">${svgGrid(W,H,L,R,T,B,max,unit)}${data.map((v,i)=>{const cx=L+(i+.5)*step,last=i===data.length-1;return`<rect class="${last?"bar1":"bar2"}" x="${(cx-bw/2).toFixed(1)}" y="${y(v).toFixed(1)}" width="${bw.toFixed(1)}" height="${(y(0)-y(v)).toFixed(1)}" rx="6"/><text x="${cx.toFixed(1)}" y="${(y(v)-5).toFixed(1)}" text-anchor="middle">${v}</text><text x="${cx.toFixed(1)}" y="${H-8}" text-anchor="middle">${labels[i]}</text>`}).join("")}</svg>`}
+const MONTHS=["4월","5월","6월","7월","8월","9월","10월"];
+function cDash(){const tot=BR.reduce((a,b)=>a+b.mem,0),act=BR.filter(b=>pts(b.id)>=90).length,actP=Math.round(act/BR.length*100);
+ const pend=APPS.filter(a=>a.stage>=1&&a.stage<=3).length,inqOpen=BR.reduce((a,b)=>a+openInq(b.id),0),evM=EV.filter(e=>e.d.startsWith("2026-10")).length;
+ const stg=[["접수",APPS.length],["지부 승인",APPS.filter(a=>a.stage>=2).length],["시·도 승인",APPS.filter(a=>a.stage>=3).length],["중앙 확정",APPS.filter(a=>a.stage>=4).length]],mx=Math.max(1,stg[0][1]);
+ const lvl={},cn={};BR.forEach(b=>{lvl[b.s]=Math.max(lvl[b.s]||0,lv(pts(b.id)));cn[b.s]=(cn[b.s]||0)+1});
+ let heat="";for(let yy=1;yy<=5;yy++)for(let xx=1;xx<=4;xx++){const t=SIDO.find(z=>z[1]===xx&&z[2]===yy);heat+=t?`<button class="h${lvl[t[0]]||0}" data-act="tree-s" data-sd="${t[0]}" aria-label="${t[0]} 지부 ${cn[t[0]]||0}곳, 활동 ${lvl[t[0]]||0}단계. 눌러서 조직 관리로 이동">${t[0]}<small>${cn[t[0]]?cn[t[0]]+"곳":"준비중"}</small></button>`:`<button class="hx" tabindex="-1" aria-hidden="true"></button>`}
+ const warn=BR.map(b=>({b,why:[pts(b.id)<100?"활동 점수 "+pts(b.id)+"점":"",openApps(b.id)>=3?"가입 대기 "+openApps(b.id)+"건":"",openInq(b.id)>=2?"문의 "+openInq(b.id)+"건 대기":""].filter(Boolean)})).filter(x=>x.why.length).sort((a,c)=>pts(a.b.id)-pts(c.b.id)).slice(0,6);
+ return shell("c-dash","전국 현황","시·도복지회와 지부의 활동, 승인 흐름, 주의가 필요한 곳을 한눈에 봅니다.",
+ `<div class="mk"><a href="#c-tree"><b class="num">${tot.toLocaleString()}</b><span>전체 회원(예시)</span><br><span class="up">▲ 신규 가입 꾸준(예시)</span></a><a href="#c-tree"><b class="num">${actP}%</b><span>활동 중인 지부</span><br><span class="${actP>=60?"up":"dn"}">${act}/${BR.length}곳이 90점 이상</span></a><a href="#c-approve"><b class="num">${pend}</b><span>승인 대기</span><br><span>${APPS.filter(a=>a.stage===3).length}건은 중앙 확정 차례</span></a><a href="#c-log"><b class="num">${evM}</b><span>이번 달 행사</span><br><span>답변 대기 문의 ${inqOpen}건</span></a></div>
+ <div class="two"><div class="card lift"><h3 style="margin-bottom:2px">활동 지부 비율 추이</h3><p class="small mut" style="margin:0 0 8px">지난달까지는 예시 값, 이번 달은 현재 데이터</p>${svgLine(MONTHS,[38,41,45,47,52,58,actP],"%","월별 활동 지부 비율 꺾은선 그래프")}<h3 style="margin:18px 0 2px">월별 가입 신청</h3><p class="small mut" style="margin:0 0 8px">이번 달은 현재 접수 건수</p>${svgBars(MONTHS,[18,22,25,31,29,38,APPS.length],"","월별 가입 신청 막대 그래프")}</div>
+ <div class="stack"><div class="card lift"><h3 style="margin-bottom:8px">시·도별 활동</h3><div class="heat">${heat}</div><div class="legend2"><span><i style="background:var(--brand-soft)"></i>없음</span><span><i style="background:var(--t1)"></i>1</span><span><i style="background:var(--t2)"></i>2</span><span><i style="background:var(--t3)"></i>3</span><span><i style="background:var(--t4)"></i>4단계</span></div></div>
+ <div class="card lift"><h3 style="margin-bottom:10px">가입 승인 흐름</h3><div class="funnel">${stg.map(s=>`<div class="fr"><span>${s[0]}</span><div class="fb"><i style="width:${Math.round(s[1]/mx*100)}%"></i></div><b class="num">${s[1]}</b></div>`).join("")}</div><p class="small mut" style="margin:10px 0 0">단계마다 줄어드는 곳이 병목입니다. 3일 넘게 머무는 신청은 자동화 규칙으로 알립니다.</p></div></div></div>
+ <div class="two"><div class="card lift"><h3 style="margin-bottom:6px">주의가 필요한 지부</h3>${warn.length?`<ul class="list">${warn.map(x=>`<li><span><b>${esc(x.b.nm)}</b> <span class="small mut">${esc(x.b.s)}</span><br><span class="small mut">${x.why.join(" · ")}</span></span><button class="btn sm line" data-act="node" data-id="${x.b.id}">살펴보기</button></li>`).join("")}</ul>`:`<p class="mut" style="margin:0">지금은 주의가 필요한 지부가 없습니다.</p>`}</div>
+ <div class="card lift"><h3 style="margin-bottom:6px">최근 활동 기록</h3>${auditList(5)}</div></div>`)}
+/* 조직 관리 */
+let TQ="";
+function treeHTML(){const q=TQ.trim();return SIDO.map(s=>s[0]).sort((a,b)=>a.localeCompare(b,"ko")).map(sd=>{const bs=BR.filter(b=>b.s===sd),hit=!q||(sd+"복지회").includes(q)||bs.some(b=>(b.nm+b.d).includes(q));if(!hit)return"";
+  const mem=bs.reduce((a,b)=>a+b.mem,0),avg=bs.length?Math.round(bs.reduce((a,b)=>a+pts(b.id),0)/bs.length):0;
+  return`<details ${q&&bs.length?"open":""}><summary><b>${sd}복지회</b>${bs.length?`<span class="chip m">지부 ${bs.length}곳</span><span class="chip">회원 ${mem.toLocaleString()}명</span><span class="sp"></span><span class="chip ${avg>=160?"o":"m"}">평균 ${avg}점</span>`:`<span class="chip m">지부 명단 준비중</span>`}</summary>${bs.length?`<div class="kids">${bs.filter(b=>!q||(sd+"복지회").includes(q)||(b.nm+b.d).includes(q)).map(b=>`<button class="leaf" data-act="node" data-id="${b.id}"><b>${esc(b.nm)}</b><span class="chip m">${b.lg}</span><span class="sp"></span><span class="small mut">회원 ${b.mem}명</span><span class="chip ${lv(pts(b.id))>=3?"o":"m"}">${pts(b.id)}점</span>${openApps(b.id)?`<span class="chip r">승인 ${openApps(b.id)}</span>`:""}</button>`).join("")}</div>`:`<div class="kids"><p class="small mut" style="margin:0">지부 명단을 확보하면 이곳에 표시됩니다. 지부장 지정은 중앙 사무국이 도와드립니다.</p></div>`}</details>`}).join("")||`<div class="card">일치하는 조직이 없습니다.</div>`}
+function cTree(){return shell("c-tree","조직 관리","중앙 → 시·도복지회 → 지부·지회 구조를 펼쳐 보고, 지부를 눌러 상태를 확인합니다. 원본 기준 시·도 17곳, 지부 223곳입니다.",
+ `<div class="card lift"><div class="toolbar"><input id="tq" type="search" placeholder="시·도 또는 지부 이름 검색" value="${esc(TQ)}" aria-label="조직 검색"></div><div class="otree" id="tree">${treeHTML()}</div><p class="small mut" style="margin:10px 0 0">지부·지회 223곳 중 이 시안에는 ${BR.length}곳만 예시로 들어 있습니다.</p></div>`)}
+/* 결재함 */
+let APTAB="join";
+const HAND=[{id:"h1",b:"gwangju-g",old:"오○○",nw:"윤○○",d:"10월 3일",s:0}];
+function cApprove(){const j=APPS.filter(a=>a.stage===3),d=SUBM.map((s,i)=>({s,i})).filter(x=>x.s.s==="중앙 검토중"),h=HAND.filter(x=>x.s===0);
+ const tabs=[["join","가입 확정",j.length],["docs","서류",d.length],["hand","지부장 교체",h.length]];
+ const body=APTAB==="join"?(j.map(a=>`<div class="msg"><div><b>${esc(a.nm)}</b> <span class="small mut">· ${esc(br(a.b).nm)} · ${a.d} 접수</span></div>${stepBar(3)}<div class="row"><button class="btn sm ok" data-act="c-ok" data-id="${a.id}">가입 확정</button><button class="btn sm no" data-act="c-no" data-id="${a.id}">반려</button></div></div>`).join("")||`<p class="mut" style="margin:0">확정을 기다리는 가입 신청이 없습니다.</p>`)
+ :APTAB==="docs"?(d.map(x=>`<div class="msg"><div><b>${esc(x.s.n)}</b> <span class="small mut">· ${esc(br(x.s.who).nm)} · ${x.s.d} 제출</span></div><div class="row"><button class="btn sm ok" data-act="d-ok" data-i="${x.i}">승인</button><button class="btn sm no" data-act="d-no" data-i="${x.i}">반려</button></div></div>`).join("")||`<p class="mut" style="margin:0">검토할 서류가 없습니다.</p>`)
+ :(h.map(x=>`<div class="msg"><div><b>${esc(br(x.b).nm)}</b> <span class="small mut">· ${x.d} 요청</span></div><p style="margin:0">전임 ${x.old} → 신임 ${x.nw}</p><p class="small mut" style="margin:0">서류(위촉장·본인확인)가 접수되었습니다. 승인하면 전임자 계정이 정지되고 신임자에게 안내가 갑니다.</p><div class="row"><button class="btn sm ok" data-act="h-ok" data-id="${x.id}">승인</button></div></div>`).join("")||`<p class="mut" style="margin:0">교체 요청이 없습니다.</p>`);
+ return shell("c-approve","결재함","가입 확정, 서류, 지부장 교체를 한곳에서 처리합니다. 반려는 사유를 남깁니다.",`<div class="card lift"><div class="seg2" role="group" aria-label="결재 종류">${tabs.map(t=>`<button data-act="aptab" data-k="${t[0]}" aria-pressed="${APTAB===t[0]}">${t[1]} ${t[2]}</button>`).join("")}</div><div class="stack" style="margin-top:12px">${body}</div></div>`)}
+/* 공지 발송 */
+const SENT=[{t:"지부장·지회장 홈페이지 사용 안내",d:"10/05 09:00",scope:"all",ch:["홈페이지","알림톡"],seed:7},{t:"회원 정보 보호 안내",d:"10/04 10:30",scope:"all",ch:["홈페이지"],seed:3}];
+const scopeBr=sc=>sc==="all"?BR:BR.filter(b=>b.s===sc.slice(2)),scopeName=sc=>sc==="all"?"전국 모든 지부장":sc.slice(2)+"복지회 소속 지부";
+function sentCard(s,i){const bs=scopeBr(s.scope),r=rng(s.seed*977+i*13),rt=bs.map(b=>({b,p:Math.round(35+r()*65)})),avg=Math.round(rt.reduce((a,x)=>a+x.p,0)/rt.length),un=rt.filter(x=>x.p<60);
+ return`<div class="msg"><div class="row" style="justify-content:space-between"><b>${esc(s.t)}</b><span class="small mut">${s.d}</span></div><div class="row"><span class="chip m">${scopeName(s.scope)}</span>${s.ch.map(c=>`<span class="chip">${c}</span>`).join("")}</div><div class="readbar"><span>평균 읽음률</span><div class="bar"><i style="width:${avg}%"></i></div><b class="num">${avg}%</b></div><details><summary class="small" style="cursor:pointer">지부별 읽음 현황</summary>${rt.map(x=>`<div class="readbar"><span>${esc(x.b.nm)}</span><div class="bar"><i style="width:${x.p}%;background:${x.p<60?"var(--accent)":"var(--green)"}"></i></div><span class="num">${x.p}%</span></div>`).join("")}</details>${un.length?`<button class="btn sm line" data-act="resend" data-i="${i}" style="justify-self:start">읽지 않은 ${un.length}곳에 다시 알리기</button>`:""}</div>`}
+function cNotice(){const ss=[...new Set(BR.map(b=>b.s))];
+ return shell("c-notice","공지 발송","대상을 고르고 보내면, 지부별로 읽었는지 확인할 수 있습니다. 읽지 않은 곳에는 다시 알릴 수 있어요.",
+ `<div class="two"><div class="card lift"><h3 style="margin-bottom:10px">새 공지</h3><form class="form" data-form="cnotice"><label for="ntT">제목<input id="ntT" type="text" required placeholder="예: 11월 지부장 온라인 교육 안내"></label>
+ <label for="ntB">내용<textarea id="ntB" required placeholder="전달할 내용을 입력하세요"></textarea></label><button type="button" class="btn sm line" data-act="ai-notice" style="justify-self:start">AI로 다듬기 (시안)</button>
+ <label for="ntS">보낼 대상<select id="ntS"><option value="all">전국 모든 지부장 (${BR.length}곳)</option>${ss.map(s=>`<option value="s:${s}">${s}복지회 소속 지부 (${BR.filter(b=>b.s===s).length}곳)</option>`).join("")}</select></label>
+ <div class="pillbar" role="group" aria-label="보내는 방법" style="margin:0"><label class="switch"><input type="checkbox" id="chH" checked disabled> 홈페이지 공지</label><label class="switch"><input type="checkbox" id="chT" checked> 알림톡</label><label class="switch"><input type="checkbox" id="chS"> 문자</label></div>
+ <p class="small mut" style="margin:0">알림톡·문자는 건당 비용이 듭니다(시안). 개인정보가 들어 있는 내용은 보내지 마세요.</p><button class="btn" type="submit">공지 보내기</button></form></div>
+ <div class="card lift"><h3 style="margin-bottom:10px">보낸 공지와 읽음 현황</h3><div class="stack" id="sentList">${SENT.map(sentCard).join("")}</div></div></div>`)}
+/* 권한 관리 */
+const RB_ROLES=["중앙 사무국","시·도복지회장","지부장·지회장","간사","일반 회원"];
+const RB=[["회원 명단 열람",[1,2,2,0,0]],["회원 연락처 열람 (기록 남음)",[1,0,2,0,0]],["가입 1차 승인",[0,0,2,0,0]],["가입 2차 승인",[0,2,0,0,0]],["가입 최종 확정",[1,0,0,0,0]],["행사 등록",[1,2,2,2,0]],["사진 승인·게시",[1,0,2,2,0]],["전국 공지 발송",[1,0,0,0,0]],["서류 제출",[0,2,2,0,0]],["서류 승인",[1,0,0,0,0]],["권한 변경",[1,0,0,0,0]],["활동 기록 열람",[1,2,2,0,0]]];
+const RBSYM=["○","●","△"],RBCLS=["","on","sc"];
+function cRbac(){const hist=AUDIT.filter(a=>a.a.startsWith("권한 변경")).slice(0,5);
+ return shell("c-rbac","권한 관리","역할마다 할 수 있는 일을 정합니다. 필요한 만큼만 열어 두는 것이 원칙입니다.",
+ `<div class="card lift"><div class="pillbar" style="margin-bottom:6px"><span class="chip g">● 허용</span><span class="chip">△ 본인 범위만</span><span class="chip m">○ 불가</span></div><div class="tblwrap"><table class="tbl matrix" id="rbm"><thead><tr><th>할 수 있는 일</th>${RB_ROLES.map(r=>`<th>${r}</th>`).join("")}</tr></thead><tbody>${RB.map((f,fi)=>`<tr><td data-l="기능"><b>${f[0]}</b></td>${f[1].map((v,ri)=>{const lock=ri===0||f[0]==="권한 변경";return`<td data-l="${RB_ROLES[ri]}"><button class="cellb ${RBCLS[v]} ${lock?"lk":""}" ${lock?"disabled":`data-act="rb" data-f="${fi}" data-r="${ri}"`} aria-label="${f[0]}, ${RB_ROLES[ri]}: ${["불가","허용","본인 범위만"][v]}">${RBSYM[v]}</button></td>`}).join("")}</tr>`).join("")}</tbody></table></div><p class="small mut" style="margin:10px 0 0">중앙 사무국 열과 '권한 변경' 줄은 잠겨 있습니다. 칸을 누르면 불가 → 본인 범위 → 허용 순서로 바뀝니다.</p></div>
+ <div class="card"><h3 style="margin-bottom:6px">최근 권한 변경</h3>${hist.length?`<ul class="tl">${hist.map(a=>`<li><time>${a.t}</time><span>${esc(a.a)}</span></li>`).join("")}</ul>`:`<p class="mut small" style="margin:0">아직 변경 기록이 없습니다.</p>`}</div>`)}
+/* 자동화 규칙 */
+function daysOld(a){const m=/(\d+)일/.exec(a.d);return m?7-(+m[1]):0}
+const AUTO=[
+ {id:"a1",on:true,t:"가입 신청이 3일 넘게 머물면 시·도복지회장에게 알림",d:"병목을 줄입니다.",n:()=>APPS.filter(a=>a.stage===1&&daysOld(a)>=3).length,u:"건"},
+ {id:"a2",on:true,t:"문의에 24시간 넘게 답이 없으면 지부장에게 알림톡",d:"응답 속도를 지킵니다.",n:()=>BR.reduce((s,b)=>s+inquiries(b.id).filter(q=>!q.done&&q.ago>=18).length,0),u:"건"},
+ {id:"a3",on:false,t:"회비를 30일 넘게 내지 않은 회원에게 안내 문자",d:"지부장 확인 후 발송합니다(시안).",n:()=>BR.reduce((s,b)=>s+members(b.id).filter(m=>m.dues==="미납"&&m.st==="정상").length,0),u:"명"},
+ {id:"a4",on:true,t:"활동 기록이 한 달 없으면 시·도복지회장과 중앙에 알림",d:"조용한 지부를 먼저 찾습니다.",n:()=>BR.filter(b=>pts(b.id)<=60).length,u:"곳"},
+ {id:"a5",on:true,t:"휴면 회원 정보 파기 예정 안내",d:"개인정보 보유기간 관리를 돕습니다.",n:()=>BR.reduce((s,b)=>s+members(b.id).filter(m=>m.st==="휴면").length,0),u:"명"},
+ {id:"a6",on:true,t:"행사가 끝나면 지부장에게 사진·후기 올리기 안내",d:"행사 후 72시간 안에 올리면 점수가 오릅니다.",n:()=>EV.filter(e=>e.d<TODAY&&e.att==null).length,u:"건"}];
+function cAuto(){return shell("c-auto","자동화 규칙","반복되는 확인을 규칙으로 맡깁니다. 켜고 끄는 기록이 남습니다.",
+ `<div class="card lift"><div class="row" style="justify-content:space-between;margin-bottom:6px"><h3>규칙 ${AUTO.filter(r=>r.on).length}/${AUTO.length}개 켜짐</h3><button class="btn sm line" data-act="rule-run">오늘 실행하면 어떻게 될까요</button></div>${AUTO.map(r=>`<div class="rule"><b>${r.t}</b><label class="tog" aria-label="${r.t} 켜기/끄기"><input type="checkbox" data-act="rule" data-id="${r.id}" ${r.on?"checked":""}><span></span></label><small>${r.d} 오늘 대상 ${r.n()}${r.u}</small></div>`).join("")}</div>`)}
+/* 월간 리포트 */
+const scopeBranches=sc=>sc==="all"?BR:sc.startsWith("s:")?BR.filter(b=>b.s===sc.slice(2)):BR.filter(b=>b.id===sc.slice(2));
+const scopeLabel=sc=>sc==="all"?"전국":sc.startsWith("s:")?sc.slice(2)+"복지회":br(sc.slice(2)).nm;
+function reportData(sc){const bs=scopeBranches(sc),ids=bs.map(b=>b.id),A=a=>ids.includes(a.b);
+ return{bs,evs:EV.filter(e=>ids.includes(e.b)&&e.d.startsWith("2026-10")).length,ph:bs.reduce((a,b)=>a+phn(b.id),0),mem:bs.reduce((a,b)=>a+b.mem,0),avg:Math.round(bs.reduce((a,b)=>a+pts(b.id),0)/bs.length),
+ wait:APPS.filter(a=>A(a)&&a.stage===1).length,mid:APPS.filter(a=>A(a)&&(a.stage===2||a.stage===3)).length,done:APPS.filter(a=>A(a)&&a.stage===4).length,inq:bs.reduce((a,b)=>a+openInq(b.id),0),
+ top:[...bs].sort((a,c)=>pts(c.id)-pts(a.id))[0],low:[...bs].sort((a,c)=>pts(a.id)-pts(c.id))[0]}}
+function reportText(sc){const d=reportData(sc),L=[`행사 ${d.evs}건, 사진 ${d.ph}장이 등록되었고 회원은 ${d.mem.toLocaleString()}명, 평균 활동 점수는 ${d.avg}점입니다.`];
+ if(d.bs.length>1)L.push(`활동 점수가 가장 높은 곳은 ${d.top.nm}(${pts(d.top.id)}점), 가장 낮은 곳은 ${d.low.nm}(${pts(d.low.id)}점)입니다.`);
+ L.push(`가입 신청은 지부 검토 ${d.wait}건, 시·도·중앙 검토 ${d.mid}건, 확정 ${d.done}건이고, 답변 대기 문의는 ${d.inq}건입니다.`);
+ const R=[];if(d.wait>0)R.push(`지부 검토 대기 ${d.wait}건을 3일 안에 처리하세요.`);if(d.inq>0)R.push(`답변 대기 문의 ${d.inq}건을 24시간 안에 답하세요.`);if(d.avg<150)R.push("행사 후 72시간 안에 사진과 후기를 올리면 점수가 오릅니다.");if(!R.length)R.push("지금 처리할 일이 없습니다. 지금처럼 유지하세요.");
+ return{L,R}}
+function reportCard(sc){const t=reportText(sc),d=reportData(sc);
+ return`<div class="card lift report" id="rcard"><h3>${esc(scopeLabel(sc))} · 2026년 10월</h3><div class="mk" style="margin:10px 0"><div><b class="num">${d.evs}</b><span>행사</span></div><div><b class="num">${d.ph}</b><span>사진</span></div><div><b class="num">${d.avg}</b><span>평균 점수</span></div><div><b class="num">${d.wait+d.mid}</b><span>진행 중 가입 신청</span></div></div>
+ <h4>요약</h4>${t.L.map(p=>`<p>${esc(p)}</p>`).join("")}<h4>이번 달 권고</h4><ul>${t.R.map(p=>`<li>${esc(p)}</li>`).join("")}</ul><div class="row" style="margin-top:12px"><button class="btn sm" data-act="rpt-copy" data-sc="${sc}">리포트 글 복사</button><span class="small mut">회의 자료나 시·도 보고에 붙여 넣어 쓰세요.</span></div></div>`}
+let RSC="all";
+function cReport(){const ss=[...new Set(BR.map(b=>b.s))];return shell("c-report","월간 리포트","데이터로 자동 작성한 요약입니다. 범위를 바꾸면 바로 다시 만들어집니다.",
+ `<div class="card"><label class="small mut" for="rsc">범위</label><select id="rsc" style="min-height:46px;border-radius:12px;border:1.5px solid var(--line);padding:0 12px;background:var(--surface);width:100%;margin-top:4px"><option value="all">전국</option>${ss.map(s=>`<option value="s:${s}">${s}복지회</option>`).join("")}${BR.map(b=>`<option value="b:${b.id}">${b.nm}</option>`).join("")}</select></div><div id="rwrap">${reportCard(RSC)}</div>`)}
+function mReport(){const sc=SESS.role==="region"?"s:"+SESS.sido:"b:"+SESS.bid;return shell("m-report","월간 리포트","이번 달 활동을 자동으로 정리했습니다. 복사해서 회의 자료나 보고에 쓰세요.",reportCard(sc))}
+let LOGQ="전체";
+function cLog(){const f=LOGQ==="전체"?AUDIT:AUDIT.filter(a=>a.a.includes(LOGQ));return shell("c-log","활동 기록","누가 언제 무엇을 했는지 남습니다. 연락처 열람, 명단 내려받기, 권한 변경, 공지 발송도 기록됩니다.",
+ `<div class="card lift"><div class="seg2" role="group" aria-label="기록 종류" style="margin-bottom:10px">${["전체","승인","열람","발송","권한"].map(k=>`<button data-act="logf" data-k="${k}" aria-pressed="${LOGQ===k}">${k}</button>`).join("")}</div>${f.length?`<ul class="tl">${f.slice(0,40).map(a=>`<li><time>${a.t}</time><span><b>${esc(a.who)}</b> ${esc(a.a)}</span></li>`).join("")}</ul>`:`<p class="mut small" style="margin:0">해당하는 기록이 없습니다.</p>`}</div>`)}
+Object.assign(CROUTES,{"c-dash":cDash,"c-tree":cTree,"c-approve":cApprove,"c-notice":cNotice,"c-rbac":cRbac,"c-auto":cAuto,"c-report":cReport,"c-log":cLog});MROUTES["m-report"]=mReport;
+AFTER["c-tree"]=()=>{};
+/* 동작 */
+const AI_OPEN="안녕하세요, 한국신체장애인복지회 사무국입니다.";
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t)return;const A=t.dataset.act,id=t.dataset.id;
+ if(A==="tree-s"){TQ=t.dataset.sd;go("c-tree");return}
+ if(A==="node"){const b=br(id);openModal({title:b.nm,body:`<ul class="list"><li><span class="mut">소속</span><b>${esc(b.s)} · ${b.lg} 리그</b></li><li><span class="mut">회원</span><b>${b.mem}명(예시)</b></li><li><span class="mut">이번 달 점수</span><b>${pts(id)}점 · ${b.st}개월 연속</b></li><li><span class="mut">승인 대기</span><b>${openApps(id)}건</b></li><li><span class="mut">답변 대기 문의</span><b>${openInq(id)}건</b></li></ul>`,ok:"공개 화면 보기",onOk:()=>go("room-"+id)});return}
+ if(A==="aptab"){APTAB=t.dataset.k;go("c-approve");return}
+ if(A==="c-ok"){const a=APPS.find(x=>x.id===id);a.stage=4;log("가입 최종 확정: "+a.nm+" ("+br(a.b).nm+")");pushNotif("branch","가입이 확정되었어요",a.nm+"님의 가입이 확정되었습니다.",{bid:a.b,go:"m-apps"});toast(a.nm+"님 가입을 확정했어요");go("c-approve");return}
+ if(A==="c-no"){const a=APPS.find(x=>x.id===id);openModal({title:"가입 신청 반려",body:`<div class="form"><label for="why">사유 (지부와 신청자에게 전달됩니다)<textarea id="why" placeholder="예: 동의서가 확인되지 않아요."></textarea></label></div>`,ok:"반려하기",cls:"no",onOk:()=>{a.note=($("#why")||{}).value||"사유 미입력";a.stage=0;log("가입 반려(중앙): "+a.nm);toast("반려했어요");go("c-approve")}});return}
+ if(A==="d-ok"||A==="d-no"){const s=SUBM[+t.dataset.i];s.s=A==="d-ok"?"처리 완료":"반려";log((A==="d-ok"?"서류 승인: ":"서류 반려: ")+s.n+" ("+br(s.who).nm+")");toast(A==="d-ok"?"승인했어요":"반려했어요");go("c-approve");return}
+ if(A==="h-ok"){const h=HAND.find(x=>x.id===id);h.s=1;log("지부장 교체 승인: "+br(h.b).nm);toast("승인했어요. 전임자 계정이 정지됩니다(시안)");go("c-approve");return}
+ if(A==="ai-notice"){const T=$("#ntT").value.trim()||"안내",B=$("#ntB").value.trim();if(!B){toast("내용을 먼저 적어 주세요");return}const first=B.split(/[.\n]/)[0].trim();$("#ntB").value=`${AI_OPEN}\n\n[${T}]\n- 핵심: ${first}\n- 자세한 내용: ${B}\n\n문의는 복지회 사무국(02-852-4775)으로 연락해 주세요. 감사합니다.`;toast("AI 초안을 넣었어요(시안). 내용을 꼭 확인하세요");return}
+ if(A==="resend"){const s=SENT[+t.dataset.i];log("공지 재알림 발송: "+s.t);toast("읽지 않은 지부에 다시 알렸어요");return}
+ if(A==="rb"){const f=RB[+t.dataset.f],r=+t.dataset.r,n=({0:2,2:1,1:0})[f[1][r]];f[1][r]=n;log("권한 변경: "+RB_ROLES[r]+"의 '"+f[0]+"' → "+["불가","허용","본인 범위만"][n]);toast("권한을 바꿨어요");go("c-rbac");return}
+ if(A==="rule-run"){const on=AUTO.filter(r=>r.on);openModal({title:"오늘 실행하면",body:`<ul class="list">${on.map(r=>`<li><span>${r.t}</span><b>${r.n()}${r.u}</b></li>`).join("")}</ul><p class="small mut" style="margin:10px 0 0">미리보기이며 실제로 보내지 않습니다.</p>`,ok:"확인"});return}
+ if(A==="rpt-copy"){const sc=t.dataset.sc,x=reportText(sc),txt=`${scopeLabel(sc)} 10월 활동 리포트\n${x.L.join("\n")}\n[권고]\n${x.R.map(s=>"- "+s).join("\n")}`;
+  (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast("리포트 글을 복사했어요")).catch(()=>toast("복사하지 못했어요. 화면의 글을 직접 선택해 주세요"));return}
+ if(A==="logf"){LOGQ=t.dataset.k;go("c-log");return}});
+document.addEventListener("input",e=>{if(e.target.id==="tq"){TQ=e.target.value;$("#tree").innerHTML=treeHTML()}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.dataset&&t.dataset.act==="rule"){const r=AUTO.find(x=>x.id===t.dataset.id);r.on=t.checked;log("자동화 규칙 "+(r.on?"켬":"끔")+": "+r.t);go("c-auto")}
+ if(t.id==="rsc"){RSC=t.value;$("#rwrap").innerHTML=reportCard(RSC)}});
+document.addEventListener("submit",e=>{const f=e.target.closest('[data-form="cnotice"]');if(!f)return;e.preventDefault();
+ const ch=["홈페이지"];if($("#chT").checked)ch.push("알림톡");if($("#chS").checked)ch.push("문자");const sc=$("#ntS").value,tt=$("#ntT").value.trim();
+ SENT.unshift({t:tt,d:nowStr(),scope:sc,ch,seed:Math.floor(Math.random()*90)+10});log("공지 발송: "+tt+" ("+scopeName(sc)+", "+ch.join("·")+")");pushNotif("all","새 공지: "+tt,scopeName(sc)+"에 보낸 공지입니다.",{go:"notice"});toast("공지를 보냈어요");go("c-notice")});
+
+/* ===== v5c: 포털형 홈, 지부장 도구(회원 안내·AI 답변 초안), 알림 연결 ===== */
+let SLIDE=0;
+const SLIDES=[
+ {tag:"새 홈페이지",h:"복지회의 <b>새로운 얼굴</b>",p:"새옷을 갈아입고 새로운 모습으로 여러분께 다가갑니다. 가까운 지부의 행사와 소식을 한곳에서 만나보세요.",b:["지부 찾기","map"]},
+ {tag:"교육 안내",h:"2026 제1기 <b>디지털자산관리사</b> 온라인 교육과정 모집",p:"100% 온라인, 모바일·PC 수강. 정회원 혜택가 270,000원. 접수 문의 02-852-4775",b:["공지사항 보기","notice"]},
+ {tag:"지부 활동",h:"이번 달, <b>우리 지부</b>는 어떤 일을 했을까요?",p:"행사와 사진, 지역 기사를 지부별로 모았습니다. 이달의 지부를 만나 보세요.",b:["우리 지부 활동","map"]}];
+const slidesHTML=()=>`<div class="hero2" role="region" aria-roledescription="carousel" aria-label="안내 배너">${SLIDES.map((s,i)=>`<div class="slide ${i===SLIDE?"on":""}" role="group" aria-label="${i+1}/${SLIDES.length}"><span class="tag">${s.tag}</span><h2>${s.h}</h2><p>${s.p}</p><a class="btn sm" href="#${s.b[1]}">${s.b[0]}</a></div>`).join("")}<div class="dots">${SLIDES.map((_,i)=>`<button data-act="slide" data-i="${i}" aria-label="${i+1}번 배너 보기" ${i===SLIDE?'aria-current="true"':""}></button>`).join("")}</div><div class="arrows"><button data-act="slide" data-d="-1" aria-label="이전 배너">‹</button><button data-act="slide" data-d="1" aria-label="다음 배너">›</button></div></div>`;
+function vHome3(){const up=[...EV].filter(e=>e.d>=TODAY).sort((a,b)=>a.d.localeCompare(b.d)),top=["소형","중형","대형"].map(l=>BR.filter(b=>b.lg===l).sort((a,b)=>pts(b.id)-pts(a.id))[0]),ss=[...new Set(BR.map(b=>b.s))];
+ const Q=[["지부 찾기","map","pin"],["행사 일정","events","cal"],["회원가입","join","user"],["후원안내","support","heart"],["서류·양식","docs","doc"],["작은소리","voice","chat"]];
+ return`<div class="stack">${slidesHTML()}
+ <div class="quick" aria-label="자주 찾는 메뉴">${Q.map(q=>`<a href="#${q[1]}"><span class="qi">${ICON[q[2]]}</span>${q[0]}</a>`).join("")}</div>
+ <form class="find" data-form="finder"><b>내 지역 찾기<em class="new">NEW</em></b><select id="selSido" aria-label="시도">${ss.map(s=>`<option>${s}</option>`).join("")}</select><select id="selBr" aria-label="지부"></select><button class="btn sm" type="submit">지부 방 들어가기</button></form>
+ <section><div class="sech"><h2>공지사항</h2><a href="#notice">더보기</a></div><div class="blk"><ul class="list">${REALNOTICE.map(x=>`<li><a href="#notice">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`).join("")}</ul></div></section>
+ <section><div class="sech"><h2>최신복지뉴스</h2><a href="#clips">더보기</a></div><div class="blk"><ul class="list">${REALNEWS.slice(0,5).map(x=>`<li><a href="#clips">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`).join("")}</ul></div></section>
+ <section><div class="sech"><h2>포토갤러리</h2><a href="#gallery">더보기</a></div><div class="blk"><div class="gal">${REALGAL.slice(0,4).map((c,i)=>`<a href="#gallery"><span class="ph"><img alt="" src="${scene(i+2)}"></span><span>${esc(c)}</span></a>`).join("")}</div><p class="small mut" style="margin:8px 0 0">사진 자리는 예시 그림이며, 원본 사진을 이전해 채웁니다.</p></div></section>
+ <div class="stat" aria-label="복지회 규모"><div><b class="num">1981</b><span>설립 (보건복지부 허가 제87호)</span></div><div><b class="num">17</b><span>시·도복지회</span></div><div><b class="num">223</b><span>시·군·구 지부</span></div><div><b class="num">${BR.length}</b><span>시안에 담긴 지부(예시)</span></div></div>
+ <section><div class="sech"><h2>우리 지부 활동<em class="new">NEW</em></h2><a href="#map">전국시도복지회</a></div><div class="blk">${top.map(b=>`<a class="brrow" href="#room-${b.id}"><span><b>${esc(b.nm)}</b> <span class="chip o">${b.lg} 리그 1위</span><br><span class="small mut">${esc(b.s)} · 회원 ${b.mem}명(예시) · ${b.st}개월 연속 활동</span></span><b class="num">${pts(b.id)}점</b><div class="bar"><i style="width:${pts(b.id)/3}%"></i></div></a>`).join("")}</div></section>
+ <section><div class="sech"><h2>다가오는 지부 행사<em class="new">NEW</em></h2><a href="#events">월간주요행사</a></div><div class="blk"><div class="evgrid" style="padding:10px 0">${up.slice(0,4).map(evCard).join("")}</div></div></section></div>`}
+PROUTES.home=vHome3;
+/* 회원 목록: 최근 가입 조건 추가 */
+function memFiltered(){return members(SESS.bid).filter(m=>(!MQ||m.nm.includes(MQ))&&(MF==="전체"||(MF==="회비 미납"?m.dues==="미납":MF==="최근 가입"?m.join>="2026.06":m.st===MF)))}
+function renderMembers(){const all=memFiltered(),pages=Math.max(1,Math.ceil(all.length/10));MP=Math.min(MP,pages);const pg=all.slice((MP-1)*10,MP*10);
+ $("#mtab").innerHTML=`<div class="tblwrap"><table class="tbl"><thead><tr><th>이름</th><th>구분</th><th>가입</th><th>상태</th><th>회비</th><th>연락처</th></tr></thead><tbody>${pg.map(m=>`<tr><td data-l="이름"><b>${esc(m.nm)}</b></td><td data-l="구분">${m.ty}</td><td data-l="가입" class="num">${m.join}</td><td data-l="상태"><span class="chip ${m.st==="정상"?"g":m.st==="휴면"?"m":"o"}">${m.st}</span></td><td data-l="회비"><span class="chip ${m.dues==="납부"?"g":"r"}">${m.dues}</span></td><td data-l="연락처" class="num">${m.shown?m.ph:"010-****-"+m.ph.slice(-4)} <button class="btn sm plain" data-act="reveal" data-i="${m.id}">${m.shown?"가리기":"보기"}</button></td></tr>`).join("")||`<tr><td colspan="6">검색 결과가 없습니다.</td></tr>`}</tbody></table></div>`;
+ const s=Math.max(1,Math.min(MP-2,pages-4));
+ $("#mpg").innerHTML=all.length?`<button data-act="mp" data-p="${MP-1}" ${MP<=1?"disabled":""} aria-label="이전">‹</button>${Array.from({length:Math.min(pages,5)},(_,i)=>{const p=s+i;return`<button data-act="mp" data-p="${p}" ${p===MP?'aria-current="true"':""}>${p}</button>`}).join("")}<button data-act="mp" data-p="${MP+1}" ${MP>=pages?"disabled":""} aria-label="다음">›</button><span class="small mut">${all.length}명</span>`:"";
+ const sel=$("#mf");if(sel&&[...sel.options].some(o=>o.value===MF||o.text===MF))sel.value=MF;
+ $$(".pillbar [data-act='seg']").forEach(b=>b.setAttribute("aria-pressed",String(({unpaid:"회비 미납",dormant:"휴면",new:"최근 가입",all:"전체"})[b.dataset.k]===MF)))}
+AFTER["m-members"]=()=>{const a=members(SESS.bid),un=a.filter(m=>m.dues==="미납"&&m.st==="정상").length,dm=a.filter(m=>m.st==="휴면").length,nw=a.filter(m=>m.join>="2026.06").length;
+ $("#mtab").insertAdjacentHTML("beforebegin",`<div class="pillbar" role="group" aria-label="자주 쓰는 목록"><button data-act="seg" data-k="unpaid">회비 미납 ${un}명</button><button data-act="seg" data-k="dormant">휴면 ${dm}명</button><button data-act="seg" data-k="new">최근 가입 ${nw}명</button><button data-act="seg" data-k="all">전체 보기</button><button class="btn sm" data-act="seg-send">이 목록에 안내 보내기</button></div>`);renderMembers()};
+const SEGMSG={"회비 미납":(n)=>`[${n}] 올해 회비 납부 안내\n안녕하세요, ${n} 지부장입니다. 올해 회비가 아직 확인되지 않아 안내드립니다. 이미 납부하셨다면 이 문자는 무시해 주세요. 문의는 지부로 연락 주세요.`,"휴면":(n)=>`[${n}] 회원 정보 보관 안내\n오랫동안 이용 기록이 없어 회원 정보가 정리될 예정입니다. 계속 활동을 원하시면 지부로 연락 주세요.`,"최근 가입":(n)=>`[${n}] 가입을 환영합니다\n함께하게 되어 반갑습니다. 지부 행사와 소식은 홈페이지에서 확인하실 수 있습니다.`};
+/* 문의 답변 초안 */
+function aiDraft(q,b){const nm=br(b).nm,t=q.sub+" "+q.body;const open=`안녕하세요, ${nm}입니다. 문의해 주셔서 감사합니다.\n\n`,close=`\n\n더 궁금한 점은 언제든 말씀해 주세요.`;
+ if(/가입|서류|신청/.test(t))return open+"가입은 가입신청서와 개인정보 동의서를 내시면 됩니다. 가족이 대신 신청하시려면 위임장이 필요합니다. 신청 후에는 지부, 시·도, 중앙 순서로 확인하며 결과는 연락처로 안내드립니다."+close;
+ if(/휠체어|이동|행사|참석/.test(t))return open+"행사 참석과 이동 지원은 담당 간사가 가능 여부를 확인해 24시간 안에 다시 연락드리겠습니다. 필요한 지원(휠체어, 동행 등)을 알려 주시면 준비에 도움이 됩니다."+close;
+ return open+"문의하신 내용을 확인했습니다. 담당자가 살펴본 뒤 24시간 안에 자세히 답변드리겠습니다."+close}
+AFTER["m-inq"]=()=>{$$('form[data-form="reply"]').forEach(f=>{const s=f.querySelector("button[type=submit]");s.insertAdjacentHTML("beforebegin",`<button type="button" class="btn sm line" data-act="ai-draft" data-id="${f.dataset.id}" style="justify-self:start">AI 답변 초안 (시안)</button>`)})};
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t)return;const A=t.dataset.act,id=t.dataset.id;
+ if(A==="slide"){SLIDE=t.dataset.i!==undefined?+t.dataset.i:(SLIDE+(+t.dataset.d)+SLIDES.length)%SLIDES.length;const h=$(".hero2");if(h)h.outerHTML=slidesHTML();return}
+ if(A==="seg"){MF=({unpaid:"회비 미납",dormant:"휴면",new:"최근 가입",all:"전체"})[t.dataset.k];MP=1;renderMembers();return}
+ if(A==="seg-send"){const L=memFiltered(),fn=SEGMSG[MF];if(!fn){toast("보낼 목록을 먼저 골라 주세요. 예: 회비 미납");return}const nm=br(SESS.bid).nm;
+  openModal({title:`${MF} 회원 ${L.length}명에게 안내 보내기`,body:`<div class="form"><label for="sch">보내는 방법<select id="sch"><option>알림톡</option><option>문자</option></select></label><label for="smsg">보낼 글<textarea id="smsg" readonly style="min-height:130px">${esc(fn(nm))}</textarea></label></div><p class="small mut" style="margin:10px 0 0">보내면 활동 기록에 남습니다. 알림톡·문자는 비용이 듭니다(시안).</p>`,ok:"보내기",onOk:()=>{const ch=($("#sch")||{}).value||"알림톡";log(`회원 안내 발송: ${MF} ${L.length}명 (${ch})`);toast(`${L.length}명에게 보냈어요(시안)`)}});return}
+ if(A==="ai-draft"){const q=inquiries(SESS.bid).find(x=>x.id===id),ta=$("#rp-"+id);if(q&&ta){ta.value=aiDraft(q,SESS.bid);toast("AI 초안을 넣었어요(시안). 내용을 확인하고 보내세요")}return}
+ if(A==="app-ok"){const a=APPS.find(x=>x.id===id);if(a)pushNotif("region","2차 승인 대기",a.nm+"님 신청이 "+br(a.b).nm+"에서 올라왔습니다.",{go:"m-r2"});return}
+ if(A==="r-ok"){const a=APPS.find(x=>x.id===id);if(a)pushNotif("central","가입 확정 대기",a.nm+"님 ("+br(a.b).nm+") 신청이 중앙 확정을 기다립니다.",{go:"c-approve"});return}});
+document.addEventListener("submit",e=>{const f=e.target.closest('[data-form="join"]');if(f&&JOINED&&!JOINED.notified){JOINED.notified=true;pushNotif("branch","가입 신청이 접수되었어요",JOINED.n+"님이 가입을 신청했습니다.",{bid:JOINED.b,go:"m-apps"})}});
+
+/* ===== v5d: 전국 현황 화면 균형 정돈 (왼쪽·오른쪽 두 열을 각각 쌓음) ===== */
+function cDash(){const tot=BR.reduce((a,b)=>a+b.mem,0),act=BR.filter(b=>pts(b.id)>=90).length,actP=Math.round(act/BR.length*100);
+ const pend=APPS.filter(a=>a.stage>=1&&a.stage<=3).length,inqOpen=BR.reduce((a,b)=>a+openInq(b.id),0),evM=EV.filter(e=>e.d.startsWith("2026-10")).length;
+ const stg=[["접수",APPS.length],["지부 승인",APPS.filter(a=>a.stage>=2).length],["시·도 승인",APPS.filter(a=>a.stage>=3).length],["중앙 확정",APPS.filter(a=>a.stage>=4).length]],mx=Math.max(1,stg[0][1]);
+ const lvl={},cn={};BR.forEach(b=>{lvl[b.s]=Math.max(lvl[b.s]||0,lv(pts(b.id)));cn[b.s]=(cn[b.s]||0)+1});
+ let heat="";for(let yy=1;yy<=5;yy++)for(let xx=1;xx<=4;xx++){const t=SIDO.find(z=>z[1]===xx&&z[2]===yy);heat+=t?`<button class="h${lvl[t[0]]||0}" data-act="tree-s" data-sd="${t[0]}" aria-label="${t[0]} 지부 ${cn[t[0]]||0}곳, 활동 ${lvl[t[0]]||0}단계. 눌러서 조직 관리로 이동">${t[0]}<small>${cn[t[0]]?cn[t[0]]+"곳":"준비중"}</small></button>`:`<button class="hx" tabindex="-1" aria-hidden="true"></button>`}
+ const warn=BR.map(b=>({b,why:[pts(b.id)<100?"활동 점수 "+pts(b.id)+"점":"",openApps(b.id)>=3?"가입 대기 "+openApps(b.id)+"건":"",openInq(b.id)>=2?"문의 "+openInq(b.id)+"건 대기":""].filter(Boolean)})).filter(x=>x.why.length).sort((a,c)=>pts(a.b.id)-pts(c.b.id)).slice(0,5);
+ return shell("c-dash","전국 현황","시·도복지회와 지부의 활동, 승인 흐름, 주의가 필요한 곳을 한눈에 봅니다.",
+ `<div class="mk"><a href="#c-tree"><b class="num">${tot.toLocaleString()}</b><span>전체 회원(예시)</span><br><span class="up">▲ 신규 가입 꾸준(예시)</span></a><a href="#c-tree"><b class="num">${actP}%</b><span>활동 중인 지부</span><br><span class="${actP>=60?"up":"dn"}">${act}/${BR.length}곳이 90점 이상</span></a><a href="#c-approve"><b class="num">${pend}</b><span>승인 대기</span><br><span>${APPS.filter(a=>a.stage===3).length}건은 중앙 확정 차례</span></a><a href="#c-log"><b class="num">${evM}</b><span>이번 달 행사</span><br><span>답변 대기 문의 ${inqOpen}건</span></a></div>
+ <div class="two"><div class="stack"><div class="card lift"><h3 style="margin-bottom:2px">활동 지부 비율 추이</h3><p class="small mut" style="margin:0 0 8px">지난달까지는 예시 값, 이번 달은 현재 데이터</p>${svgLine(MONTHS,[38,41,45,47,52,58,actP],"%","월별 활동 지부 비율 꺾은선 그래프")}<h3 style="margin:18px 0 2px">월별 가입 신청</h3><p class="small mut" style="margin:0 0 8px">이번 달은 현재 접수 건수</p>${svgBars(MONTHS,[18,22,25,31,29,38,APPS.length],"","월별 가입 신청 막대 그래프")}</div>
+ <div class="card lift"><h3 style="margin-bottom:6px">주의가 필요한 지부</h3>${warn.length?`<ul class="list">${warn.map(x=>`<li><span><b>${esc(x.b.nm)}</b> <span class="small mut">${esc(x.b.s)}</span><br><span class="small mut">${x.why.join(" · ")}</span></span><button class="btn sm line" data-act="node" data-id="${x.b.id}">살펴보기</button></li>`).join("")}</ul>`:`<p class="mut" style="margin:0">지금은 주의가 필요한 지부가 없습니다.</p>`}</div></div>
+ <div class="stack"><div class="card lift"><h3 style="margin-bottom:10px">시·도별 활동</h3><div class="heat">${heat}</div><div class="legend2"><span><i style="background:var(--brand-soft)"></i>없음</span><span><i style="background:var(--t1)"></i>1</span><span><i style="background:var(--t2)"></i>2</span><span><i style="background:var(--t3)"></i>3</span><span><i style="background:var(--t4)"></i>4단계</span></div></div>
+ <div class="card lift"><h3 style="margin-bottom:10px">가입 승인 흐름</h3><div class="funnel">${stg.map(s=>`<div class="fr"><span>${s[0]}</span><div class="fb"><i style="width:${Math.round(s[1]/mx*100)}%"></i></div><b class="num">${s[1]}</b></div>`).join("")}</div><p class="small mut" style="margin:10px 0 0">단계마다 줄어드는 곳이 병목입니다. 3일 넘게 머무는 신청은 자동화 규칙으로 알립니다.</p></div>
+ <div class="card lift"><h3 style="margin-bottom:6px">최근 활동 기록</h3>${auditList(5)}</div></div></div>`)}
 
 buildNav();
 let start="home";try{start=location.hash.slice(1)||"home";if(start==="main")start="home"}catch(e){}
