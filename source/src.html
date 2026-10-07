@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>복지회 새 홈페이지 시안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: 파란 상단 영역 + 흰 카드 본문. 데스크톱은 상단 메뉴(마우스 올리면 하위 메뉴), 모바일은 하단 탭.
+   지부장 화면은 왼쪽 메뉴 + 본문. 색은 로고의 남색과 2026 포스터의 로열블루·주황. 주황은 행동 버튼에만. */
+:root{
+ --bg:#f2f5fb; --surface:#ffffff; --ink:#0f1c33; --mut:#4d5c76; --line:#d8e0ee;
+ --brand:#1456c8; --brand-deep:#0b2f78; --brand-soft:#e6eefc;
+ --accent:#f08a00; --accent-ink:#2a1700; --green:#1d8a5b; --green-soft:#e1f4ea; --red:#c2362b; --red-soft:#fde8e6;
+ --on-brand:#ffffff; --t1:#dbe6fa; --t2:#a9c3f2; --t3:#1456c8; --t4:#f08a00;
+ --shadow:0 1px 2px rgba(15,28,51,.06),0 8px 24px rgba(15,28,51,.07);
+ --fs:17px; --disp:"Black Han Sans","Noto Sans KR","Malgun Gothic",sans-serif; --body:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ --bg:#0a111e; --surface:#121c2e; --ink:#eaf0fb; --mut:#a2b0c8; --line:#25324a;
+ --brand:#6ea8ff; --brand-deep:#0a1f4d; --brand-soft:#16294d;
+ --accent:#ffb04d; --accent-ink:#241400; --green:#5cc79a; --green-soft:#143528; --red:#ff8d82; --red-soft:#3b1a17;
+ --on-brand:#07142e; --t1:#1a2c4d; --t2:#2b4a86; --t3:#6ea8ff; --t4:#ffb04d;
+ --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{
+ --bg:#0a111e; --surface:#121c2e; --ink:#eaf0fb; --mut:#a2b0c8; --line:#25324a;
+ --brand:#6ea8ff; --brand-deep:#0a1f4d; --brand-soft:#16294d;
+ --accent:#ffb04d; --accent-ink:#241400; --green:#5cc79a; --green-soft:#143528; --red:#ff8d82; --red-soft:#3b1a17;
+ --on-brand:#07142e; --t1:#1a2c4d; --t2:#2b4a86; --t3:#6ea8ff; --t4:#ffb04d;
+ --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);color-scheme:dark}
+*{box-sizing:border-box}
+html{font-size:var(--fs)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.65;padding-bottom:84px;-webkit-text-size-adjust:100%;word-break:keep-all;overflow-wrap:break-word}
+a{color:inherit}button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--accent-ink);padding:10px 14px;border-radius:8px;z-index:100}.skip:focus{left:8px}
+.wrap{width:min(1120px,100%);margin-inline:auto;padding-inline:16px}
+.ribbon{background:var(--brand-deep);color:#dbe7ff;font-size:.78rem;padding:6px 0}
+.ribbon .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.ribbon b{color:#ffd28a}
+.tools{display:flex;gap:6px}.tools button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:8px;min-width:40px;min-height:34px;cursor:pointer;padding:0 10px}
+header.top{background:var(--surface);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+header.top .wrap{display:flex;align-items:center;gap:16px;min-height:68px}
+.logo{display:flex;align-items:center;text-decoration:none;flex:0 0 auto}
+.logo img{height:44px;width:auto;display:block;border-radius:6px;background:#fff}
+nav.main{display:none;margin-left:auto;gap:2px}
+nav.main>div{position:relative}
+nav.main>div>a{display:block;text-decoration:none;padding:12px 9px;border-radius:10px;font-weight:700;font-size:.9rem;white-space:nowrap}
+nav.main>div:hover>a,nav.main>div:focus-within>a,nav.main>div>a[aria-current="page"]{background:var(--brand-soft);color:var(--brand)}
+nav.main .drop{display:none;position:absolute;left:0;top:100%;min-width:190px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;z-index:40}
+nav.main>div:hover .drop,nav.main>div:focus-within .drop{display:block}
+nav.main .drop a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;font-size:.9rem;white-space:nowrap}
+nav.main .drop a:hover{background:var(--brand-soft);color:var(--brand)}
+.who{display:none;align-items:center;gap:8px;white-space:nowrap;flex:0 0 auto}.who .nm{display:none}@media(min-width:1440px){.who .nm{display:inline}}
+.menubtn{margin-left:auto;background:var(--brand);color:var(--on-brand);border:0;border-radius:10px;min-height:44px;padding:0 16px;font-weight:700;cursor:pointer}
+@media(min-width:1000px){nav.main{display:flex}.menubtn{display:none}body{padding-bottom:0}.who{display:flex}}
+.sheet{position:fixed;inset:0;background:var(--bg);z-index:60;overflow:auto;padding:16px;display:none}
+.sheet.open{display:block}
+.sheet h2{font-family:var(--disp);font-weight:400;font-size:1.4rem;margin:0}
+.sheet .x{float:right;background:var(--surface);border:1px solid var(--line);border-radius:10px;min-height:44px;min-width:44px;cursor:pointer}
+.sheet details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:4px 14px}
+.sheet summary{font-weight:700;padding:12px 0;cursor:pointer}
+.sheet details a{display:block;padding:12px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--mut)}
+.tabbar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:flex;z-index:40;padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabbar a{flex:1;text-align:center;text-decoration:none;padding:8px 2px;min-height:62px;color:var(--mut);font-size:.78rem;font-weight:500;display:flex;flex-direction:column;align-items:center;gap:2px}
+.tabbar svg,.ico{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.tabbar a[aria-current="page"]{color:var(--brand);font-weight:700}
+@media(min-width:1000px){.tabbar{display:none}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;min-height:48px;padding:0 20px;font-weight:700;cursor:pointer;text-decoration:none;background:var(--accent);color:var(--accent-ink)}
+.btn:hover{filter:brightness(1.05)}.btn.line{background:transparent;color:var(--brand);box-shadow:inset 0 0 0 2px var(--brand)}
+.btn.sm{min-height:40px;padding:0 14px;font-size:.88rem;border-radius:10px}
+.btn.ok{background:var(--green);color:#fff}.btn.no{background:transparent;color:var(--red);box-shadow:inset 0 0 0 2px var(--red)}
+.btn.plain{background:var(--bg);color:var(--ink)}
+.btn.ghost{background:rgba(255,255,255,.14);color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.45)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;min-width:0}
+.card.lift{box-shadow:var(--shadow);border-color:transparent}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--brand-soft);color:var(--brand);border-radius:999px;padding:3px 12px;font-size:.8rem;font-weight:700;white-space:nowrap}
+.chip.g{background:var(--green-soft);color:var(--green)}.chip.o{background:#ffe9c9;color:#8a4a00}.chip.r{background:var(--red-soft);color:var(--red)}.chip.m{background:var(--bg);color:var(--mut)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .chip.o{background:#3a2a10;color:#ffcb85}}
+:root[data-theme="dark"] .chip.o{background:#3a2a10;color:#ffcb85}
+h1,h2,h3{margin:0;text-wrap:balance}
+.disp{font-family:var(--disp);font-weight:400;letter-spacing:-.01em}
+.sec{padding-block:30px}.sec>.wrap>h2,.h2{font-family:var(--disp);font-weight:400;font-size:1.6rem;margin-bottom:6px}
+.sub{color:var(--mut);margin:0 0 16px}
+.mut{color:var(--mut)}.small{font-size:.86rem}.num{font-variant-numeric:tabular-nums}
+.stack{display:grid;gap:14px;min-width:0;align-content:start}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.hero{background:linear-gradient(135deg,var(--brand-deep) 0%,#1456c8 62%,#2a7be8 100%);color:#fff;padding-block:34px 44px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,176,77,.35),rgba(255,176,77,0) 68%);pointer-events:none}
+.hero .wrap{display:grid;gap:26px;position:relative;z-index:1}.hero .wrap>*{min-width:0}
+.hero h1{font-family:var(--disp);font-weight:400;font-size:clamp(2rem,6.4vw,3.3rem);line-height:1.22}
+.hero p.lead{font-size:1.06rem;opacity:.92;max-width:34em;margin:10px 0 0}
+.finder{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);border-radius:16px;padding:14px;display:grid;gap:10px}
+.finder label{font-weight:700;font-size:.9rem}.finder .r{display:flex;gap:8px;flex-wrap:wrap}
+.finder select{flex:1 1 150px;min-height:50px;border-radius:12px;border:0;padding:0 12px;background:#fff;color:#0f1c33}
+.hstats{display:flex;gap:22px;flex-wrap:wrap;margin-top:8px}.hstats div{display:flex;flex-direction:column}
+.hstats b{font-family:var(--disp);font-weight:400;font-size:1.9rem;line-height:1.1}.hstats span{font-size:.8rem;opacity:.85}
+@media(min-width:900px){.hero .wrap{grid-template-columns:1.25fr 1fr;align-items:center}.hero{padding-block:54px 60px}}
+.pagehead{background:linear-gradient(135deg,var(--brand-deep),#1456c8);color:#fff;padding-block:26px}
+.pagehead h1{font-family:var(--disp);font-weight:400;font-size:clamp(1.7rem,4.6vw,2.4rem)}
+.crumbs{font-size:.85rem;opacity:.85;margin-bottom:4px}.crumbs a{color:#fff}
+.subtabs{display:flex;gap:6px;overflow-x:auto;padding-block:14px 2px;scrollbar-width:thin}
+.subtabs a,.subtabs button{border:1px solid var(--line);background:var(--surface);border-radius:999px;min-height:44px;padding:0 18px;font-weight:700;cursor:pointer;white-space:nowrap;color:var(--mut);text-decoration:none;display:inline-flex;align-items:center}
+.subtabs [aria-current="page"],.subtabs [aria-selected="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.mapbox{display:grid;gap:18px}.mapbox>*{min-width:0}
+@media(min-width:900px){.mapbox{grid-template-columns:1fr 1fr;align-items:start}}
+.cart{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:420px}
+.tile{aspect-ratio:1/.92;border-radius:14px;border:0;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;font-weight:700;line-height:1.2;color:var(--ink);background:var(--brand-soft);padding:2px}
+.tile .n{font-size:.72rem;font-weight:500;color:var(--mut)}.tile.empty{visibility:hidden}
+.tile.l1{background:var(--t1)}.tile.l2{background:var(--t2)}
+.tile.l3{background:var(--t3);color:var(--on-brand)}.tile.l3 .n{color:var(--on-brand)}
+.tile.l4{background:var(--t4);color:var(--accent-ink)}.tile.l4 .n{color:var(--accent-ink)}
+.tile[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px;font-size:.8rem;color:var(--mut)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;margin-right:5px;vertical-align:-2px}
+.blist{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.blist a{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);text-decoration:none}
+.blist a:hover{border-color:var(--brand)}.blist .nm{font-weight:700}.blist .meta{font-size:.82rem;color:var(--mut)}
+.evgrid{display:grid;gap:12px}.evgrid>*{min-width:0}
+@media(min-width:700px){.evgrid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.evgrid{grid-template-columns:repeat(3,1fr)}}
+.ev{display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:start;text-decoration:none}
+.date{background:var(--brand);color:var(--on-brand);border-radius:12px;text-align:center;padding:8px 0;line-height:1.1}
+.date b{display:block;font-family:var(--disp);font-weight:400;font-size:1.7rem}.date span{font-size:.72rem;opacity:.9}
+.news{display:grid;gap:14px}.news>*{min-width:0}@media(min-width:900px){.news{grid-template-columns:1.2fr 1fr}}
+.notice{background:linear-gradient(160deg,var(--brand-deep),#1456c8);color:#fff;border:0}
+.notice h3{font-family:var(--disp);font-weight:400;font-size:1.5rem;line-height:1.3}
+.price{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}.price div{background:rgba(255,255,255,.12);border-radius:12px;padding:10px 14px}
+.price small{display:block;opacity:.85}.price b{font-family:var(--disp);font-weight:400;font-size:1.5rem}.price .hi b{color:#ffcb85}
+.list{list-style:none;margin:0;padding:0}.list li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:12px;justify-content:space-between;align-items:center}
+.list li:last-child{border:0}.list a{text-decoration:none;font-weight:500}.list a:hover{color:var(--brand);text-decoration:underline}
+.src{color:var(--mut);font-size:.82rem;white-space:nowrap}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}@media(min-width:700px){.photos{grid-template-columns:repeat(5,1fr)}}
+.ph{aspect-ratio:1;border-radius:12px;overflow:hidden;background:var(--brand-soft);position:relative;display:block}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph .tag{position:absolute;left:6px;bottom:6px;background:rgba(0,0,0,.55);color:#fff;font-size:.66rem;padding:1px 8px;border-radius:99px}
+.cover{background:linear-gradient(135deg,var(--brand-deep),#1456c8);color:#fff;padding-block:30px}
+.cover .wrap{display:grid;gap:16px}.cover h1{font-family:var(--disp);font-weight:400;font-size:clamp(1.9rem,5vw,2.8rem)}
+.kpi{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}@media(min-width:700px){.kpi{grid-template-columns:repeat(4,1fr)}}
+.kpi>div{background:rgba(255,255,255,.12);border-radius:14px;padding:12px 14px;min-width:0}
+.kpi b{display:block;font-family:var(--disp);font-weight:400;font-size:1.7rem;line-height:1.1}.kpi span{font-size:.8rem;opacity:.88}
+.biz{display:grid;gap:12px}@media(min-width:700px){.biz{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.biz{grid-template-columns:repeat(3,1fr)}}
+.biz .card{display:grid;gap:8px;align-content:start}.biz .ic{width:46px;height:46px;border-radius:12px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center}
+.prose p{margin:.6em 0;max-width:46em}.prose h3{font-family:var(--disp);font-weight:400;font-size:1.25rem;margin-top:1.2em}
+.prose ul{padding-left:1.2em;margin:.4em 0}.prose li{margin:.25em 0}
+.tree{display:grid;gap:8px;margin-top:10px}.tree .n{border:1.5px solid var(--line);border-radius:12px;padding:10px 14px;background:var(--surface)}
+.tree .n.hi{border-color:var(--brand);background:var(--brand-soft)}.tree .ind{margin-left:22px}
+.form{display:grid;gap:12px}.form label{font-weight:700;font-size:.92rem;display:grid;gap:6px}
+.form input[type=text],.form input[type=date],.form input[type=number],.form input[type=password],.form select,.form textarea{min-height:48px;border-radius:12px;border:1.5px solid var(--line);padding:10px 14px;background:var(--surface);width:100%}
+.form textarea{min-height:110px;resize:vertical}.form input:focus,.form textarea:focus,.form select:focus{border-color:var(--brand)}
+.consent{display:flex;gap:12px;align-items:flex-start;background:#fff4e0;border:1.5px solid #f0c27a;border-radius:12px;padding:12px 14px;color:#4a2c00}
+.consent input{width:24px;height:24px;margin-top:2px;flex:0 0 auto;accent-color:var(--accent)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .consent{background:#2e220d;border-color:#6e5220;color:#ffdca3}}
+:root[data-theme="dark"] .consent{background:#2e220d;border-color:#6e5220;color:#ffdca3}
+.drop{border:2px dashed var(--brand);border-radius:14px;padding:18px;text-align:center;background:var(--brand-soft);cursor:pointer;display:block}
+.drop input{display:none}.drop:focus-within{outline:3px solid var(--accent);outline-offset:2px}
+.drop svg{width:34px;height:34px;stroke:var(--brand);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto 6px}
+.mshell{display:grid;gap:16px;padding-block:18px}.mshell>*{min-width:0}
+@media(min-width:1000px){.mshell{grid-template-columns:236px 1fr;align-items:start}}
+.side{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px;display:none}
+@media(min-width:1000px){.side{display:block;position:sticky;top:84px}}
+.side .me{padding:6px 8px 12px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.side a{display:flex;align-items:center;gap:10px;padding:11px 10px;border-radius:10px;text-decoration:none;font-weight:500}
+.side a:hover{background:var(--brand-soft)}.side a[aria-current="page"]{background:var(--brand);color:var(--on-brand);font-weight:700}
+.side .ico{width:20px;height:20px}.side .cnt{margin-left:auto;background:var(--accent);color:var(--accent-ink);border-radius:99px;font-size:.72rem;font-weight:700;padding:0 8px}
+.mchips{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}@media(min-width:1000px){.mchips{display:none}}
+.mchips a{white-space:nowrap;border:1px solid var(--line);background:var(--surface);border-radius:999px;min-height:44px;padding:0 16px;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:700;color:var(--mut)}
+.mchips a[aria-current="page"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.mchips .cnt{background:var(--accent);color:var(--accent-ink);border-radius:99px;font-size:.72rem;padding:0 7px}
+.mk{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}@media(min-width:800px){.mk{grid-template-columns:repeat(4,1fr)}}
+.mk>a,.mk>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;text-decoration:none;display:block;min-width:0}
+.mk b{display:block;font-family:var(--disp);font-weight:400;font-size:1.8rem;line-height:1.15}.mk span{font-size:.8rem;color:var(--mut)}
+.two{display:grid;gap:14px;align-items:start}.two>*{min-width:0}@media(min-width:900px){.two{grid-template-columns:1.1fr 1fr}}
+.todo{display:grid;gap:8px}.todo a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:12px;background:var(--bg);text-decoration:none}
+.todo a:hover{outline:2px solid var(--brand)}.todo b{flex:1}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--accent);flex:0 0 auto}
+.ring{width:132px;height:132px;position:relative;flex:0 0 auto}.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1}
+.ring .c b{font-family:var(--disp);font-weight:400;font-size:2.1rem}
+.srow{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.bar{height:12px;border-radius:99px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .5s}
+.badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:10px}
+.bd{text-align:center;padding:12px 6px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface)}
+.bd .ic{width:44px;height:44px;border-radius:50%;margin:0 auto 6px;display:flex;align-items:center;justify-content:center;background:var(--line);color:var(--mut)}
+.bd.on{border-color:var(--accent)}.bd.on .ic{background:var(--accent);color:var(--accent-ink)}
+.bd small{display:block;color:var(--mut);font-size:.74rem;line-height:1.35}.bd b{font-size:.84rem}
+.rank{display:grid;gap:8px;margin:12px 0 0;padding:0;list-style:none}
+.rank li{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;background:var(--bg)}
+.rank .no{font-family:var(--disp);font-size:1.3rem;width:30px;text-align:center;color:var(--brand)}
+.rank li.me{background:var(--brand);color:var(--on-brand)}.rank li.me .no{color:var(--on-brand)}.rank li.me small{color:var(--on-brand);opacity:.8}
+.rank .nm{flex:1;font-weight:700;min-width:0}.rank .p{font-variant-numeric:tabular-nums;font-weight:700}
+.note{background:var(--green-soft);border-radius:12px;padding:12px 14px;font-size:.88rem}
+.tblwrap{overflow-x:auto}
+table.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th{text-align:left;font-size:.78rem;color:var(--mut);font-weight:700;padding:8px 10px;border-bottom:2px solid var(--line);white-space:nowrap}
+.tbl td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:hover td{background:var(--bg)}
+@media(max-width:699px){.tbl thead{display:none}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+ .tbl tr{border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin:10px 0;background:var(--surface)}
+ .tbl td{border:0;padding:5px 0;display:flex;gap:10px;justify-content:space-between;align-items:center;text-align:right}
+ .tbl td::before{content:attr(data-l);color:var(--mut);font-size:.8rem;text-align:left;flex:0 0 auto}.tbl tr:hover td{background:none}}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}.toolbar input,.toolbar select{min-height:46px;border-radius:12px;border:1.5px solid var(--line);padding:0 12px;background:var(--surface)}
+.toolbar input{flex:1 1 180px;min-width:0}
+.pager{display:flex;gap:6px;align-items:center;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.pager button{min-width:44px;min-height:44px;border-radius:10px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
+.pager button[aria-current="true"]{background:var(--brand);border-color:var(--brand);color:var(--on-brand)}
+.pager button[disabled]{opacity:.4;cursor:not-allowed}
+.tl{list-style:none;margin:0;padding:0}.tl li{display:grid;grid-template-columns:92px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.tl time{color:var(--mut);font-variant-numeric:tabular-nums;font-size:.82rem}
+.steps{display:flex;gap:6px;align-items:center;font-size:.76rem;flex-wrap:wrap}.steps span{padding:2px 9px;border-radius:99px;background:var(--bg);color:var(--mut);font-weight:700}
+.steps span.on{background:var(--accent);color:var(--accent-ink)}.steps span.done{background:var(--green-soft);color:var(--green)}
+.switch{display:inline-flex;align-items:center;gap:8px;min-height:44px;cursor:pointer}.switch input{width:22px;height:22px;accent-color:var(--brand)}
+.msg{border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:10px;background:var(--surface)}
+.acct button{text-align:left;cursor:pointer;display:grid;gap:2px;width:100%}.acct button:hover{border-color:var(--brand)}
+.modal{position:fixed;inset:0;background:rgba(5,10,20,.55);z-index:80;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modal .box{background:var(--surface);border-radius:18px;padding:20px;width:min(520px,100%);max-height:90vh;overflow:auto;display:grid;gap:14px}
+.modal h3{font-family:var(--disp);font-weight:400;font-size:1.3rem}
+.modal .acts{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+@media(max-width:600px){.modal{align-items:flex-end;padding:0}.modal .box{border-radius:18px 18px 0 0;width:100%}}
+footer.f{background:var(--brand-deep);color:#cfdcf7;padding-block:30px 20px;margin-top:20px;font-size:.88rem}
+footer.f b{color:#fff}.footgrid{display:grid;gap:6px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:12px;font-weight:700;opacity:0;pointer-events:none;transition:.3s;z-index:90;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(min-width:1000px){.toast{bottom:28px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+/* ===== v4: 원본 골격(왼쪽 로그인·세로 메뉴 / 가운데 목록 / 오른쪽 달력·협력기관) ===== */
+header.top .wrap.hd{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:8px 18px;padding-block:10px;min-height:0}
+.hr{display:none;justify-content:flex-end;flex-direction:column;align-items:flex-end;gap:8px}
+@media(min-width:1000px){.hr{display:flex}}
+.util{display:flex;gap:6px 16px;align-items:center;flex-wrap:wrap;justify-content:flex-end;font-size:.82rem}
+.util a,.util button{text-decoration:none;color:var(--mut);background:none;border:0;cursor:pointer;padding:2px 0;font-size:.82rem}
+.util a:hover,.util button:hover{color:var(--brand);text-decoration:underline}
+.util .adm{font-weight:700;color:var(--brand)}
+.search{display:flex;gap:6px}.search input{min-height:38px;border:1.5px solid var(--line);border-radius:8px;padding:0 12px;width:230px;background:var(--surface)}
+.search button{min-height:38px;border-radius:8px;border:0;background:var(--brand);color:var(--on-brand);padding:0 14px;font-weight:700;cursor:pointer}
+.sr{position:absolute;left:-999px}
+.frame{display:grid;gap:16px;padding-block:16px}.frame>*{min-width:0}
+@media(min-width:1000px){.frame{grid-template-columns:240px minmax(0,1fr)}.frame.r3{grid-template-columns:240px minmax(0,1fr) 250px}}
+.lcol{display:none}@media(min-width:1000px){.lcol{display:grid;gap:12px;align-content:start}}
+.rcol{display:grid;gap:12px;align-content:start}
+.lbox{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px;display:grid;gap:6px}
+.lbox.login{background:var(--brand-soft);border-color:transparent}
+.lbox input{min-height:40px;border-radius:8px;border:1.5px solid var(--line);padding:0 10px;background:var(--surface);width:100%}
+.lbox .links{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}.lbox .links a{color:var(--mut);text-decoration:none}.lbox .links a:hover{color:var(--brand);text-decoration:underline}
+.vmenu{display:grid;gap:6px}
+.vmenu .gt{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;background:var(--brand);color:var(--on-brand);border-radius:12px;font-weight:700;text-decoration:none}
+.vmenu .g.open .gt{background:var(--brand-deep);color:#fff}
+.vmenu ul{list-style:none;margin:4px 0 6px;padding:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.vmenu li a{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:8px;text-decoration:none;font-size:.92rem}
+.vmenu li a:hover{background:var(--brand-soft);color:var(--brand)}
+.vmenu li a[aria-current="page"]{background:var(--brand-soft);color:var(--brand);font-weight:700}
+em.new{font-style:normal;background:var(--accent);color:var(--accent-ink);border-radius:99px;font-size:.62rem;font-weight:700;padding:1px 7px;margin-left:6px;vertical-align:1px}
+.coop{display:flex;align-items:center;gap:12px;text-decoration:none;font-weight:700}
+.coop img{width:36px;height:36px;border-radius:8px;background:#fff}
+.ptitle{margin-bottom:6px}.ptitle h1{font-family:var(--disp);font-weight:400;font-size:clamp(1.5rem,4vw,2rem)}
+.crumbs2{font-size:.82rem;color:var(--mut)}.crumbs2 a{color:var(--mut)}
+.ccol .wrap{width:100%;padding-inline:0}.ccol .sec{padding-block:12px}
+.ccol .cover{border-radius:16px;padding:22px}.ccol .cover .wrap{padding:0}
+.ccol .evgrid{grid-template-columns:1fr}@media(min-width:700px){.ccol .evgrid{grid-template-columns:repeat(2,1fr)}}
+.ccol .mapbox{grid-template-columns:1fr}@media(min-width:1100px){.ccol .mapbox{grid-template-columns:minmax(0,420px) minmax(0,1fr)}}
+.ccol .two{grid-template-columns:1fr}@media(min-width:1100px){.ccol .two{grid-template-columns:1fr 1fr}}
+.ccol .biz{grid-template-columns:1fr}@media(min-width:700px){.ccol .biz{grid-template-columns:repeat(2,1fr)}}
+.subtabs.mob{display:flex}@media(min-width:1000px){.subtabs.mob{display:none}}
+/* 홈 배너·목록 */
+.banner{border-radius:16px;padding:26px 24px;background:linear-gradient(110deg,#0b2f78 0%,#1456c8 60%,#4a9bf0 100%);color:#fff;position:relative;overflow:hidden}
+.banner::after{content:"";position:absolute;right:-40px;bottom:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(255,176,77,.5),rgba(255,176,77,0) 70%)}
+.banner h2{font-family:var(--disp);font-weight:400;font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.25;position:relative;z-index:1}
+.banner h2 b{color:#ffd28a;font-weight:400}.banner p{margin:8px 0 0;max-width:30em;opacity:.95;position:relative;z-index:1}
+.find{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.find b{white-space:nowrap}.find select{min-height:44px;border-radius:10px;border:1.5px solid var(--line);padding:0 10px;background:var(--surface);flex:1 1 120px;min-width:0}
+.sech{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 16px;border-radius:12px 12px 0 0;border:1px solid var(--line);border-bottom:0;background:repeating-linear-gradient(135deg,var(--bg),var(--bg) 6px,var(--surface) 6px,var(--surface) 12px)}
+.sech h2{font-size:1.08rem;font-weight:700;margin:0}.sech h2 b{color:var(--brand)}.sech a{font-size:.8rem;color:var(--mut)}
+.blk{background:var(--surface);border:1px solid var(--line);border-radius:0 0 12px 12px;padding:6px 16px 10px}
+.blk .list li{padding:9px 0}.blk .list a{font-size:.93rem}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding-top:10px}@media(min-width:700px){.gal{grid-template-columns:repeat(4,1fr)}}
+.gal a{text-decoration:none;display:grid;gap:6px;font-size:.8rem}.gal .ph{border-radius:10px}.gal span{display:block;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px}
+.calh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.calh button{min-width:36px;min-height:36px;border:0;background:var(--bg);border-radius:8px;cursor:pointer;font-weight:700}
+.calg{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center;font-size:.82rem}
+.calg>span{color:var(--mut);padding:4px 0;font-size:.74rem}.calg>span:first-child,.calg .cd:nth-child(7n+8){color:var(--red)}
+.cd{position:relative;text-decoration:none;padding:6px 0;border-radius:8px;display:block}.cd:hover{background:var(--brand-soft)}
+.cd.t{background:var(--brand);color:var(--on-brand);font-weight:700}.cd.e{font-weight:700;color:var(--brand)}.cd.t.e{color:var(--on-brand)}
+.cd i{position:absolute;left:50%;bottom:2px;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--accent)}
+.coops{display:grid;gap:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.coops a{display:flex;justify-content:space-between;align-items:center;padding:13px 14px;text-decoration:none;border-bottom:1px solid var(--line);font-size:.9rem}
+.coops a:last-child{border:0}.coops a:hover{background:var(--brand-soft);color:var(--brand)}
+.poster{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line)}.poster img{width:100%;display:block}
+body.mgr .frame{display:block}
+
+.gal span:not(.ph){word-break:break-all;line-height:1.4}
+.brrow{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.brrow:last-child{border:0}.brrow:hover b:first-child{color:var(--brand)}.brrow .bar{grid-column:1/-1}
+.ccol #t-news .evgrid{grid-template-columns:1fr}
+.ccol #t-news article{display:grid;grid-template-columns:160px 1fr;align-items:stretch}
+.ccol #t-news .ph{aspect-ratio:4/3!important;height:100%}
+@media(max-width:520px){.ccol #t-news article{grid-template-columns:112px 1fr}}
+</style></head>
+<body>
+<a class="skip" href="#main">본문으로 바로가기</a>
+<div class="ribbon"><div class="wrap"><span><b>시안</b> · 화면 구성 확인용입니다. 지부 이름 외의 숫자·행사·점수·회원은 <b>예시 데이터</b>이며 운영 사이트와 연결되어 있지 않습니다.</span>
+<span class="tools" role="group" aria-label="보기 설정"><button id="fsm" aria-label="글자 작게">가-</button><button id="fsp" aria-label="글자 크게">가+</button><button id="thm" aria-label="화면 밝기 바꾸기">밝기</button></span></div></div>
+<header class="top"><div class="wrap hd">
+<a class="logo" href="#home" aria-label="한국신체장애인복지회 홈"><img alt="(사)한국신체장애인복지회 KDWA" src="__LOGO__"></a>
+<div class="hr"><div class="util" id="util"></div><form class="search" data-form="search" role="search"><label class="sr" for="q">검색</label><input id="q" type="search" placeholder="검색어를 입력하세요"><button type="submit">검색</button></form></div>
+<button class="menubtn" id="menubtn" aria-haspopup="dialog">메뉴</button></div></header>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="전체 메뉴"><button class="x" id="sheetx" aria-label="메뉴 닫기">닫기</button><h2>전체 메뉴</h2><div id="sheetbody"></div></div>
+<main id="main"><div id="app"></div></main>
+<footer class="f"><div class="wrap footgrid"><b>사단법인 한국신체장애인복지회</b>
+<span>서울 금천구 가산디지털2로 123 월드메르디앙벤쳐센터2차 1308호</span><span>TEL 02-852-4775 · FAX 02-852-4776 · E-mail kdwa_01@naver.com</span>
+<span style="opacity:.75">이 시안의 지부별 수치·행사·점수·회원은 예시이며, 연락처와 주소·사업 소개는 기존 홈페이지 내용입니다.</span></div></footer>
+<nav class="tabbar" id="tabbar" aria-label="하단 메뉴"></nav>
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="box" id="modalbox"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* ===== 데이터 ===== */
+const SIDO=[["인천",1,1],["서울",2,1],["경기",3,1],["강원",4,1],["충남",1,2],["세종",2,2],["충북",3,2],["경북",4,2],["전북",1,3],["대전",2,3],["대구",3,3],["울산",4,3],["광주",1,4],["전남",2,4],["경남",3,4],["부산",4,4],["제주",2,5]];
+const BR=[
+ {id:"seongnam",nm:"성남지부",s:"경기",lg:"중형",pts:250,mem:182,st:4,d:"분당·수정·중원 지역 회원 모임"},
+ {id:"gunpo",nm:"군포지부",s:"경기",lg:"소형",pts:210,mem:74,st:6,d:"군포시 회원 모임"},
+ {id:"yongin",nm:"용인시지부",s:"경기",lg:"대형",pts:190,mem:420,st:2,d:"처인·기흥·수지 지역 회원 모임"},
+ {id:"gwangju-g",nm:"광주시지부",s:"경기",lg:"소형",pts:95,mem:58,st:1,d:"경기 광주시 회원 모임"},
+ {id:"incheon",nm:"인천지부",s:"인천",lg:"대형",pts:150,mem:360,st:3,d:"인천 전역 회원 모임"},
+ {id:"seoul-gc",nm:"금천지회",s:"서울",lg:"중형",pts:230,mem:140,st:5,d:"서울 금천구 회원 모임"},
+ {id:"daegu",nm:"대구지부",s:"대구",lg:"중형",pts:120,mem:150,st:2,d:"대구 전역 회원 모임"},
+ {id:"gumi",nm:"구미지회",s:"경북",lg:"소형",pts:60,mem:45,st:1,d:"경북 구미시 회원 모임"},
+ {id:"jeonju",nm:"전주지부",s:"전북",lg:"중형",pts:175,mem:132,st:3,d:"전주시 회원 모임"},
+ {id:"changwon",nm:"창원지부",s:"경남",lg:"대형",pts:140,mem:380,st:2,d:"창원시 회원 모임"},
+ {id:"busan",nm:"부산지부",s:"부산",lg:"대형",pts:205,mem:410,st:4,d:"부산 전역 회원 모임"},
+ {id:"jeju",nm:"제주지부",s:"제주",lg:"소형",pts:0,mem:38,st:0,d:"제주 전역 회원 모임"}];
+const ACCT=[
+ {role:"branch",bid:"seongnam",name:"김지훈",title:"지부장"},
+ {role:"branch",bid:"seoul-gc",name:"박미경",title:"지회장"},
+ {role:"region",sido:"경기",name:"이정수",title:"경기복지회장"}];
+const TODAY="2026-10-07";
+let EV=[
+ {b:"seongnam",t:"추석 맞이 나눔",d:"2026-09-24",p:"성남시민회관",att:null},
+ {b:"seongnam",t:"가을 나눔 봉사",d:"2026-10-18",p:"성남시민회관"},
+ {b:"seoul-gc",t:"회원 걷기 대회",d:"2026-09-19",p:"안양천 산책로",att:null},
+ {b:"gunpo",t:"회원 체육대회",d:"2026-10-24",p:"군포 체육공원"},
+ {b:"seoul-gc",t:"장애인 일자리 상담회",d:"2026-10-25",p:"금천구청 대강당"},
+ {b:"busan",t:"해안 산책 걷기 행사",d:"2026-10-31",p:"부산 해운대"},
+ {b:"jeonju",t:"정회원 간담회",d:"2026-11-02",p:"전주 복지관"},
+ {b:"yongin",t:"겨울 김장 나눔",d:"2026-11-08",p:"용인 문화센터"}];
+const PHBASE={seongnam:4,gunpo:7,yongin:3,"seoul-gc":6,busan:5};
+const BONUS={},NEWS={},UPIMGS={},EXTRA={};
+const PROFILE={seongnam:{greet:"성남지부는 분당·수정·중원 지역 회원들이 함께 모이는 곳입니다. 어려운 일은 언제든 연락 주세요.",phone:"031-000-0000",addr:"경기 성남시 중원구(예시)",hours:"평일 10:00~17:00"},"seoul-gc":{greet:"금천지회에 오신 것을 환영합니다.",phone:"02-000-0000",addr:"서울 금천구(예시)",hours:"평일 10:00~16:00"}};
+const STAFF={seongnam:[{n:"최은지",r:"간사",p:{글:true,사진:true,행사:false,회원:false}},{n:"장대근",r:"간사",p:{글:true,사진:false,행사:true,회원:false}}],"seoul-gc":[{n:"윤순자",r:"간사",p:{글:true,사진:true,행사:true,회원:false}}]};
+const FORMS=[["회원가입 신청서","지부 → 시·도 → 중앙 승인"],["장학생 신청서","학생 본인 또는 보호자 작성"],["공적조서","표창 추천 시 제출"],["법인서류 요청서","법인 인감·등기 서류"],["체크카드 발급 요청서","지부 운영비 카드"]];
+let SUBM=[{n:"장학생 신청서",who:"seongnam",d:"10월 1일",s:"중앙 검토중"},{n:"법인서류 요청서",who:"seongnam",d:"9월 22일",s:"처리 완료"}];
+let AUDIT=[];let SESS=null;
+const SUR="김이박최정강조윤장임한오서신권황안송류".split(""),GIV="지훈,미경,성호,영희,정수,순자,민준,은지,철수,보라,상진,현숙,대근,수연,재원,태양,혜진,우진,경숙,동혁".split(",");
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const br=id=>BR.find(b=>b.id===id);
+const hash=s=>[...s].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);
+const rng=seed=>{let s=seed>>>0;return()=>(s=(s*1664525+1013904223)>>>0)/4294967296};
+const lv=p=>p>=220?4:p>=160?3:p>=90?2:p>0?1:0;
+const pts=id=>Math.min(300,br(id).pts+(BONUS[id]||0));
+const phn=id=>(PHBASE[id]||0)+(EXTRA[id]||0);
+const dd=d=>{const x=new Date(d+"T00:00:00");return[x.getMonth()+1+"월",x.getDate()]};
+function nowStr(){const d=new Date(),p=n=>String(n).padStart(2,"0");return`${d.getMonth()+1}/${d.getDate()} ${p(d.getHours())}:${p(d.getMinutes())}`}
+function log(a){AUDIT.unshift({t:nowStr(),who:SESS?SESS.title+" "+SESS.name:"방문자",a})}
+function award(n,why){const b=SESS&&SESS.bid;if(!b)return;BONUS[b]=(BONUS[b]||0)+n;log(why+" (+"+n+"점)")}
+const I=(p)=>`<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+const ICON={flag:I('<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>'),cam:I('<path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/>'),fire:I('<path d="M12 3c1 4 5 5 5 10a5 5 0 01-10 0c0-2 1-3 2-4 0 2 1 3 2 3 0-3-1-5 1-9z"/>'),news:I('<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/>'),
+ home:I('<path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/>'),pin:I('<path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>'),cal:I('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),user:I('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>'),
+ users:I('<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.6 3-6 7-6s7 2.4 7 6M17 5a3.5 3.5 0 010 7M19 14c2 .6 3 2.4 3 5"/>'),check:I('<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'),mail:I('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>'),doc:I('<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/>'),edit:I('<path d="M4 20h4L19 9l-4-4L4 16z"/>'),key:I('<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/>'),list:I('<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'),
+ grad:I('<path d="M2 9l10-5 10 5-10 5zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/>'),tool:I('<path d="M14 6a4 4 0 005 5l-9 9a2 2 0 01-3-3l9-9z"/>'),mic:I('<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/>'),sparkle:I('<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>'),ring:I('<circle cx="9" cy="14" r="5"/><circle cx="15" cy="14" r="5"/>'),tree:I('<path d="M12 3l6 9h-4l5 7H5l5-7H6zM12 19v3"/>'),wash:I('<rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="4"/><path d="M8 7h.01"/>'),chat:I('<path d="M4 5h16v11H9l-5 4z"/>'),out:I('<path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/>')};
+function scene(i){const P=[["#ffd9a0","#f08a00","#1456c8"],["#bfe3ff","#1d8a5b","#0b2f78"],["#ffe0e0","#e0735a","#1456c8"],["#d7f0e0","#1d8a5b","#f08a00"],["#e3dcff","#6a5acd","#1d8a5b"]][((i%5)+5)%5];let pp="";for(let k=0;k<3+(i%3);k++){const x=40+k*24+(i%2)*6;pp+=`<circle cx="${x}" cy="102" r="7" fill="#fff"/><rect x="${x-7}" y="109" width="14" height="26" rx="7" fill="#fff" opacity=".93"/>`}
+ return"data:image/svg+xml,"+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><rect width="160" height="160" fill="${P[0]}"/><circle cx="128" cy="32" r="16" fill="${P[1]}" opacity=".85"/><path d="M0 122Q40 88 80 112T160 100V160H0z" fill="${P[2]}" opacity=".8"/><path d="M0 140Q50 114 100 136T160 128V160H0z" fill="${P[1]}" opacity=".9"/>${pp}</svg>`)}
+const MEM={};
+function members(bid){if(MEM[bid])return MEM[bid];const b=br(bid),r=rng(hash(bid)),out=[];
+ for(let i=0;i<b.mem;i++){const nm=SUR[Math.floor(r()*SUR.length)]+GIV[Math.floor(r()*GIV.length)];const x=r();const st=x<.04?"가입대기":x<.13?"휴면":"정상";const y=2012+Math.floor(r()*15),m=1+Math.floor(r()*12);
+  const ty=r()<.7?"정회원":(r()<.6?"일반회원":"후원회원");const dues=st==="휴면"?"미납":(r()<.78?"납부":"미납");
+  out.push({id:i+1,nm,st,ty,dues,join:`${y}.${String(m).padStart(2,"0")}`,ph:"010-"+String(1000+Math.floor(r()*8999))+"-"+String(1000+Math.floor(r()*8999)),shown:false})}
+ out.sort((a,c)=>c.join.localeCompare(a.join));return MEM[bid]=out}
+const APPS=[];
+(function(){BR.forEach(b=>{const r=rng(hash(b.id)+7),n=b.id==="seongnam"?3:(b.id==="seoul-gc"?2:Math.floor(r()*3));for(let i=0;i<n;i++)APPS.push({id:b.id+"-a"+i,b:b.id,nm:SUR[Math.floor(r()*SUR.length)]+GIV[Math.floor(r()*GIV.length)],d:"10월 "+(3+Math.floor(r()*4))+"일",stage:1,note:""})});
+ APPS.push({id:"yongin-s2",b:"yongin",nm:"한보라",d:"10월 2일",stage:2,note:""},{id:"gunpo-s2",b:"gunpo",nm:"오대근",d:"10월 3일",stage:2,note:""})})();
+const INQ={};
+function inquiries(bid){if(INQ[bid])return INQ[bid];return INQ[bid]=[{id:bid+"q1",from:"신입 문의 (비회원)",sub:"가입 방법이 궁금합니다",body:"회원으로 가입하려면 어떤 서류가 필요한가요? 가족이 대신 신청해도 되나요?",ago:5,done:false,reply:""},{id:bid+"q2",from:"회원 문의",sub:"행사 참석 가능 여부",body:"다음 달 행사에 휠체어 이동 지원이 가능한지 알고 싶습니다.",ago:19,done:false,reply:""}]}
+const openApps=bid=>APPS.filter(a=>a.b===bid&&a.stage===1).length;
+const openInq=bid=>inquiries(bid).filter(q=>!q.done).length;
+const regionApps=s=>APPS.filter(a=>br(a.b).s===s&&a.stage===2);
+/* ===== 공통 ===== */
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove("show"),2600)}
+function openModal(o){$("#modalbox").innerHTML=`<h3>${esc(o.title)}</h3><div>${o.body}</div><div class="acts"><button class="btn plain" data-act="mclose">취소</button><button class="btn ${o.cls||""}" data-act="mok">${esc(o.ok||"확인")}</button></div>`;
+ $("#modal").classList.add("open");openModal.fn=o.onOk;const f=$("#modalbox").querySelector("textarea,input")||$("#modalbox").querySelector("[data-act=mok]");if(f)f.focus()}
+function closeModal(){$("#modal").classList.remove("open");openModal.fn=null}
+const evCard=e=>{const[m,d]=dd(e.d),b=br(e.b);return`<a class="card ev lift" href="#room-${b.id}"><div class="date"><span>${m}</span><b class="num">${d}</b></div><div><h3>${esc(e.t)}</h3><p class="small mut" style="margin:2px 0 0">${esc(b.nm)} · ${esc(e.p||"장소 미정")}</p><span class="chip" style="margin-top:8px">${esc(b.s)}</span></div></a>`};
+let pageHead=(t,crumbs)=>`<div class="pagehead"><div class="wrap"><div class="crumbs"><a href="#home">홈</a>${crumbs.map(c=>` › ${c[1]?`<a href="#${c[1]}">${c[0]}</a>`:c[0]}`).join("")}</div><h1>${t}</h1></div></div>`;
+let subtabs=(items,cur)=>`<div class="subtabs" role="navigation" aria-label="하위 메뉴">${items.map(i=>`<a href="#${i[1]}" ${i[1]===cur?'aria-current="page"':""}>${i[0]}</a>`).join("")}</div>`;
+const MENU=[
+ {t:"복지회소개",r:"about-greeting",sub:[["회장인사말","about-greeting"],["설립배경·연혁","about-history"],["조직도","about-org"],["찾아오시는길","about-map"]]},
+ {t:"주요사업",r:"business",sub:[["주요사업","business"]]},
+ {t:"사회공헌·희망나눔",r:"support",sub:[["후원안내","support"],["희망나눔","support-hope"],["홍보대사","support-amb"]]},
+ {t:"참여마당",r:"events",sub:[["월간주요행사","events"],["복지회소식","news"],["우리 지부 찾기","map"],["작은소리","voice"]]},
+ {t:"커뮤니티",r:"notice",sub:[["공지사항","notice"],["포토갤러리","gallery"],["복지뉴스","clips"]]},
+ {t:"행정실",r:"login",sub:[["지부장·지회장 로그인","login"],["문서자료실","docs"]]}];
+function buildNav(){$("#mainnav").innerHTML=MENU.map(m=>`<div><a href="#${m.r}" data-top="${m.sub.map(s=>s[1]).join(",")}">${m.t}</a><div class="drop">${m.sub.map(s=>`<a href="#${s[1]}">${s[0]}</a>`).join("")}</div></div>`).join("");
+ $("#sheetbody").innerHTML=MENU.map(m=>`<details><summary>${m.t}</summary>${m.sub.map(s=>`<a href="#${s[1]}">${s[0]}</a>`).join("")}</details>`).join("")}
+function whoBox(){const w=$("#who");if(!SESS){w.innerHTML=`<a class="btn sm line" href="#login">로그인</a>`;return}
+ w.innerHTML=`<span class="small nm"><b>${esc(SESS.title)} ${esc(SESS.name)}님</b></span><a class="btn sm plain" href="#m-dash">내 화면</a><button class="btn sm line" data-act="logout">로그아웃</button>`}
+function pubTabs(cur){const T=[["home","홈","home"],["map","지부 찾기","pin"],["events","행사","cal"],[SESS?"m-dash":"login",SESS?"내 지부":"지부장","user"]];
+ $("#tabbar").innerHTML=T.map(t=>`<a href="#${t[0]}" ${(cur===t[0]||(t[0]==="map"&&cur.startsWith("room"))||(t[0]==="m-dash"&&cur.startsWith("m-")))?'aria-current="page"':""}>${ICON[t[2]]}${t[1]}</a>`).join("")}
+/* ===== 공개 화면 ===== */
+const CLIPS=[["성남 지역 장애인 일자리 박람회 개최","예시일보","경기","10.05"],["군포시, 장애인 이동지원 차량 확대","예시뉴스","경기","10.03"],["용인시 장애인 체육대회 열려","예시신문","경기","10.02"],["전북 장애인 활동지원 예산 편성","예시저널","전북","09.30"],["부산 장애인 일자리 박람회 성료","예시일보","부산","09.28"],["대구시 장애인 복지관 확충","예시뉴스","대구","09.26"],["서울 금천구, 장애인 콜택시 증차","예시신문","서울","09.24"]];
+const clipList=(s,n)=>`<ul class="list">${CLIPS.filter(c=>!s||s==="전체"||c[2]===s).slice(0,n||99).map(c=>`<li><a href="#clips">${esc(c[0])}</a><span class="src">${c[1]} · ${c[3]}</span></li>`).join("")||"<li>해당 지역의 기사가 없습니다.</li>"}</ul>`;
+function vHome(){const up=[...EV].filter(e=>e.d>=TODAY).sort((a,b)=>a.d.localeCompare(b.d));
+ const top=["소형","중형","대형"].map(l=>BR.filter(b=>b.lg===l).sort((a,b)=>pts(b.id)-pts(a.id))[0]);
+ const ss=[...new Set(BR.map(b=>b.s))];
+ return`<div class="hero"><div class="wrap"><div><span class="chip o">시·도복지회 17곳 · 지부 223곳이 함께하는 복지회</span>
+ <h1 style="margin-top:12px">우리 동네 복지회,<br>가까운 지부에서 만나요</h1>
+ <p class="lead">행사 소식과 사진, 지역 기사를 지부별로 모았습니다. 지역을 고르면 그 지부의 방으로 바로 갑니다.</p>
+ <div class="hstats"><div><b class="num">${BR.length}</b><span>시안에 들어 있는 지부</span></div><div><b class="num">${up.length}</b><span>다가오는 행사(예시)</span></div><div><b class="num">${Object.keys(PHBASE).reduce((a,k)=>a+phn(k),0)}</b><span>올라온 사진(예시)</span></div></div></div>
+ <form class="finder" data-form="finder"><label for="selSido">내 지역 찾기</label><div class="r"><select id="selSido">${ss.map(s=>`<option>${s}</option>`).join("")}</select><select id="selBr" aria-label="지부 선택"></select></div><button class="btn" type="submit">지부 방 들어가기</button></form></div></div>
+ <div class="sec"><div class="wrap"><h2>다가오는 지부 행사</h2><p class="sub">전국 지부의 행사가 한 달력에 모입니다. 지부장이 등록하면 바로 여기에 나타납니다.</p><div class="evgrid">${up.slice(0,6).map(evCard).join("")}</div><p style="margin:14px 0 0"><a class="btn line sm" href="#events">행사 전체 보기</a></p></div></div>
+ <div class="sec" style="padding-top:6px"><div class="wrap"><h2>복지회 소식</h2><p class="sub">중앙 공지와 지역 기사를 함께 보여 드립니다. 기사는 제목과 요약만 싣고 원문은 언론사 사이트로 연결합니다.</p>
+ <div class="news"><article class="card notice"><span class="chip" style="background:rgba(255,255,255,.16);color:#fff">중앙 공지 · 교육</span><h3 style="margin-top:10px">2026 제1기 디지털자산관리사 온라인 교육과정 모집</h3>
+ <p style="opacity:.92;margin:8px 0 0">디지털경제 시대를 준비하는 실무형 교육과정입니다. 100% 온라인, 모바일·PC로 수강하며 장애인복지회 회원과 가족, 학력·경력 제한이 없습니다.</p>
+ <div class="price"><div><small>정상 교육비</small><b class="num">390,000원</b></div><div class="hi"><small>정회원 혜택</small><b class="num">270,000원</b></div></div>
+ <p style="margin:0 0 12px;opacity:.9" class="small">접수 문의 복지회 사무국 02-852-4775 · 접수기간은 별도 공지</p><a class="btn ghost sm" href="#notice">공지사항 보기</a></article>
+ <div class="card"><h3 style="margin-bottom:4px">지역 소식·기사 <span class="chip g">자동 수집 예시</span></h3>${clipList(null,4)}<p class="small mut" style="margin:10px 0 0">기사 전문은 복사하지 않습니다. 제목, 언론사, 날짜, 짧은 요약과 원문 링크만 보여 줍니다.</p><a class="btn line sm" href="#clips" style="margin-top:10px">복지뉴스 더 보기</a></div></div></div></div>
+ <div class="sec" style="padding-top:6px"><div class="wrap"><h2>이달의 지부</h2><p class="sub">행사, 사진, 응답 속도로 정한 이달의 지부입니다. 소형·중형·대형 리그별로 한 곳씩 뽑습니다.</p>
+ <div class="evgrid">${top.map(b=>`<a class="card lift" href="#room-${b.id}" style="text-decoration:none"><span class="chip o">${b.lg} 리그 1위</span><h3 class="disp" style="font-size:1.5rem;margin-top:10px">${esc(b.nm)}</h3><p class="mut small" style="margin:2px 0 10px">${esc(b.s)} · 회원 ${b.mem}명(예시)</p><div class="bar"><i style="width:${pts(b.id)/3}%"></i></div><p class="small mut num" style="margin:6px 0 0">이번 달 ${pts(b.id)}점 · ${b.st}개월 연속</p></a>`).join("")}</div></div></div>`}
+function vAbout(tab){const T=[["회장인사말","about-greeting"],["설립배경·연혁","about-history"],["조직도","about-org"],["찾아오시는길","about-map"]];let h="";
+ if(tab==="about-greeting")h=`<div class="card prose"><h3 style="margin-top:0">회원님이 주인이 되는 복지회</h3><p class="mut small">제16대 중앙회장 인사말(2020.01.13) 중</p><p>회원님들이 주인이 되어 다 함께 소통하고 화합하는 중앙회장이 되겠습니다. 군림하는 회장이 아니라, 회원들의 권익옹호와 복지향상을 위해 앞장서서 해결할 것을 굳게 약속드립니다.</p><p class="mut small">인사말 전문과 사진은 기존 사이트 원본에서 그대로 옮겨 채웁니다.</p></div>`;
+ if(tab==="about-history")h=`<div class="card prose"><h3 style="margin-top:0">설립 근거와 목적</h3><ul><li><b>설립근거</b> 민법 제32조(비영리 공익법인)</li><li><b>설립일</b> 1981.10.21 (보건복지부 사단법인 허가 제87호)</li><li><b>임원</b> 18명(회장·부회장 포함), 감사 2명</li><li><b>산하조직</b> 시·도복지회 17개소, 시·군·구 지부 223개소, 읍·면·동 분회 등</li></ul><h3>목적사업</h3><ul><li>신체장애인을 위한 복지증진 및 권익옹호사업</li><li>장애인 자활터전 구축, 복지회관 건립·운영, 직업보도사업</li><li>장애학생 지원과 장학금 지원, 사랑의끈멘토링지원센터 운영</li><li>장애인복지 시설종사자 교육사업, 정부·지자체 위탁사업</li><li>장애인생산품 유통지원, 후원회 육성, 회보·복지신문 발간</li><li>장애인보장구 보급 및 A/S, 자립작업장 운영지원과 직종 개발</li></ul></div>`;
+ if(tab==="about-org")h=`<div class="card"><h3>복지회 조직 구조</h3><p class="mut small" style="margin:2px 0 0">원본 조직도의 구조만 옮겼고 개인 정보는 싣지 않았습니다.</p><div class="tree"><div class="n">총회</div><div class="n ind">이사회 · 감사 · 정책자문위원회 · 고문단</div><div class="n hi ind">중앙회 (회장 · 사무국)</div><div class="n ind" style="margin-left:44px">시·도복지회 17개소 (복지회장)</div><div class="n ind" style="margin-left:66px">시·군·구 지부·지회 223개소 (지부장·지회장)</div><div class="n ind" style="margin-left:88px">읍·면·동 분회</div></div></div><div class="card" style="margin-top:12px"><b>새 홈페이지의 권한도 같은 구조를 따릅니다.</b><p class="mut small" style="margin:6px 0 0">지부장은 본인 지부, 시·도복지회장은 소속 지부, 중앙 사무국은 전체를 관리합니다.</p></div>`;
+ if(tab==="about-map")h=`<div class="card prose"><h3 style="margin-top:0">사단법인 한국신체장애인복지회</h3><ul><li><b>주소</b> 서울 금천구 가산디지털2로 123 월드메르디앙벤쳐센터2차 1308호</li><li><b>전화</b> 02-852-4775 · <b>팩스</b> 02-852-4776</li><li><b>이메일</b> kdwa_01@naver.com</li></ul><p class="mut small">지도와 교통편 안내는 원본 이미지를 이전해 채웁니다.</p></div>`;
+ return pageHead("복지회소개",[["복지회소개"]])+`<div class="wrap">${subtabs(T,tab)}<div class="sec" style="padding-top:12px">${h}</div></div>`}
+function vBusiness(){const B=[["grad","장학·자매결연","정부와 방송사 등의 후원으로 장애 학생과 사회 지도층 인사의 자매결연을 맺어주고, 성실한 장애 학생에게 장학금을 지원합니다."],["users","시·도·지부장 워크숍","전국 시·도복지회장과 시·군·구 지부장, 실무자의 전문성을 높이는 교육을 합니다."],["ring","장애인 합동결혼식","사정으로 결혼식을 올리지 못한 장애인 부부에게 결혼식 기회를 드립니다."],["mic","합창대회·음악회","장애인 합창대회, 가요제, 음악회, 콘서트로 여가문화를 나눕니다."],["doc","교육사업","기업 후원을 받아 장애인복지 관련 교육사업을 추진합니다."],["tool","보장구 A/S 지원센터","장애인 보장구 수리와 점검을 지원합니다."],["chat","상담실 운영","민형사, 가사, 직업, 복지혜택 등을 상담하고 유관기관 전문가와 연결합니다."],["wash","무료 빨래방","장애인을 대상으로 무료 빨래방을 운영합니다."],["sparkle","자립장·고용 사업","청소용역과 자립장 구축으로 장애인 일자리를 만듭니다."],["tree","어울림 숲 조성","낙동강변에 장애인의 쉼터와 운동·여가 공간을 조성합니다."]];
+ return pageHead("주요사업",[["주요사업"]])+`<div class="sec"><div class="wrap"><p class="sub">기존 홈페이지의 주요사업을 카드로 정리했습니다. 각 사업은 지부 행사와 연결해 보여 줄 수 있습니다.</p><div class="biz">${B.map(b=>`<div class="card"><div class="ic">${ICON[b[0]]}</div><h3>${b[1]}</h3><p class="mut small" style="margin:0">${b[2]}</p></div>`).join("")}</div></div></div>`}
+function vSupport(tab){const T=[["후원안내","support"],["희망나눔","support-hope"],["홍보대사","support-amb"]];let h="";
+ if(tab==="support")h=`<div class="two"><div class="card prose"><h3 style="margin-top:0">후원금은 이렇게 쓰입니다</h3><ul><li>장애인 복지관·병원 건립과 복지혜택</li><li>생활공동체 운영, 인식 개선 캠페인</li><li>성인 장애인 일자리, 장애청소년 학업 지원</li><li>문화체험·레저, 보장구 지급, 상담소 운영</li></ul><h3>후원 종류</h3><ul><li><b>일반후원</b> 정기·비정기 후원</li><li><b>특별후원</b> 합동결혼식, 합창대회, 하계수련회 등 행사 후원</li><li><b>물품후원</b> 저소득 재가장애인 생필품, 행사 물품</li></ul></div>
+ <div class="card prose"><h3 style="margin-top:0">후원 방법과 혜택</h3><ul><li>일시후원: 계좌이체, 신용카드, 무통장입금, 지로</li><li>정기후원: 지로 인터넷 납부, 지로용지 납부</li><li>복지회 방문·전화 후원도 가능합니다.</li></ul><p><b>후원자 혜택</b> 각종 행사 초청, 인쇄물 무료 발송, 연말정산 세금공제(법인세법 제18조, 소득세법 제34조).</p><p class="mut small">후원 계좌는 기존 사이트의 안내를 그대로 옮깁니다. 신규 사이트에서는 지부별 후원 페이지도 만들 수 있습니다.</p><button class="btn" data-act="soon">후원하기</button></div></div>`;
+ if(tab==="support-hope")h=`<div class="card"><h3>희망나눔 사연</h3><p class="mut">어려운 이웃의 사연을 지부가 올리고, 후원이 모이는 코너입니다.</p><ul class="list"><li><a href="#support-hope">보장구 수리가 필요한 회원을 도와주세요 (예시)</a><span class="src">성남지부</span></li><li><a href="#support-hope">겨울 난방 지원이 필요합니다 (예시)</a><span class="src">부산지부</span></li></ul><p class="small mut">원본 사이트의 사연 게시판을 이전하고, 지부장이 직접 등록하도록 합니다.</p></div>`;
+ if(tab==="support-amb")h=`<div class="card"><h3>홍보대사</h3><p class="mut">홍보대사 위촉 현황은 기존 사이트의 이미지 자료를 옮겨 채웁니다. 초상과 이름 게시는 본인 동의를 다시 확인한 뒤 공개합니다.</p></div>`;
+ return pageHead("사회공헌·희망나눔",[["사회공헌·희망나눔"]])+`<div class="wrap">${subtabs(T,tab)}<div class="sec" style="padding-top:12px">${h}</div></div>`}
+function vEvents(){return pageHead("월간 주요 행사",[["참여마당"],["월간주요행사"]])+`<div class="sec"><div class="wrap"><div class="toolbar"><select id="evS" aria-label="시도 필터"><option>전체</option>${[...new Set(BR.map(b=>b.s))].map(s=>`<option>${s}</option>`).join("")}</select></div><div class="evgrid" id="evList"></div></div></div>`}
+function renderEvList(){const s=($("#evS")||{}).value||"전체";const l=EV.filter(e=>s==="전체"||br(e.b).s===s).sort((a,b)=>a.d.localeCompare(b.d));$("#evList").innerHTML=l.map(evCard).join("")||`<div class="card">해당 지역의 행사가 없습니다.</div>`}
+function vNews(){const arr=[["회원 가입 안내가 새로워집니다","새 홈페이지에서는 온라인으로 가입을 신청하고 진행 상태를 확인할 수 있습니다.(예시)","10.05"],["지부장 교육 안내","전국 시·도·지부장 대상 온라인 워크숍을 준비하고 있습니다.(예시)","10.02"],["디지털자산관리사 교육과정 모집","2026 제1기 온라인 교육과정 접수를 시작했습니다.","09.30"]];
+ return pageHead("복지회소식",[["참여마당"],["복지회소식"]])+`<div class="sec"><div class="wrap"><div class="evgrid">${arr.map((a,i)=>`<article class="card lift" style="padding:0;overflow:hidden"><div class="ph" style="aspect-ratio:16/9;border-radius:0"><img alt="" src="${scene(i+1)}"></div><div style="padding:16px 18px 18px"><span class="chip m">${a[2]}</span><h3 style="margin-top:8px">${a[0]}</h3><p class="mut small" style="margin:6px 0 0">${a[1]}</p></div></article>`).join("")}</div></div></div>`}
+function vMap(){return pageHead("우리 지부 찾기",[["참여마당"],["우리 지부"]])+`<div class="sec"><div class="wrap"><p class="sub">시·도를 누르면 그 지역 지부가 나옵니다. 색이 진할수록 이번 달 활동이 많은 곳이며, 칸 안의 숫자는 시안에 들어 있는 지부 수입니다. 원본 기준 지부는 전국 223곳이며, 명단을 확보하면 모두 채웁니다.</p><div class="mapbox"><div><div class="cart" id="cart" role="group" aria-label="시도 선택"></div>
+ <div class="legend" aria-hidden="true"><span><i style="background:var(--brand-soft)"></i>활동 없음</span><span><i style="background:var(--t1)"></i>1단계</span><span><i style="background:var(--t2)"></i>2단계</span><span><i style="background:var(--t3)"></i>3단계</span><span><i style="background:var(--t4)"></i>4단계</span></div></div>
+ <div class="card lift"><h3 class="disp" style="font-size:1.4rem" id="sidoName"></h3><p class="mut small" id="sidoSub" style="margin:2px 0 0"></p><ul class="blist" id="sidoList"></ul></div></div></div></div>`}
+let curSido="경기";
+function fillMap(){const lvl={},cnt={};BR.forEach(b=>{lvl[b.s]=Math.max(lvl[b.s]||0,lv(pts(b.id)));cnt[b.s]=(cnt[b.s]||0)+1});let h="";
+ for(let y=1;y<=5;y++)for(let x=1;x<=4;x++){const t=SIDO.find(z=>z[1]===x&&z[2]===y);h+=t?`<button class="tile l${lvl[t[0]]||0}" data-s="${t[0]}" aria-pressed="${t[0]===curSido}" aria-label="${t[0]} 지부 ${cnt[t[0]]||0}곳, 활동 ${lvl[t[0]]||0}단계">${t[0]}<span class="n">${cnt[t[0]]?cnt[t[0]]+"곳":"준비중"}</span></button>`:`<div class="tile empty" aria-hidden="true"></div>`}
+ $("#cart").innerHTML=h;showSido(curSido)}
+function showSido(s){curSido=s;$$(".tile[data-s]").forEach(t=>t.setAttribute("aria-pressed",t.dataset.s===s));$("#sidoName").textContent=s;const l=BR.filter(b=>b.s===s);
+ $("#sidoSub").textContent=l.length?`${l.length}개 지부·지회`:"아직 지부가 등록되지 않았습니다. 중앙 사무국이 지부장 지정을 도와드립니다.";
+ $("#sidoList").innerHTML=l.map(b=>`<li><a href="#room-${b.id}"><span><span class="nm">${esc(b.nm)}</span><br><span class="meta">회원 ${b.mem}명(예시) · ${b.lg} 리그</span></span><span class="chip ${lv(pts(b.id))>=3?"o":""}">${lv(pts(b.id))}단계</span></a></li>`).join("")}
+function vVoice(){return pageHead("작은소리",[["참여마당"],["작은소리"]])+`<div class="sec"><div class="wrap two"><div class="card"><h3>건의·고충 접수</h3><p class="mut small">작은 의견도 중앙 사무국에 전달됩니다. 작성한 분의 이름은 공개되지 않습니다.</p><form class="form" data-form="voice"><label for="vT">제목<input id="vT" type="text" required></label><label for="vB">내용<textarea id="vB" required></textarea></label><button class="btn" type="submit">접수하기</button></form></div><div class="card"><h3>최근 처리된 의견</h3><ul class="list"><li><a href="#voice">행사장 휠체어 접근로 확인 요청 (예시)</a><span class="chip g">답변 완료</span></li><li><a href="#voice">지부 연락처가 바뀌었어요 (예시)</a><span class="chip g">반영 완료</span></li></ul></div></div></div>`}
+function vNotice(){const N=[["2026 제1기 디지털자산관리사 온라인 교육과정 모집","10.01","교육","접수 문의 02-852-4775. 정회원 혜택가 270,000원, 정상 교육비 390,000원. 접수기간은 별도 공지합니다."],["지부장·지회장 홈페이지 사용 안내(예시)","10.05","안내","새 홈페이지에서 지부장은 본인 지부의 회원, 행사, 사진, 문의를 직접 관리합니다."],["회원 정보 보호 안내(예시)","10.04","안내","회원 명부는 공개되지 않으며, 지부장은 본인 지부 회원만 볼 수 있습니다. 열람 기록은 남습니다."]];
+ return pageHead("공지사항",[["커뮤니티"],["공지사항"]])+`<div class="sec"><div class="wrap stack">${N.map(n=>`<details class="card"><summary style="cursor:pointer;font-weight:700;display:flex;gap:10px;align-items:center;flex-wrap:wrap"><span class="chip">${n[2]}</span><span style="flex:1;min-width:200px">${n[0]}</span><span class="src">${n[1]}</span></summary><p class="mut" style="margin:12px 0 0">${n[3]}</p></details>`).join("")}</div></div>`}
+function vGallery(){const ss=[...new Set(BR.map(b=>b.s))];return pageHead("포토갤러리",[["커뮤니티"],["포토갤러리"]])+`<div class="sec"><div class="wrap"><div class="toolbar"><select id="gS" aria-label="시도 필터"><option>전체</option>${ss.map(s=>`<option>${s}</option>`).join("")}</select></div><p class="small mut">촬영·게시 동의를 확인하고 지부장이 승인한 사진만 공개됩니다. 아래 사진은 예시 그림입니다.</p><div class="photos" id="gList"></div></div></div>`}
+function renderGallery(){const s=($("#gS")||{}).value||"전체";let h="";BR.filter(b=>s==="전체"||b.s===s).forEach(b=>{(UPIMGS[b.id]||[]).forEach(u=>{h+=`<a href="#room-${b.id}" class="ph"><img alt="${esc(b.nm)} 행사 사진" src="${u}"><span class="tag">${esc(b.nm)}</span></a>`});for(let i=0;i<Math.min(PHBASE[b.id]||0,3);i++)h+=`<a href="#room-${b.id}" class="ph"><img alt="예시 사진" src="${scene(b.mem+i)}"><span class="tag">${esc(b.nm)} · 예시</span></a>`});$("#gList").innerHTML=h||`<div class="card" style="grid-column:1/-1">해당 지역의 사진이 없습니다.</div>`}
+function vClips(){const ss=[...new Set(BR.map(b=>b.s))];return pageHead("복지뉴스",[["커뮤니티"],["복지뉴스"]])+`<div class="sec"><div class="wrap"><div class="toolbar"><select id="cS" aria-label="시도 필터"><option>전체</option>${ss.map(s=>`<option>${s}</option>`).join("")}</select></div><div class="card" id="cList"></div><p class="small mut" style="margin:10px 0 0">제목, 언론사, 날짜만 보여 주고 원문은 언론사 사이트로 연결합니다. 기사 전문은 복사하지 않습니다.</p></div></div>`}
+function vDocs(){return pageHead("문서자료실",[["행정실"],["문서자료실"]])+`<div class="sec"><div class="wrap"><p class="sub">지부와 회원이 자주 쓰는 양식입니다. 지부장은 로그인 후 온라인으로 제출할 수 있습니다.</p><div class="card"><ul class="list">${FORMS.map(f=>`<li><span><b>${f[0]}</b><br><span class="small mut">${f[1]}</span></span><button class="btn sm line" data-act="soon">내려받기</button></li>`).join("")}</ul></div></div></div>`}
+function roomNews(id){const b=br(id),news=(NEWS[id]||[]).concat([{t:"가을 나눔 봉사를 다녀왔어요",x:"회원 24명이 함께했습니다. 사진 12장(예시)",img:scene(b.mem%5)},{t:"신입 회원 환영 모임",x:"새로 가입하신 회원 6분을 환영했습니다.(예시)",img:scene(b.mem%5+2)},{t:"지난 달 활동을 정리했어요",x:"행사 3건, 사진 21장이 올라왔습니다.(예시)",img:scene(b.mem%5+1)}]);
+ return`<div class="evgrid">${news.map(n=>`<article class="card lift" style="padding:0;overflow:hidden"><div class="ph" style="aspect-ratio:16/9;border-radius:0"><img alt="" src="${n.img}"></div><div style="padding:16px 18px 18px"><h3>${esc(n.t)}</h3><p class="mut small" style="margin:6px 0 0">${esc(n.x)}</p></div></article>`).join("")}</div>`}
+function roomPhotos(id){const b=br(id),up=UPIMGS[id]||[],base=Math.min(PHBASE[id]||0,10);return`<div class="photos">${up.map(u=>`<div class="ph"><img alt="행사 사진" src="${u}"></div>`).join("")+Array.from({length:base},(_,i)=>`<div class="ph"><img alt="예시 사진" src="${scene(i+b.mem)}"><span class="tag">예시</span></div>`).join("")}</div><p class="small mut" style="margin-top:12px">사진은 지부장이 승인하고, 촬영·게시 동의를 확인한 것만 공개됩니다.</p>`}
+function vRoom(id){const b=br(id);if(!b)return null;const evs=EV.filter(e=>e.b===id).sort((a,c)=>a.d.localeCompare(c.d));const pf=PROFILE[id]||{greet:b.d+". 지부장 인사말과 연락처는 지부장이 직접 채웁니다.",phone:"-",addr:b.s+" "+b.nm,hours:"-"};
+ return`<div class="cover"><div class="wrap"><div><div class="crumbs"><a href="#map">우리 지부</a> › ${esc(b.s)}</div><h1>${esc(b.nm)}</h1><p style="margin:6px 0 0;opacity:.9">${esc(b.d)}</p></div>
+ <div class="kpi"><div><b class="num">${b.mem}</b><span>회원 수(예시)</span></div><div><b class="num">${evs.length}</b><span>행사</span></div><div><b class="num">${phn(id)}</b><span>사진</span></div><div><b class="num">${b.st}</b><span>개월 연속 활동</span></div></div></div></div>
+ <div class="wrap"><div class="subtabs" role="tablist" aria-label="지부 방 구역">${[["t-news","소식"],["t-ev","행사"],["t-ph","사진"],["t-art","지역 기사"],["t-info","지부 안내"]].map((t,i)=>`<button role="tab" aria-selected="${i===0}" data-tab="${t[0]}">${t[1]}</button>`).join("")}</div>
+ <div class="sec" style="padding-top:12px"><div id="t-news" class="tp">${roomNews(id)}</div><div id="t-ev" class="tp" hidden>${evs.length?`<div class="evgrid">${evs.map(evCard).join("")}</div>`:`<div class="card">등록된 행사가 없습니다.</div>`}</div>
+ <div id="t-ph" class="tp" hidden>${roomPhotos(id)}</div>
+ <div id="t-art" class="tp" hidden><div class="card">${clipList(b.s,5)}<p class="small mut" style="margin:10px 0 0">제목·언론사·요약·원문 링크만 보여 줍니다.</p></div></div>
+ <div id="t-info" class="tp" hidden><div class="two"><div class="card"><h3>${esc(b.nm)} 인사말</h3><p class="mut" style="margin:6px 0 0">${esc(pf.greet)}</p></div><div class="card"><h3>연락처</h3><ul class="list"><li><span class="mut">전화</span><b>${esc(pf.phone)}</b></li><li><span class="mut">주소</span><b>${esc(pf.addr)}</b></li><li><span class="mut">운영시간</span><b>${esc(pf.hours)}</b></li></ul><button class="btn" style="margin-top:12px" data-act="soon">문의 남기기</button></div></div></div></div></div>`}
+function vLogin(){return pageHead("행정실 로그인",[["행정실"],["로그인"]])+`<div class="sec"><div class="wrap"><div class="two"><div class="card lift"><h3>지부장·지회장 로그인</h3><p class="mut small">실제 서비스에서는 휴대폰 본인확인으로 로그인합니다. 이 시안에서는 오른쪽 계정을 눌러 체험할 수 있습니다.</p>
+ <form class="form" data-form="fakelogin"><label for="lid">아이디<input id="lid" type="text" value="seongnam-chief" autocomplete="off"></label><label for="lpw">비밀번호<input id="lpw" type="password" value="sample1234" autocomplete="off"></label><button class="btn" type="submit">로그인</button></form></div>
+ <div class="card acct"><h3>체험 계정 선택</h3><p class="mut small">역할마다 보이는 화면이 다릅니다.</p><div class="stack">${ACCT.map((a,i)=>`<button class="card" data-act="login" data-i="${i}"><b>${a.role==="region"?esc(a.title):esc(br(a.bid).nm+" "+a.title)}</b><span class="small mut">${esc(a.name)}님 · ${a.role==="region"?"소속 지부 승인과 현황":"본인 지부 회원·행사·사진 관리"}</span></button>`).join("")}</div></div></div></div></div>`}
+/* ===== 지부장 화면 ===== */
+const MNAV_B=[["m-dash","내 지부","home"],["m-members","회원","users"],["m-apps","가입 승인","check"],["m-events","행사","cal"],["m-media","사진·소식","cam"],["m-inq","문의함","mail"],["m-profile","지부 안내","edit"],["m-forms","서류·양식","doc"],["m-staff","간사·권한","key"],["m-log","활동 기록","list"]];
+const MNAV_R=[["m-dash","시·도 현황","home"],["m-r2","2차 승인","check"],["m-branches","소속 지부","pin"],["m-log","활동 기록","list"]];
+function cnt(k){if(!SESS)return 0;if(k==="m-apps")return openApps(SESS.bid);if(k==="m-inq")return openInq(SESS.bid);if(k==="m-r2")return regionApps(SESS.sido).length;return 0}
+function shell(cur,title,sub,inner){const nav=SESS.role==="region"?MNAV_R:MNAV_B,who=SESS.role==="region"?SESS.title:br(SESS.bid).nm+" "+SESS.title;
+ const link=n=>{const c=cnt(n[0]);return`<a href="#${n[0]}" ${n[0]===cur?'aria-current="page"':""}>${ICON[n[2]]}${n[1]}${c?`<span class="cnt">${c}</span>`:""}</a>`};
+ return`<div class="wrap"><div class="mshell"><aside class="side" aria-label="관리 메뉴"><div class="me"><b>${esc(who)}</b><br><span class="small mut">${esc(SESS.name)}님</span></div>${nav.map(link).join("")}<a href="#home">${ICON.out}홈페이지로</a></aside>
+ <div class="stack"><div class="mchips" role="navigation" aria-label="관리 메뉴">${nav.map(n=>{const c=cnt(n[0]);return`<a href="#${n[0]}" ${n[0]===cur?'aria-current="page"':""}>${n[1]}${c?`<span class="cnt">${c}</span>`:""}</a>`}).join("")}</div>
+ <div><span class="chip">${SESS.role==="region"?"시·도복지회장":esc(SESS.title)+" 전용"}</span><h1 class="disp" style="font-size:1.7rem;margin-top:6px">${title}</h1>${sub?`<p class="sub" style="margin-top:4px">${sub}</p>`:""}</div>${inner}</div></div></div>`}
+function ringBlock(id){const p=pts(id),need=Math.max(0,270-p);return`<div class="srow"><div class="ring"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="12"/><circle cx="60" cy="60" r="52" fill="none" stroke="var(--accent)" stroke-width="12" stroke-linecap="round" stroke-dasharray="326.7" stroke-dashoffset="${326.7*(1-p/300)}"/></svg><div class="c"><b class="num">${p}</b><span class="small mut">/ 300점</span></div></div>
+ <div style="flex:1;min-width:160px"><p style="margin:0;font-weight:700">${p>=270?"이번 달 목표를 달성했어요.":"이번 달 목표까지 "+need+"점 남았어요."}</p><div class="bar" style="margin-top:8px" role="img" aria-label="목표 진행도"><i style="width:${Math.min(100,p/270*100)}%"></i></div><p class="small mut" style="margin:6px 0 0">${p>=270?"다음 배지: 6개월 연속":"다음 배지 '언론 보도'까지 "+need+"점"}</p></div></div>`}
+function badgeBlock(id){const p=pts(id),b=br(id),L=[["flag","첫 행사 등록",EV.some(e=>e.b===id)],["cam","사진 올리기",phn(id)>0],["fire","3개월 연속",b.st>=3],["news","언론 보도",p>=270]];
+ return`<div class="badges">${L.map(x=>`<div class="bd ${x[2]?"on":""}"><div class="ic" aria-hidden="true">${ICON[x[0]]}</div><b>${x[1]}</b><small>${x[2]?"획득":"아직이에요"}</small></div>`).join("")}</div>`}
+function rankBlock(id){const b=br(id),l=BR.filter(x=>x.lg===b.lg).sort((a,c)=>pts(c.id)-pts(a.id)),shown=l.slice(0,5),mine=l.findIndex(x=>x.id===id);
+ let h=shown.map((x,i)=>`<li class="${x.id===id?"me":""}"><span class="no">${i+1}</span><span class="nm">${esc(x.nm)}<br><small class="mut">${esc(x.s)}</small></span><span class="p">${pts(x.id)}점</span></li>`).join("");
+ if(mine>=5)h+=`<li class="me"><span class="no">${mine+1}</span><span class="nm">${esc(b.nm)}<br><small>본인에게만 보입니다</small></span><span class="p">${pts(id)}점</span></li>`;
+ return`<h3>${b.lg} 리그 순위</h3><ol class="rank">${h}</ol><p class="note" style="margin:12px 0 0">순위는 상위 5곳만 공개됩니다. 그 아래 지부는 지부장 본인에게만 점수와 "다음 배지까지 남은 일"이 보입니다.</p>`}
+const auditList=n=>AUDIT.length?`<ul class="tl">${AUDIT.slice(0,n||99).map(a=>`<li><time>${a.t}</time><span><b>${esc(a.who)}</b> ${esc(a.a)}</span></li>`).join("")}</ul>`:`<p class="mut small" style="margin:0">아직 기록이 없습니다. 승인, 등록, 열람 같은 작업이 여기에 남습니다.</p>`;
+function mDash(){if(SESS.role==="region")return rDash();const id=SESS.bid,b=br(id),up=EV.filter(e=>e.b===id&&e.d>=TODAY).sort((a,c)=>a.d.localeCompare(c.d));
+ const todos=[];if(openApps(id))todos.push(["m-apps",`가입 신청 ${openApps(id)}건 대기`,"3일 안에 처리하면 +5점"]);if(openInq(id))todos.push(["m-inq",`문의 ${openInq(id)}건 답변 필요`,"24시간 안에 답하면 +5점"]);
+ const past=EV.filter(e=>e.b===id&&e.d<TODAY&&e.att==null);if(past.length)todos.push(["m-events",`지난 행사 ${past.length}건 참석 인원 입력`,"입력하면 +5점"]);todos.push(["m-media","행사 사진 올리고 소식 만들기","승인하면 +30점"]);
+ const d=new Date();return shell("m-dash",esc(b.nm)+" 관리",`${d.getMonth()+1}월 ${d.getDate()}일 · ${esc(SESS.name)}님, 오늘 할 일부터 확인하세요.`,
+ `<div class="mk"><a href="#m-members"><b class="num">${b.mem}</b><span>전체 회원</span></a><a href="#m-apps"><b class="num">${openApps(id)}</b><span>가입 승인 대기</span></a><a href="#m-events"><b class="num">${up.length}</b><span>다가오는 행사</span></a><a href="#m-inq"><b class="num">${openInq(id)}</b><span>답변 대기 문의</span></a></div>
+ <div class="two"><div class="stack"><div class="card lift"><h3 style="margin-bottom:10px">오늘 처리할 일</h3><div class="todo">${todos.map(t=>`<a href="#${t[0]}"><span class="dot"></span><b>${t[1]}</b><span class="small mut">${t[2]}</span></a>`).join("")}</div></div>
+ <div class="card lift"><h3 style="margin-bottom:6px">다가오는 행사</h3>${up.length?`<ul class="list">${up.map(e=>`<li><span><b>${esc(e.t)}</b><br><span class="small mut">${e.d.slice(5).replace("-","월 ")}일 · ${esc(e.p||"")}</span></span><a class="btn sm line" href="#m-events">관리</a></li>`).join("")}</ul>`:`<p class="mut">등록된 행사가 없습니다.</p><a class="btn sm" href="#m-events">행사 등록하기</a>`}</div>
+ <div class="card lift"><h3 style="margin-bottom:6px">최근 활동 기록</h3>${auditList(5)}</div></div>
+ <div class="stack"><div class="card lift"><h3 style="margin-bottom:10px">이번 달 활동 점수</h3>${ringBlock(id)}<h3 style="margin:16px 0 8px">모은 배지</h3>${badgeBlock(id)}</div><div class="card lift">${rankBlock(id)}</div>
+ <div class="card"><h3 style="margin-bottom:4px">중앙에서 온 공지</h3><ul class="list"><li><a href="#notice">지부장·지회장 홈페이지 사용 안내</a><span class="src">10.05</span></li><li><a href="#notice">회원 정보 보호 안내</a><span class="src">10.04</span></li></ul></div></div></div>`)}
+let MQ="",MF="전체",MP=1;
+function mMembers(){const id=SESS.bid,all=members(id);return shell("m-members","회원 관리",`본인 지부 회원만 보입니다. 장애 유형·등급 같은 민감정보는 이 화면에 나오지 않습니다.`,
+ `<div class="mk"><div><b class="num">${all.length}</b><span>전체 회원</span></div><div><b class="num">${all.filter(m=>m.st==="정상").length}</b><span>정상</span></div><div><b class="num">${Math.round(all.filter(m=>m.dues==="납부").length/all.length*100)}%</b><span>올해 회비 납부율</span></div><div><b class="num">${all.filter(m=>m.st==="휴면").length}</b><span>휴면 회원</span></div></div>
+ <div class="card lift"><div class="toolbar"><input id="mq" type="search" placeholder="이름 검색" value="${esc(MQ)}" aria-label="이름 검색"><select id="mf" aria-label="상태"><option>전체</option><option>정상</option><option>가입대기</option><option>휴면</option><option>회비 미납</option></select><button class="btn sm line" data-act="export">명단 내려받기</button></div><div id="mtab"></div><div class="pager" id="mpg"></div></div>`)}
+function renderMembers(){const all=members(SESS.bid).filter(m=>(!MQ||m.nm.includes(MQ))&&(MF==="전체"||(MF==="회비 미납"?m.dues==="미납":m.st===MF)));const pages=Math.max(1,Math.ceil(all.length/10));MP=Math.min(MP,pages);const pg=all.slice((MP-1)*10,MP*10);
+ $("#mtab").innerHTML=`<div class="tblwrap"><table class="tbl"><thead><tr><th>이름</th><th>구분</th><th>가입</th><th>상태</th><th>회비</th><th>연락처</th></tr></thead><tbody>${pg.map(m=>`<tr><td data-l="이름"><b>${esc(m.nm)}</b></td><td data-l="구분">${m.ty}</td><td data-l="가입" class="num">${m.join}</td><td data-l="상태"><span class="chip ${m.st==="정상"?"g":m.st==="휴면"?"m":"o"}">${m.st}</span></td><td data-l="회비"><span class="chip ${m.dues==="납부"?"g":"r"}">${m.dues}</span></td><td data-l="연락처" class="num">${m.shown?m.ph:"010-****-"+m.ph.slice(-4)} <button class="btn sm plain" data-act="reveal" data-i="${m.id}">${m.shown?"가리기":"보기"}</button></td></tr>`).join("")||`<tr><td colspan="6">검색 결과가 없습니다.</td></tr>`}</tbody></table></div>`;
+ const s=Math.max(1,Math.min(MP-2,pages-4));
+ $("#mpg").innerHTML=all.length?`<button data-act="mp" data-p="${MP-1}" ${MP<=1?"disabled":""} aria-label="이전">‹</button>${Array.from({length:Math.min(pages,5)},(_,i)=>{const p=s+i;return`<button data-act="mp" data-p="${p}" ${p===MP?'aria-current="true"':""}>${p}</button>`}).join("")}<button data-act="mp" data-p="${MP+1}" ${MP>=pages?"disabled":""} aria-label="다음">›</button><span class="small mut">${all.length}명</span>`:""}
+const stepBar=s=>`<div class="steps" aria-label="승인 단계"><span class="${s>1?"done":"on"}">① 지부 검토</span><span class="${s>2?"done":s===2?"on":""}">② 시·도 검토</span><span class="${s>=3?"on":""}">③ 중앙 확정</span></div>`;
+function mApps(){const id=SESS.bid,mine=APPS.filter(a=>a.b===id);return shell("m-apps","가입 승인",`가입 신청은 지부 → 시·도 → 중앙 순서로 승인됩니다. 지부장은 1차 검토를 맡습니다.`,
+ `<div class="card lift"><h3 style="margin-bottom:10px">1차 검토 대기 ${openApps(id)}건</h3>${mine.filter(a=>a.stage===1).map(a=>`<div class="msg" style="margin-bottom:10px"><span><b>${esc(a.nm)}</b> <span class="small mut">· ${a.d} 접수 · 온라인 신청</span></span>${stepBar(1)}<p class="small mut" style="margin:0">제출 서류: 가입신청서, 동의서 (예시)</p><div class="row"><button class="btn sm ok" data-act="app-ok" data-id="${a.id}">승인하고 시·도로 보내기</button><button class="btn sm plain" data-act="app-hold" data-id="${a.id}">보류</button><button class="btn sm no" data-act="app-no" data-id="${a.id}">반려</button></div></div>`).join("")||`<p class="mut" style="margin:0">대기 중인 신청이 없습니다.</p>`}</div>
+ <div class="card"><h3 style="margin-bottom:10px">진행 중인 신청</h3>${mine.filter(a=>a.stage!==1).map(a=>`<div class="msg" style="margin-bottom:10px"><b>${esc(a.nm)}</b>${a.stage===0?`<span class="chip r" style="justify-self:start">반려</span><p class="small mut" style="margin:0">사유: ${esc(a.note)}</p>`:stepBar(a.stage)}</div>`).join("")||`<p class="mut small" style="margin:0">아직 없습니다.</p>`}</div>`)}
+function mEvents(){const id=SESS.bid,l=EV.filter(e=>e.b===id).sort((a,c)=>c.d.localeCompare(a.d));return shell("m-events","행사 관리",`등록하면 지부 방, 중앙 달력, 홈 화면에 자동으로 나타납니다.`,
+ `<div class="two"><div class="card lift"><h3 style="margin-bottom:10px">행사 등록 <span class="chip o">+10점</span></h3><form class="form" data-form="evform"><label for="evT">행사 이름<input id="evT" type="text" required placeholder="예: 가을 나눔 봉사"></label><label for="evD">날짜<input id="evD" type="date" required min="${TODAY}"></label><label for="evP">장소<input id="evP" type="text" placeholder="예: 시민회관 2층"></label><button class="btn" type="submit">행사 등록하기</button></form></div>
+ <div class="card lift"><h3 style="margin-bottom:6px">우리 지부 행사</h3><ul class="list">${l.map(e=>{const past=e.d<TODAY;return`<li style="align-items:flex-start;flex-wrap:wrap"><span style="min-width:0"><b>${esc(e.t)}</b><br><span class="small mut">${e.d.slice(5).replace("-","월 ")}일 · ${esc(e.p||"장소 미정")}</span></span><span>${past?(e.att!=null?`<span class="chip g">참석 ${e.att}명</span>`:`<form class="row" data-form="att" data-i="${EV.indexOf(e)}"><input type="number" min="0" max="999" required placeholder="참석 인원" style="min-height:40px;width:110px;border-radius:10px;border:1.5px solid var(--line);padding:0 10px;background:var(--surface)" aria-label="참석 인원"><button class="btn sm" type="submit">입력 +5</button></form>`):`<span class="chip">예정</span>`}</span></li>`}).join("")||`<li>등록된 행사가 없습니다.</li>`}</ul></div></div>`)}
+let PENDING=[];
+function mMedia(){const id=SESS.bid;return shell("m-media","사진·소식",`행사장에서는 QR로 휴대폰에서 올립니다. 아래는 같은 화면입니다. 승인하면 소식 글이 자동으로 만들어집니다.`,
+ `<div class="two"><div class="card lift"><h3 style="margin-bottom:10px">행사 사진 올리기 <span class="chip o">+30점</span></h3><div class="form"><label class="drop" for="phIn"><input id="phIn" type="file" accept="image/*" multiple><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>사진 고르기</b><br><span class="small mut">여러 장을 한 번에 고를 수 있어요</span></label><div class="photos" id="prev"></div>
+ <label class="consent" for="cons"><input id="cons" type="checkbox"><span><b>촬영·게시 동의를 받았습니다.</b><br><span class="small">사진에 나온 분 모두에게 동의를 받아야 공개할 수 있어요. 아동과 보호가 필요한 분은 보호자 동의가 필요합니다.</span></span></label><button class="btn" id="phOk" data-act="photo-ok" disabled>승인하고 소식 만들기</button></div></div>
+ <div class="card lift"><h3 style="margin-bottom:6px">올린 소식</h3>${(NEWS[id]||[]).length?`<ul class="list">${NEWS[id].map(n=>`<li><span><b>${esc(n.t)}</b><br><span class="small mut">${esc(n.x)}</span></span><span class="chip g">공개중</span></li>`).join("")}</ul>`:`<p class="mut small" style="margin:0">아직 올린 소식이 없습니다. 사진을 승인하면 여기에 나타납니다.</p>`}<a class="btn sm line" href="#room-${id}" style="margin-top:12px">공개 화면에서 보기</a></div></div>`)}
+function mInq(){const id=SESS.bid;return shell("m-inq","문의함",`24시간 안에 답하면 점수가 올라갑니다. 답변은 문의하신 분께 전달됩니다.`,
+ `<div class="stack">${inquiries(id).map(q=>{const left=Math.max(0,24-q.ago);return`<div class="msg"><div class="row" style="justify-content:space-between"><b>${esc(q.sub)}</b>${q.done?`<span class="chip g">답변 완료</span>`:`<span class="chip ${left<8?"r":"o"}">답변 기한 ${left}시간 남음</span>`}</div><p class="small mut" style="margin:0">${esc(q.from)} · ${q.ago}시간 전</p><p style="margin:0">${esc(q.body)}</p>${q.done?`<div class="note"><b>보낸 답변</b><br>${esc(q.reply)}</div>`:`<form class="form" data-form="reply" data-id="${q.id}"><label for="rp-${q.id}">답변<textarea id="rp-${q.id}" required placeholder="답변을 입력하세요"></textarea></label><button class="btn sm" type="submit" style="justify-self:start">답변 보내기 +5점</button></form>`}</div>`}).join("")}</div>`)}
+function mProfile(){const id=SESS.bid,p=PROFILE[id]||(PROFILE[id]={greet:"",phone:"",addr:"",hours:""});return shell("m-profile","지부 안내 편집",`공개 화면의 '지부 안내'에 보이는 내용입니다. 입력하면 오른쪽 미리보기에 바로 반영됩니다.`,
+ `<div class="two"><div class="card lift"><form class="form" data-form="profile"><label for="pg">인사말<textarea id="pg" data-k="greet">${esc(p.greet)}</textarea></label><label for="pp">전화<input id="pp" type="text" data-k="phone" value="${esc(p.phone)}"></label><label for="pa">주소<input id="pa" type="text" data-k="addr" value="${esc(p.addr)}"></label><label for="ph">운영시간<input id="ph" type="text" data-k="hours" value="${esc(p.hours)}"></label><button class="btn" type="submit">저장하기</button></form></div>
+ <div class="card"><span class="chip m">미리보기</span><div id="pprev" style="margin-top:10px"></div></div></div>`)}
+const profPrev=()=>{const p=PROFILE[SESS.bid];return`<h3>${esc(br(SESS.bid).nm)} 인사말</h3><p class="mut" style="margin:6px 0 14px">${esc(p.greet)||"(비어 있음)"}</p><ul class="list"><li><span class="mut">전화</span><b>${esc(p.phone)||"-"}</b></li><li><span class="mut">주소</span><b>${esc(p.addr)||"-"}</b></li><li><span class="mut">운영시간</span><b>${esc(p.hours)||"-"}</b></li></ul>`};
+function mForms(){const id=SESS.bid;return shell("m-forms","서류·양식",`중앙이 배포한 양식을 내려받고, 작성한 서류를 온라인으로 제출합니다. 처리 상태가 표시됩니다.`,
+ `<div class="two"><div class="card lift"><h3 style="margin-bottom:6px">양식 내려받기</h3><ul class="list">${FORMS.map(f=>`<li><span><b>${f[0]}</b><br><span class="small mut">${f[1]}</span></span><button class="btn sm line" data-act="soon">내려받기</button></li>`).join("")}</ul></div>
+ <div class="stack"><div class="card lift"><h3 style="margin-bottom:10px">서류 제출</h3><form class="form" data-form="submit"><label for="sf">서류 종류<select id="sf">${FORMS.map(f=>`<option>${f[0]}</option>`).join("")}</select></label><label class="drop" for="sfile"><input id="sfile" type="file"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4"/></svg><b id="sfn">파일 고르기</b></label><button class="btn" type="submit">제출하기</button></form></div>
+ <div class="card"><h3 style="margin-bottom:6px">제출 현황</h3><ul class="list">${SUBM.filter(s=>s.who===id).map(s=>`<li><span><b>${esc(s.n)}</b><br><span class="small mut">${s.d} 제출</span></span><span class="chip ${s.s==="처리 완료"?"g":"o"}">${s.s}</span></li>`).join("")||"<li>제출한 서류가 없습니다.</li>"}</ul></div></div></div>`)}
+function mStaff(){const id=SESS.bid,st=STAFF[id]||(STAFF[id]=[]);return shell("m-staff","간사·권한",`지부장이 일부 업무를 간사에게 맡길 수 있습니다. 회원 명단 열람은 지부장만 가능하게 두는 것을 권장합니다.`,
+ `<div class="card lift"><h3 style="margin-bottom:10px">간사 목록</h3><div class="stack">${st.map((s,i)=>`<div class="msg"><div class="row" style="justify-content:space-between"><b>${esc(s.n)} <span class="small mut">${s.r}</span></b><button class="btn sm no" data-act="st-del" data-i="${i}">해제</button></div><div class="row">${Object.keys(s.p).map(k=>`<label class="switch"><input type="checkbox" data-act="st-perm" data-i="${i}" data-k="${k}" ${s.p[k]?"checked":""}> ${k==="글"?"글쓰기":k==="사진"?"사진 올리기":k==="행사"?"행사 등록":"회원 명단 열람"}</label>`).join("")}</div></div>`).join("")||`<p class="mut small" style="margin:0">지정된 간사가 없습니다.</p>`}</div>
+ <form class="form" data-form="staffadd" style="margin-top:14px"><label for="sn">간사 추가(이름)<input id="sn" type="text" required></label><button class="btn sm" type="submit" style="justify-self:start">간사 지정</button></form></div>
+ <div class="card"><h3>지부장 교체(직책 이임)</h3><p class="mut small">지부장이 바뀌면 전임자 계정을 정지하고 신임자에게 권한을 넘깁니다. 중앙 사무국 확인이 필요합니다.</p><button class="btn sm line" data-act="handover">이임 절차 시작</button></div>`)}
+function mLog(){return shell("m-log","활동 기록","누가 언제 무엇을 했는지 남습니다. 회원 연락처 열람과 명단 내려받기도 기록됩니다.",`<div class="card lift">${auditList()}</div>`)}
+const branchTable=bs=>`<div class="tblwrap"><table class="tbl"><thead><tr><th>지부</th><th>회원</th><th>이번 달 점수</th><th>1차 승인 대기</th><th>상태</th></tr></thead><tbody>${bs.map(b=>`<tr><td data-l="지부"><a href="#room-${b.id}"><b>${esc(b.nm)}</b></a></td><td data-l="회원" class="num">${b.mem}명</td><td data-l="점수" class="num">${pts(b.id)}점</td><td data-l="1차 대기" class="num">${openApps(b.id)}건</td><td data-l="상태">${pts(b.id)<100?'<span class="chip r">연락 필요</span>':'<span class="chip g">활발</span>'}</td></tr>`).join("")}</tbody></table></div>`;
+function rDash(){const s=SESS.sido,bs=BR.filter(b=>b.s===s),r2=regionApps(s);return shell("m-dash",esc(s)+"복지회 현황",`소속 지부의 활동과 승인 대기를 한눈에 봅니다.`,
+ `<div class="mk"><div><b class="num">${bs.length}</b><span>소속 지부(시안)</span></div><a href="#m-r2"><b class="num">${r2.length}</b><span>2차 승인 대기</span></a><div><b class="num">${bs.reduce((a,b)=>a+b.mem,0)}</b><span>전체 회원(예시)</span></div><div><b class="num">${bs.filter(b=>pts(b.id)<100).length}</b><span>연락이 필요한 지부</span></div></div>
+ <div class="card lift"><h3 style="margin-bottom:10px">소속 지부 활동</h3>${branchTable(bs)}</div>`)}
+function rApps(){const s=SESS.sido,l=regionApps(s);return shell("m-r2","2차 승인",`지부장이 1차 승인한 가입 신청을 시·도에서 확인하고 중앙으로 보냅니다.`,`<div class="card lift">${l.map(a=>`<div class="msg" style="margin-bottom:10px"><div><b>${esc(a.nm)}</b> <span class="small mut">· ${esc(br(a.b).nm)} · ${a.d} 접수</span></div>${stepBar(2)}<div class="row"><button class="btn sm ok" data-act="r-ok" data-id="${a.id}">승인하고 중앙으로 보내기</button><button class="btn sm plain" data-act="r-back" data-id="${a.id}">지부로 되돌리기</button></div></div>`).join("")||`<p class="mut" style="margin:0">대기 중인 신청이 없습니다.</p>`}</div>`)}
+function rBranches(){return shell("m-branches","소속 지부",`지부를 눌러 공개 화면을 볼 수 있습니다.`,`<div class="card lift">${branchTable(BR.filter(b=>b.s===SESS.sido))}</div>`)}
+/* ===== 라우터(주소 해시에 의존하지 않음) ===== */
+let cur=null;
+const MROUTES={"m-dash":mDash,"m-members":mMembers,"m-apps":mApps,"m-events":mEvents,"m-media":mMedia,"m-inq":mInq,"m-profile":mProfile,"m-forms":mForms,"m-staff":mStaff,"m-log":mLog,"m-r2":rApps,"m-branches":rBranches};
+const PROUTES={home:vHome,business:vBusiness,events:vEvents,news:vNews,map:vMap,voice:vVoice,notice:vNotice,gallery:vGallery,clips:vClips,docs:vDocs,login:vLogin};
+function go(r){r=r||"home";let html=null;
+ if(r.startsWith("m-")){if(!SESS){toast("로그인이 필요해요");return go("login")}
+  if(SESS.role==="region"&&!["m-dash","m-r2","m-branches","m-log"].includes(r))return go("m-dash");
+  if(SESS.role==="branch"&&["m-r2","m-branches"].includes(r))return go("m-dash");
+  html=(MROUTES[r]||mDash)()}
+ else if(r.startsWith("about"))html=vAbout(["about-greeting","about-history","about-org","about-map"].includes(r)?r:"about-greeting");
+ else if(r.startsWith("support"))html=vSupport(["support","support-hope","support-amb"].includes(r)?r:"support");
+ else if(r.startsWith("room-")){html=vRoom(r.slice(5));if(html==null){toast("없는 지부예요");return go("map")}}
+ else{if(r==="login"&&SESS)return go("m-dash");html=(PROUTES[r]||vHome)()}
+ cur=r;$("#app").innerHTML=html;$("#sheet").classList.remove("open");
+ $$("nav.main>div>a").forEach(a=>{const on=(a.dataset.top||"").split(",").includes(r)||(r.startsWith("room")&&(a.dataset.top||"").includes("map"));on?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+ pubTabs(r);whoBox();after(r);
+ try{if(location.hash.slice(1)!==r)location.hash=r}catch(e){}
+ scrollTo(0,0)}
+function after(r){
+ if(r==="home"){const f=()=>{$("#selBr").innerHTML=BR.filter(b=>b.s===$("#selSido").value).map(b=>`<option value="${b.id}">${b.nm}</option>`).join("")};$("#selSido").onchange=f;f()}
+ if(r==="map")fillMap();
+ if(r==="events"){renderEvList();$("#evS").onchange=renderEvList}
+ if(r==="gallery"){renderGallery();$("#gS").onchange=renderGallery}
+ if(r==="clips"){const f=()=>$("#cList").innerHTML=clipList($("#cS").value);f();$("#cS").onchange=f}
+ if(r==="m-members"){$("#mf").value=MF;renderMembers()}
+ if(r==="m-profile"){$("#pprev").innerHTML=profPrev()}}
+addEventListener("hashchange",()=>{let h="home";try{h=location.hash.slice(1)||"home"}catch(e){}if(h!==cur&&h!=="main")go(h)});
+/* ===== 이벤트 위임 ===== */
+document.addEventListener("click",e=>{
+ const a=e.target.closest("a[href^='#']");const href=a&&a.getAttribute("href");
+ if(a&&href.length>1&&href!=="#main"){e.preventDefault();go(href.slice(1));return}
+ const t=e.target.closest("[data-act],[data-s],[data-tab]");if(!t)return;
+ if(t.dataset.s){showSido(t.dataset.s);return}
+ if(t.dataset.tab){$$(".subtabs [data-tab]").forEach(b=>b.setAttribute("aria-selected",b===t));$$(".tp").forEach(p=>p.hidden=p.id!==t.dataset.tab);return}
+ const A=t.dataset.act,id=t.dataset.id;
+ if(A==="mclose"){closeModal();return}
+ if(A==="mok"){const f=openModal.fn;closeModal();if(f)f();return}
+ if(A==="soon"){toast("시안입니다. 실제 서비스에서 연결됩니다");return}
+ if(A==="login"){const ac=ACCT[+t.dataset.i];SESS=ac;log("로그인");toast(`${ac.title} ${ac.name}님, 환영합니다`);go("m-dash");return}
+ if(A==="logout"){log("로그아웃");SESS=null;toast("로그아웃했어요");go("home");return}
+ if(A==="reveal"){const m=members(SESS.bid).find(x=>x.id===+t.dataset.i);m.shown=!m.shown;if(m.shown)log("회원 연락처 열람: "+m.nm);renderMembers();return}
+ if(A==="mp"){MP=+t.dataset.p;renderMembers();return}
+ if(A==="export"){openModal({title:"회원 명단을 내려받을까요?",body:`<p class="mut" style="margin:0">내려받기는 <b>활동 기록</b>에 남고, 중앙 사무국이 확인할 수 있습니다. 받은 파일은 지부 업무에만 쓰고 외부에 공유하지 마세요.</p>`,ok:"내려받기",onOk:()=>{log("회원 명단 내려받기 요청 ("+members(SESS.bid).length+"명)");toast("시안입니다. 실제로는 파일이 내려받아집니다")}});return}
+ if(A==="app-ok"){const a=APPS.find(x=>x.id===id);a.stage=2;award(5,"가입 1차 승인: "+a.nm);toast(a.nm+"님을 승인하고 시·도로 보냈어요. +5점");go("m-apps");return}
+ if(A==="app-hold"||A==="app-no"){const a=APPS.find(x=>x.id===id),no=A==="app-no";openModal({title:no?"가입 신청 반려":"가입 신청 보류",body:`<div class="form"><label for="why">사유 (신청자에게 전달됩니다)<textarea id="why" placeholder="예: 서류가 부족해요. 동의서를 다시 보내 주세요."></textarea></label></div>`,ok:no?"반려하기":"보류하기",cls:no?"no":"",onOk:()=>{const w=($("#why")||{}).value;a.note=w||"사유 미입력";if(no){a.stage=0}log((no?"가입 반려: ":"가입 보류: ")+a.nm);toast(no?"반려했어요":"보류했어요");go("m-apps")}});return}
+ if(A==="r-ok"){const a=APPS.find(x=>x.id===id);a.stage=3;log("가입 2차 승인: "+a.nm+" ("+br(a.b).nm+")");toast("중앙으로 보냈어요");go("m-r2");return}
+ if(A==="r-back"){const a=APPS.find(x=>x.id===id);a.stage=1;log("지부로 되돌림: "+a.nm);toast("지부로 되돌렸어요");go("m-r2");return}
+ if(A==="st-del"){STAFF[SESS.bid].splice(+t.dataset.i,1);log("간사 해제");go("m-staff");return}
+ if(A==="handover"){openModal({title:"지부장 교체 절차",body:`<ol class="prose" style="margin:0;padding-left:1.2em"><li>신임 지부장 지정을 중앙 사무국에 요청합니다.</li><li>중앙이 서류를 확인하면 전임자 계정이 정지됩니다.</li><li>신임자에게 본인확인 로그인 안내가 갑니다.</li><li>회원·행사·사진 자료는 그대로 이어집니다.</li></ol>`,ok:"요청 보내기",onOk:()=>{log("지부장 교체 요청");toast("시안입니다. 중앙에 요청이 전달됩니다")}});return}
+ if(A==="photo-ok"){if(t.disabled)return;const b=SESS.bid;UPIMGS[b]=PENDING.concat(UPIMGS[b]||[]);EXTRA[b]=(EXTRA[b]||0)+PENDING.length;(NEWS[b]=NEWS[b]||[]).unshift({t:"행사 사진이 올라왔어요",x:"사진 "+PENDING.length+"장 · 방금 올림",img:PENDING[0]});log("사진 "+PENDING.length+"장 승인, 소식 자동 생성");award(30,"사진 승인");PENDING=[];toast("소식 글이 만들어졌어요. +30점");go("m-media");return}
+});
+document.addEventListener("submit",e=>{const f=e.target.closest("[data-form]");if(!f)return;e.preventDefault();const k=f.dataset.form;
+ if(k==="finder"){go("room-"+$("#selBr").value);return}
+ if(k==="fakelogin"){toast("오른쪽의 체험 계정을 눌러 주세요");return}
+ if(k==="voice"){toast("접수했어요. 시안에서는 저장되지 않습니다");f.reset();return}
+ if(k==="evform"){const t=$("#evT").value.trim();EV.push({b:SESS.bid,t,d:$("#evD").value,p:$("#evP").value.trim()});award(10,"행사 등록: "+t);toast("행사를 등록했어요. +10점");go("m-events");return}
+ if(k==="att"){const ev=EV[+f.dataset.i];ev.att=+f.querySelector("input").value;award(5,"참석 인원 입력: "+ev.t);toast("입력했어요. +5점");go("m-events");return}
+ if(k==="reply"){const q=inquiries(SESS.bid).find(x=>x.id===f.dataset.id);q.done=true;q.reply=f.querySelector("textarea").value;award(q.ago<24?5:0,"문의 답변: "+q.sub);toast("답변을 보냈어요"+(q.ago<24?". +5점":""));go("m-inq");return}
+ if(k==="profile"){log("지부 안내 수정 저장");toast("저장했어요. 공개 화면에 반영됩니다");return}
+ if(k==="submit"){const fn=$("#sfile").files[0];SUBM.unshift({n:$("#sf").value,who:SESS.bid,d:"방금",s:"접수됨"});log("서류 제출: "+$("#sf").value+(fn?" ("+fn.name+")":""));toast("제출했어요");go("m-forms");return}
+ if(k==="staffadd"){const n=$("#sn").value.trim();STAFF[SESS.bid].push({n,r:"간사",p:{글:true,사진:true,행사:false,회원:false}});log("간사 지정: "+n);go("m-staff");return}
+});
+document.addEventListener("input",e=>{const t=e.target;
+ if(t.id==="mq"){MQ=t.value.trim();MP=1;renderMembers()}
+ if(t.dataset&&t.dataset.k&&SESS&&$("#pprev")){PROFILE[SESS.bid][t.dataset.k]=t.value;$("#pprev").innerHTML=profPrev()}});
+document.addEventListener("change",e=>{const t=e.target;
+ if(t.id==="mf"){MF=t.value;MP=1;renderMembers()}
+ if(t.id==="cons"||t.id==="phIn")photoGate(t);
+ if(t.dataset&&t.dataset.act==="st-perm"){STAFF[SESS.bid][+t.dataset.i].p[t.dataset.k]=t.checked;log("간사 권한 변경")}
+ if(t.id==="sfile"&&t.files[0])$("#sfn").textContent=t.files[0].name});
+function photoGate(t){if(t.id==="phIn"){PENDING=[];$("#prev").innerHTML="";[...t.files].slice(0,10).forEach(f=>{const r=new FileReader();r.onload=()=>{PENDING.push(r.result);$("#prev").insertAdjacentHTML("beforeend",`<div class="ph"><img alt="올릴 사진 미리보기" src="${r.result}"></div>`);gate()};r.readAsDataURL(f)})}gate()}
+function gate(){const b=$("#phOk");if(b)b.disabled=!($("#cons").checked&&PENDING.length>0)}
+/* ===== 보기 설정·메뉴 ===== */
+let fs=17;const setFs=d=>{fs=Math.min(24,Math.max(14,fs+d));document.documentElement.style.setProperty("--fs",fs+"px");try{localStorage.setItem("kdwa_fs",fs)}catch(e){}};
+$("#fsp").onclick=()=>setFs(2);$("#fsm").onclick=()=>setFs(-2);
+$("#thm").onclick=()=>{const r=document.documentElement,dark=r.dataset.theme==="dark"||(!r.dataset.theme&&matchMedia("(prefers-color-scheme:dark)").matches);r.dataset.theme=dark?"light":"dark"};
+$("#menubtn").onclick=()=>$("#sheet").classList.add("open");$("#sheetx").onclick=()=>$("#sheet").classList.remove("open");
+$("#modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();$("#sheet").classList.remove("open")}});
+try{const v=parseInt(localStorage.getItem("kdwa_fs"));if(v>=14&&v<=24){fs=v;document.documentElement.style.setProperty("--fs",fs+"px")}}catch(e){}
+/* ===== v4 레이어: 원본 골격으로 재배치 ===== */
+const REALNOTICE=[[298,"2026년 2차 지회장 선임 공고","2026-09-15"],[297,"2026년 시도복지회장 선임 공고","2026-08-20"],[296,"대의원 최종 확정 명단","2026-06-01"],[295,"(사)한국신체장애인복지회 정기총회 개최 안내","2026-05-29"],[294,"2026년 임시총회 결과 보고 안내","2026-04-28"],[293,"제18대 중앙회장 후보자 등록공고","2026-04-01"],[292,"[재공고] (사)한국신체장애인복지회 임시총회안내","2026-03-20"]];
+const REALNEWS=[[1059,"서울시, 초·중·특수학교 ‘무료 공연관람’ 지원","2023-04-24"],[1058,"국민 모두를 위한 ‘공공디자인’ 찾는다","2023-04-19"],[1057,"김예지 의원 “장애인의 전자책 접근성 보장해야”","2023-04-17"],[1056,"장애예술인 오케스트라, 청와대에서 연주 펼친다","2023-04-13"],[1055,"“학대 피해 장애인 ‘고발인 이의신청권’ 되살려야”","2023-04-11"],[1054,"고양특례시장컵 제28회 홀트전국휠체어농구대회 개최","2023-04-10"],[1053,"[복지TV뉴스24] 장애인등록증으로 전국지하철무임태그","2023-04-07"],[1052,"코웨이 휠체어농구단, SK나이츠와 ‘통합농구’ 교류","2023-04-06"],[1051,"복권기금, 교통약자 이동편의 ‘특별교통수단’ 지원 확대","2023-04-04"],[1050,"소비자원 “졸음쉼터 장애인 화장실·주차구역 개선 필요”","2023-04-03"]];
+const REALGAL=["(사)대구광역시신체장애인복지회 회장 임명장 수여식","(사)경남신체장애인복지회 회장 임명장 수여식","(사)전북신체장애인복지회 회장 임명장 수여식","2024년도 정기총회","(사)강원도신체장애인복지회 회장 임명식","2022년 정기총회 개최"];
+const LINKS=[["사랑의끈연결 국민운동본부","http://www.lovehelp.or.kr"],["사회복지자원봉사인증센터","http://www.sharingkorea.net"],["복지로","http://www.bokjiro.go.kr"],["129 보건복지콜센터","http://www.129.go.kr"]];
+const NEWMENU=[
+ {t:"복지회소개",sub:[["회장인사말","about-greeting"],["설립배경·연혁","about-history"],["CI소개","about-ci"],["정관·회칙","about-rules"],["조직도·임원소개","about-org"],["전국시도복지회","map","NEW"],["찾아오시는길","about-map"],["회원정보수정","myedit"]]},
+ {t:"주요사업",sub:[["주요사업","business"]]},
+ {t:"사회공헌/희망나눔",sub:[["홍보대사","support-amb"],["후원안내","support"],["후원현황","support-status"],["희망나눔","support-hope"]]},
+ {t:"참여마당",sub:[["월간주요행사","events"],["복지회소식","news"],["회원검색","membersearch","변경"],["작은소리","voice"]]},
+ {t:"커뮤니티",sub:[["공지사항","notice"],["자유게시판","free"],["최신복지뉴스","clips"],["포토갤러리","gallery"],["관련사이트","links"]]},
+ {t:"행정실",sub:[["중앙행정실","admin-c"],["지역행정실","login","NEW"],["문서자료실","docs"]]}];
+MENU.splice(0,MENU.length,...NEWMENU);
+pageHead=(t,c)=>`<div class="ptitle"><div class="crumbs2"><a href="#home">홈</a>${c.map(x=>` › ${x[1]?`<a href="#${x[1]}">${x[0]}</a>`:x[0]}`).join("")}</div><h1>${t}</h1></div>`;
+subtabs=(items,cur)=>`<div class="subtabs mob" role="navigation" aria-label="하위 메뉴">${items.map(i=>`<a href="#${i[1]}" ${i[1]===cur?'aria-current="page"':""}>${i[0]}</a>`).join("")}</div>`;
+const srchForm=(id)=>`<form class="search" data-form="search" role="search"><label class="sr" for="${id}">검색</label><input id="${id}" type="search" placeholder="검색어를 입력하세요"><button type="submit">검색</button></form>`;
+function buildNav(){$("#sheetbody").innerHTML=`<div style="margin:14px 0">${srchForm("q2")}</div>`+MENU.map(m=>`<details><summary>${m.t}</summary>${m.sub.map(s=>`<a href="#${s[1]}">${s[0]}${s[2]?`<em class="new">${s[2]}</em>`:""}</a>`).join("")}</details>`).join("")+`<details><summary>바로가기</summary><a href="#join">회원가입</a><a href="#login">지부장·지회장 로그인</a></details>`}
+function whoBox(){$("#util").innerHTML=`<a href="#home">HOME</a><a href="#join">회원가입</a><a href="#myedit">회원정보수정</a>`+(SESS?`<a class="adm" href="#m-dash">${esc(SESS.title)} ${esc(SESS.name)}님 · 내 화면</a><button data-act="logout">로그아웃</button>`:`<a class="adm" href="#login">지부장 로그인</a>`)}
+/* 달력 */
+let CAL={y:2026,m:9};
+function calHTML(){const f=new Date(CAL.y,CAL.m,1),n=new Date(CAL.y,CAL.m+1,0).getDate(),w=f.getDay(),ev={};
+ EV.forEach(e=>{const[y,m,d]=e.d.split("-").map(Number);if(y===CAL.y&&m-1===CAL.m)ev[d]=(ev[d]||0)+1});
+ let cells="";for(let i=0;i<w;i++)cells+="<span></span>";
+ for(let d=1;d<=n;d++){const t=CAL.y===2026&&CAL.m===9&&d===7,c=ev[d];cells+=`<a href="#events" class="cd ${t?"t":""} ${c?"e":""}" aria-label="${CAL.m+1}월 ${d}일${t?" 오늘":""}${c?" 행사 "+c+"건":""}">${d}${c?"<i></i>":""}</a>`}
+ return`<div class="calh"><button data-act="cal" data-d="-1" aria-label="이전 달">‹</button><b>${CAL.y}년 ${CAL.m+1}월</b><button data-act="cal" data-d="1" aria-label="다음 달">›</button></div><div class="calg"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>${cells}</div>`}
+/* 왼쪽·오른쪽 열 */
+function leftCol(r){const c2=r.startsWith("room-")?"map":r;
+ const lg=SESS?`<div class="lbox"><b>${esc(SESS.title)} ${esc(SESS.name)}님</b><div class="row" style="margin-top:6px"><a class="btn sm" href="#m-dash">내 화면</a><button class="btn sm line" data-act="logout">로그아웃</button></div></div>`
+ :`<form class="lbox login" data-form="boxlogin"><label class="small" for="bid">아이디</label><input id="bid" type="text" autocomplete="off"><label class="small" for="bpw">비밀번호</label><input id="bpw" type="password" autocomplete="off"><button class="btn sm" type="submit" style="margin-top:4px">로그인</button><div class="links small"><a href="#join">회원가입</a><span class="mut">·</span><a href="#login">아이디/비밀번호 찾기</a></div></form>`;
+ const menu=MENU.map(m=>{const open=m.sub.some(s=>s[1]===c2);return`<div class="g ${open?"open":""}"><a class="gt" href="#${m.sub[0][1]}" ${open?'aria-expanded="true"':'aria-expanded="false"'}>${m.t}<span aria-hidden="true">${open?"−":"+"}</span></a>${open?`<ul>${m.sub.map(s=>`<li><a href="#${s[1]}" ${s[1]===c2?'aria-current="page"':""}><span>${s[0]}</span>${s[2]?`<em class="new">${s[2]}</em>`:""}</a></li>`).join("")}</ul>`:""}</div>`}).join("");
+ return lg+`<nav class="vmenu" aria-label="메뉴">${menu}</nav><a class="lbox coop" href="#links">협력기관·관련사이트 <span aria-hidden="true">›</span></a>`}
+const rightCol=()=>`<div class="cal" id="cal">${calHTML()}</div><div class="coops">${LINKS.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]}<span aria-hidden="true">›</span></a>`).join("")}</div><a class="poster" href="#notice"><img alt="2026 제1기 디지털자산관리사 온라인 교육과정 모집 포스터" src="__POSTER__"></a>`;
+const frame=(r,inner)=>{const h=r==="home";return`<div class="wrap frame ${h?"r3":""}"><aside class="lcol" aria-label="왼쪽 메뉴">${leftCol(r)}</aside><div class="ccol">${inner}</div>${h?`<aside class="rcol">${rightCol()}</aside>`:""}</div>`};
+/* 홈 (원본 순서: 배너 → 공지사항 → 최신복지뉴스 → 포토갤러리, 그 아래에 새 기능) */
+function vHome2(){const up=[...EV].filter(e=>e.d>=TODAY).sort((a,b)=>a.d.localeCompare(b.d));
+ const top=["소형","중형","대형"].map(l=>BR.filter(b=>b.lg===l).sort((a,b)=>pts(b.id)-pts(a.id))[0]);const ss=[...new Set(BR.map(b=>b.s))];
+ return`<div class="stack"><div class="banner"><h2>복지회의 <b>새로운 얼굴</b></h2><p>새옷을 갈아입고 새로운 모습으로 여러분께 다가갑니다. 가까운 지부의 행사와 소식을 한곳에서 만나보세요.</p></div>
+ <form class="find" data-form="finder"><b>내 지역 찾기<em class="new">NEW</em></b><select id="selSido" aria-label="시도">${ss.map(s=>`<option>${s}</option>`).join("")}</select><select id="selBr" aria-label="지부"></select><button class="btn sm" type="submit">지부 방 들어가기</button></form>
+ <section><div class="sech"><h2><b>공지</b>사항</h2><a href="#notice">더보기 +</a></div><div class="blk"><ul class="list">${REALNOTICE.map(x=>`<li><a href="#notice">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`).join("")}</ul></div></section>
+ <section><div class="sech"><h2><b>최신복지</b>뉴스</h2><a href="#clips">더보기 +</a></div><div class="blk"><ul class="list">${REALNEWS.slice(0,5).map(x=>`<li><a href="#clips">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`).join("")}</ul></div></section>
+ <section><div class="sech"><h2><b>포토</b>갤러리</h2><a href="#gallery">더보기 +</a></div><div class="blk"><div class="gal">${REALGAL.slice(0,4).map((c,i)=>`<a href="#gallery"><span class="ph"><img alt="" src="${scene(i+2)}"></span><span>${esc(c)}</span></a>`).join("")}</div><p class="small mut" style="margin:8px 0 0">사진 자리는 예시 그림이며, 원본 사진을 이전해 채웁니다.</p></div></section>
+ <section><div class="sech"><h2><b>우리 지부</b> 활동<em class="new">NEW</em></h2><a href="#map">전국시도복지회 +</a></div><div class="blk">${top.map(b=>`<a class="brrow" href="#room-${b.id}"><span><b>${esc(b.nm)}</b> <span class="chip o">${b.lg} 리그 1위</span><br><span class="small mut">${esc(b.s)} · 회원 ${b.mem}명(예시) · ${b.st}개월 연속 활동</span></span><b class="num">${pts(b.id)}점</b><div class="bar"><i style="width:${pts(b.id)/3}%"></i></div></a>`).join("")}</div></section>
+ <section><div class="sech"><h2><b>다가오는</b> 지부 행사<em class="new">NEW</em></h2><a href="#events">월간주요행사 +</a></div><div class="blk"><div class="evgrid" style="padding-top:10px">${up.slice(0,4).map(evCard).join("")}</div></div></section></div>`}
+/* 새로 채운 페이지들 */
+const tbl=(head,rows)=>`<div class="card" style="padding:6px 14px"><div class="tblwrap"><table class="tbl"><thead><tr>${head.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td data-l="${head[i]}">${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`;
+function vNotice2(){return pageHead("공지사항",[["커뮤니티"],["공지사항"]])+`<div class="sec">${tbl(["번호","제목","작성자","날짜"],[["<span class='chip o'>공지</span>","2026 제1기 디지털자산관리사 온라인 교육과정 모집","복지회 사무국","2026-10-01"]].concat(REALNOTICE.map(x=>[x[0],esc(x[1]),"(사)한국신체장애인복지회",x[2]])))}<p class="small mut" style="margin-top:10px">원본 게시글 목록 중 최근 글입니다. 게시글 본문과 첨부는 원본에서 그대로 이전합니다.</p></div>`}
+function vClips2(){return pageHead("최신복지뉴스",[["커뮤니티"],["최신복지뉴스"]])+`<div class="sec">${tbl(["번호","제목","출처","날짜"],REALNEWS.map(x=>[x[0],esc(x[1]),"(kdwa)",x[2]]))}<p class="small mut" style="margin-top:10px">원본의 기사 목록입니다. 새 홈페이지에서는 지역명으로 자동 분류해 각 지부 방에도 보여 줍니다(기사 전문은 복사하지 않고 원문 링크만 연결).</p></div>`}
+function vFree(){return pageHead("자유게시판",[["커뮤니티"],["자유게시판"]])+`<div class="sec">${tbl(["번호","제목","작성자","날짜"],[[5,"지부 행사 사진은 어디에 올리나요? (예시)","김○○","10.06"],[4,"가입 신청 결과는 언제 나오나요? (예시)","박○○","10.04"],[3,"겨울 나눔 행사 같이 해요 (예시)","이○○","10.01"]])}<p style="margin-top:12px"><button class="btn sm" data-act="soon">글쓰기</button></p></div>`}
+function vLinks(){return pageHead("관련사이트",[["커뮤니티"],["관련사이트"]])+`<div class="sec"><div class="coops">${LINKS.concat([["복지회 관련 사이트","https://kdwa.co.kr/"]]).map(l=>`<a href="${l[1]}" target="_blank" rel="noopener"><span><b>${l[0]}</b><br><span class="small mut">${l[1]}</span></span><span aria-hidden="true">›</span></a>`).join("")}</div><p class="small mut" style="margin-top:10px">원본 사이트의 협력기관 링크입니다. 새 창으로 열립니다.</p></div>`}
+function vAdminC(){return pageHead("중앙행정실",[["행정실"],["중앙행정실"]])+`<div class="sec"><div class="card stack"><h3>중앙 사무국 전용 공간입니다</h3><p class="mut" style="margin:0">전국 공지, 양식 배포, 가입 최종 확정, 지부 현황 통계를 다룹니다. 이 시안에는 지부장·지회장과 시·도복지회장 화면이 들어 있습니다.</p><div class="row"><a class="btn sm" href="#login">지역행정실(지부장·지회장) 로그인</a></div></div></div>`}
+function vMemSearch(){return pageHead("회원검색",[["참여마당"],["회원검색"]])+`<div class="sec"><div class="card stack"><span class="chip o">변경 안내</span><h3>회원 명부는 더 이상 공개하지 않습니다</h3><p class="mut" style="margin:0">기존 회원검색은 이름과 연락처가 누구에게나 보였습니다. 개인정보 보호를 위해 새 홈페이지에서는 공개하지 않고, 소속 지부를 찾아 문의하도록 바꿨습니다. 지부장은 로그인 후 본인 지부 회원만 볼 수 있습니다.</p><div class="row"><a class="btn sm" href="#map">우리 지부 찾기</a><a class="btn sm line" href="#join">회원가입 신청</a></div></div></div>`}
+function vMyEdit(){return pageHead("회원정보수정",[["복지회소개"],["회원정보수정"]])+`<div class="sec"><div class="card stack"><p class="mut small" style="margin:0">실제 서비스에서는 휴대폰 본인확인 뒤에 수정합니다. 장애 유형·등급 같은 민감한 정보는 입력받지 않습니다.</p><form class="form" data-form="myedit"><label for="eN">이름<input id="eN" type="text" value="홍길동(예시)"></label><label for="eP">휴대폰<input id="eP" type="text" value="010-0000-0000"></label><label for="eB">소속 지부<select id="eB">${BR.map(b=>`<option>${b.nm}</option>`).join("")}</select></label><button class="btn" type="submit">저장하기</button></form></div></div>`}
+let JOINED=null,SQ="";
+function vJoin(){if(JOINED){const b=br(JOINED.b);return pageHead("회원가입",[["회원가입"]])+`<div class="sec"><div class="card lift stack"><span class="chip g">신청 접수</span><h3>${esc(JOINED.n)}님, 가입 신청이 접수되었어요</h3><p class="mut" style="margin:0">${esc(b.nm)} 지부장이 먼저 검토하고, 시·도와 중앙의 확인을 거쳐 가입이 확정됩니다. 결과는 입력하신 연락처로 안내드립니다.</p>${stepBar(1)}<p class="small mut" style="margin:0">체험 안내: 지부장 계정으로 로그인하면 '가입 승인'에 이 신청이 보입니다.</p><div class="row"><a class="btn sm" href="#login">지부장 화면에서 확인</a><a class="btn sm line" href="#home" data-act="joinreset">홈으로</a></div></div></div>`}
+ const ss=[...new Set(BR.map(b=>b.s))];
+ return pageHead("회원가입",[["회원가입"]])+`<div class="sec"><div class="card lift"><p class="mut small" style="margin:0 0 12px">가까운 지부를 고르면 그 지부의 지부장에게 신청이 전달됩니다. 이름·연락처·소속 지부만 받으며, 장애 유형·등급 같은 정보는 입력받지 않습니다. 지부 명단이 확보되면 모든 지역이 열립니다.</p><form class="form" data-form="join"><label for="jS">지역<select id="jS">${ss.map(s=>`<option>${s}</option>`).join("")}</select></label><label for="jB">소속 지부<select id="jB"></select></label><label for="jN">이름<input id="jN" type="text" required></label><label for="jP">휴대폰<input id="jP" type="text" required placeholder="010-0000-0000"></label>
+ <label class="consent" for="jC"><input id="jC" type="checkbox"><span><b>개인정보 수집·이용에 동의합니다.</b><br><span class="small">이름·연락처·소속 지부를 가입 심사와 안내에만 사용합니다. (시안 문구)</span></span></label><button class="btn" type="submit">가입 신청하기</button></form></div></div>`}
+function vSearch(){const q=SQ.toLowerCase(),hit=s=>q&&s.toLowerCase().includes(q);
+ const n=REALNOTICE.filter(x=>hit(x[1])),w=REALNEWS.filter(x=>hit(x[1])),b=BR.filter(x=>hit(x.nm+x.s+x.d)),e=EV.filter(x=>hit(x.t+(x.p||"")+br(x.b).nm));
+ const sec=(t,a)=>a.length?`<div class="card" style="margin-top:12px"><h3>${t} ${a.length}건</h3><ul class="list">${a.join("")}</ul></div>`:"";
+ return pageHead("검색 결과",[["검색"]])+`<div class="sec"><p class="mut">${q?`‘${esc(SQ)}’ 검색 결과입니다.`:"검색어를 입력해 주세요."}</p>`
+ +sec("지부·지회",b.map(x=>`<li><a href="#room-${x.id}">${esc(x.nm)}</a><span class="src">${esc(x.s)}</span></li>`))
+ +sec("행사",e.map(x=>`<li><a href="#room-${x.b}">${esc(x.t)}</a><span class="src">${x.d.slice(5).replace("-",".")}</span></li>`))
+ +sec("공지사항",n.map(x=>`<li><a href="#notice">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`))
+ +sec("최신복지뉴스",w.map(x=>`<li><a href="#clips">${esc(x[1])}</a><span class="src">${x[2]}</span></li>`))
+ +(q&&!(n.length+w.length+b.length+e.length)?`<div class="card" style="margin-top:12px">검색 결과가 없습니다. 다른 낱말로 찾아 보세요.</div>`:"")+`</div>`}
+const _vAbout=vAbout;vAbout=function(tab){
+ if(tab==="about-ci")return pageHead("CI소개",[["복지회소개"],["CI소개"]])+`<div class="sec"><div class="card stack" style="justify-items:start"><img alt="(사)한국신체장애인복지회 로고, KDWA" src="${document.querySelector(".logo img").src}" style="max-width:100%;height:auto;border-radius:10px;background:#fff"><p class="mut" style="margin:0">로고와 영문 표기(KDWA, Korea Disabled Welfare Association)를 그대로 사용합니다. CI 이미지와 내려받기 파일은 원본에서 이전합니다.</p></div></div>`;
+ if(tab==="about-rules")return pageHead("정관·회칙",[["복지회소개"],["정관·회칙"]])+`<div class="sec"><div class="card stack"><p class="mut" style="margin:0">정관과 회칙 원문은 이전한 뒤 이곳에 연결합니다. 새 홈페이지의 권한과 승인 절차는 정관·회칙이 정한 절차를 따라 설정합니다.</p><a class="btn sm line" href="#docs" style="justify-self:start">문서자료실 보기</a></div></div>`;
+ return _vAbout(tab)};
+const _vSupport=vSupport;vSupport=function(tab){
+ if(tab==="support-status")return pageHead("후원현황",[["사회공헌/희망나눔"],["후원현황"]])+`<div class="sec">${tbl(["후원자","구분","일자"],[["김○○","일반후원","10.05"],["박○○","물품후원","10.03"],["(주)○○","특별후원","09.28"]])}<p class="small mut" style="margin-top:10px">후원자 이름은 가려서 공개합니다. 위 표는 예시입니다.</p></div>`;
+ return _vSupport(tab)};
+Object.assign(PROUTES,{home:vHome2,notice:vNotice2,clips:vClips2,free:vFree,links:vLinks,"admin-c":vAdminC,membersearch:vMemSearch,myedit:vMyEdit,join:vJoin,search:vSearch});
+const ABOUTS=["about-greeting","about-history","about-ci","about-rules","about-org","about-map"],SUPS=["support","support-hope","support-amb","support-status"];
+function fillSel(a,b){const f=()=>{$("#"+b).innerHTML=BR.filter(x=>x.s===$("#"+a).value).map(x=>`<option value="${x.id}">${x.nm}</option>`).join("")};$("#"+a).onchange=f;f()}
+function go(r){r=r||"home";let html=null,framed=true;
+ if(r.startsWith("m-")){framed=false;if(!SESS){toast("로그인이 필요해요");return go("login")}
+  if(SESS.role==="region"&&!["m-dash","m-r2","m-branches","m-log"].includes(r))return go("m-dash");
+  if(SESS.role==="branch"&&["m-r2","m-branches"].includes(r))return go("m-dash");
+  html=(MROUTES[r]||mDash)()}
+ else if(r.startsWith("about"))html=vAbout(ABOUTS.includes(r)?r:"about-greeting");
+ else if(r.startsWith("support"))html=vSupport(SUPS.includes(r)?r:"support");
+ else if(r.startsWith("room-")){html=vRoom(r.slice(5));if(html==null){toast("없는 지부예요");return go("map")}}
+ else{if(r==="login"&&SESS)return go("m-dash");html=(PROUTES[r]||vHome2)()}
+ cur=r;$("#app").innerHTML=framed?frame(r,html):html;$("#sheet").classList.remove("open");
+ document.body.classList.toggle("mgr",!framed);
+ pubTabs(r);whoBox();after(r);
+ try{if(location.hash.slice(1)!==r)location.hash=r}catch(e){}
+ scrollTo(0,0)}
+function after(r){
+ if(r==="home")fillSel("selSido","selBr");
+ if(r==="join"&&$("#jS"))fillSel("jS","jB");
+ if(r==="map")fillMap();
+ if(r==="events"){renderEvList();$("#evS").onchange=renderEvList}
+ if(r==="gallery"){renderGallery();$("#gS").onchange=renderGallery}
+ if(r==="m-members"){$("#mf").value=MF;renderMembers()}
+ if(r==="m-profile"){$("#pprev").innerHTML=profPrev()}}
+document.addEventListener("submit",e=>{const f=e.target.closest("[data-form]");if(!f)return;const k=f.dataset.form;
+ if(k==="search"){e.preventDefault();SQ=f.querySelector("input").value.trim();go("search")}
+ if(k==="boxlogin"){e.preventDefault();toast("시안입니다. 체험 계정을 선택해 주세요");go("login")}
+ if(k==="join"){e.preventDefault();if(!$("#jC").checked){toast("개인정보 수집·이용에 동의해 주세요");return}const b=$("#jB").value,n=$("#jN").value.trim();APPS.push({id:"join-"+Date.now(),b,nm:n,d:"방금",stage:1,note:""});JOINED={n,b};toast("가입 신청이 접수되었어요");go("join")}
+ if(k==="myedit"){e.preventDefault();toast("저장했어요(시안)")}});
+document.addEventListener("click",e=>{const t=e.target.closest("[data-act]");if(!t)return;
+ if(t.dataset.act==="cal"){CAL.m+=+t.dataset.d;if(CAL.m<0){CAL.m=11;CAL.y--}if(CAL.m>11){CAL.m=0;CAL.y++}$("#cal").innerHTML=calHTML()}
+ if(t.dataset.act==="joinreset")JOINED=null});
+
+buildNav();
+let start="home";try{start=location.hash.slice(1)||"home";if(start==="main")start="home"}catch(e){}
+go(start);
+</script></body></html>
